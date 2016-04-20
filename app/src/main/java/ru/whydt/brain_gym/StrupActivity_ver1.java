@@ -38,11 +38,14 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     private int answer;
     private int mCountRightAnswers = 0;
     private int mCountAllAnswers = 0;
-
     //настройки
     private SharedPreferences mSettings;
     private String mStrupLang;
     private int mStrupMaxTime;
+    private int mStrupExampleTime;
+    private long mStrupExBeginTime = 0;
+
+    private long elapsedMillis;
 
 
     private enum typeExample {
@@ -102,14 +105,31 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         mChronometer.stop();
         mChronometerCount = 0;
         mChronometerIsWorking = false;
+        mCountRightAnswers = 0;
+        mCountAllAnswers = 0;
 
         ChangeButtonText("buttonStrupStartPause", "Старт");
 
-        int timerID = getResources().getIdentifier("txtTimer", "id", getPackageName());
-        TextView txtTimer = (TextView) findViewById(timerID);
+        int timerMaxID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
+        TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
 
-        if (txtTimer != null) {
-            txtTimer.setText("Time (sec): " + String.valueOf(mStrupMaxTime));
+        if (txtTimerMaxTime != null) {
+            txtTimerMaxTime.setText("Test: " + String.valueOf(mStrupMaxTime));
+        }
+
+        int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
+        TextView txtAnswer = (TextView) findViewById(answerID);
+        if (txtAnswer != null) {
+            txtAnswer.setText("");
+        }
+
+        if (mStrupExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+
+            if (txtTimerExTime != null) {
+                txtTimerExTime.setText("Ex: " + String.valueOf(mStrupExampleTime));
+            }
         }
     }
 
@@ -152,9 +172,8 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         arrColors.clear();
         arrWords.clear();
 
-        boolean doIt = true;
-        while (doIt) {
-
+        boolean doItWord = true;
+        while (arrColors.size() != 8) {
             int indexColor = Math.abs(random.nextInt() % 8);
             if (!arrColors.contains(indexColor)) {
                 int indPlace = Math.abs((arrColors.size() == 0 ? random.nextInt() : random.nextInt(arrColors.size())));
@@ -162,16 +181,24 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                 arrColors.add((arrColors.size() == 0 ? 0 : indPlace % arrColors.size()), indexColor);
 
             }
-
-            int indexWord = Math.abs(random.nextInt() % 8);
-            if (!arrWords.contains(indexWord)) {
-                int indPlace = Math.abs((arrWords.size() == 0 ? random.nextInt() : random.nextInt(arrWords.size())));
-                arrWords.add((arrWords.size() == 0 ? 0 : indPlace % arrWords.size()), indexWord);
-            }
-            if (arrWords.size() == 8 && arrColors.size() == 8) {
-                doIt = false;
-            }
         }
+        while (arrWords.size() != 8) {
+
+            while (doItWord) {
+                int indexWord = Math.abs(random.nextInt() % 8);
+                if (!arrWords.contains(indexWord)) {
+                    int indPlace = Math.abs((arrWords.size() == 0 ? random.nextInt() : random.nextInt(arrWords.size())));
+                    //проверяем, не находится ли на том же месте в массиве цветов этот же цвет
+                    indPlace = (arrWords.size() == 0 ? 0 : indPlace % arrWords.size());
+                    if (indPlace != arrColors.indexOf(indexWord)) {
+                        arrWords.add(indPlace, indexWord);
+                        doItWord = false;
+                    }
+                }
+            }
+            doItWord=true;
+        }
+
 
 //        arrColors.clear();
 //        arrColors.add(2);arrColors.add(3);arrColors.add(1);arrColors.add(0);
@@ -185,16 +212,47 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     }
 
     private void changeTimer(long elapsedMillis) {
-        int timerID = getResources().getIdentifier("txtTimer", "id", getPackageName());
-        TextView txtTimer = (TextView) findViewById(timerID);
-        if (txtTimer != null) {
+        int timerMaxID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
+        TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
+        if (txtTimerMaxTime != null) {
             int time = (int) (mStrupMaxTime - (elapsedMillis / 1000));
             if (time == 0) {
-                txtTimer.setText("Test is over!");
+                txtTimerMaxTime.setText("Test is over!");
+                int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
+                TextView txtTimerExTime = (TextView) findViewById(timerExID);
+                if (txtTimerExTime != null) {
+                    txtTimerExTime.setText("");
+                }
+
             } else {
-                txtTimer.setText("Time (sec): " + String.valueOf(time));
+                txtTimerMaxTime.setText("Test: " + String.valueOf(time));
             }
 
+        }
+        if (mStrupExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+            if (txtTimerExTime != null) {
+                int time = (mStrupExampleTime - ((int) (((elapsedMillis - mStrupExBeginTime) / 1000)) % mStrupExampleTime));
+                System.out.println("mStrupeExampleTime=" + mStrupExampleTime + ", time=" + time + ", elapsed millis=" + elapsedMillis + ", mStrupExBeginTime=" + mStrupExBeginTime);
+                if (time == mStrupExampleTime) {
+                    //новый пример
+                    txtTimerExTime.setText("Ex: " + String.valueOf(time));
+                    mCountAllAnswers++;
+                    int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
+                    TextView txtAnswer = (TextView) findViewById(answerID);
+                    if (txtAnswer != null) {
+                        txtAnswer.setText(String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers));
+                    }
+
+                    showNextExample();
+
+
+                } else {
+                    txtTimerExTime.setText("Ex: " + String.valueOf(time));
+                }
+
+            }
         }
     }
 
@@ -210,22 +268,24 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         if (!mChronometerIsWorking) {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
-                int timerID = getResources().getIdentifier("txtTimer", "id", getPackageName());
-                TextView txtTimer = (TextView) findViewById(timerID);
-                if (txtTimer != null) {
-                    txtTimer.setText("Time (sec): " + String.valueOf(mStrupMaxTime));
+                int timerID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
+                TextView txtTimerMaxTime = (TextView) findViewById(timerID);
+                if (txtTimerMaxTime != null) {
+                    txtTimerMaxTime.setText("Test: " + String.valueOf(mStrupMaxTime));
                 }
                 mChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                     @Override
                     public void onChronometerTick(Chronometer chronometer) {
-                        long elapsedMillis = SystemClock.elapsedRealtime()
+                        elapsedMillis = SystemClock.elapsedRealtime()
                                 - mChronometer.getBase();
 
                         if (mStrupMaxTime - (elapsedMillis / 1000) < 1) {
                             timerStop();
                         }
                         if (elapsedMillis > 1000) {
+
                             changeTimer(elapsedMillis);
+
                             //elapsedMillis=0;
                         }
                     }
@@ -277,8 +337,16 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             }
         }
         //type = typeExample.COLOR;
-        int indexColor = Math.abs(random.nextInt() % 8);
-        int indexWord = Math.abs(random.nextInt() % 8);
+        int indexColor = 0;
+        int indexWord = 0;
+        boolean doIt = true;
+        while (doIt) {
+            indexColor = Math.abs(random.nextInt() % 8);
+            indexWord = Math.abs(random.nextInt() % 8);
+            if (indexColor != indexWord) {
+                doIt = false;
+            }
+        }
         int exampleID = getResources().getIdentifier("textViewExample", "id", getPackageName());
         TextView txtExample = (TextView) findViewById(exampleID);
         if (txtExample != null) {
@@ -294,10 +362,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             } else if (type == typeExample.COLOR) {
                 answer = arrWords.indexOf(indexColor);
             }
-
-
         }
-
     }
 
 
@@ -311,6 +376,12 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             //System.out.println("Неверно");
         }
         mCountAllAnswers++;
+        mStrupExBeginTime = elapsedMillis;
+        int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
+        TextView txtTimerExTime = (TextView) findViewById(timerExID);
+        if (txtTimerExTime != null) {
+            txtTimerExTime.setText("Ex: " + String.valueOf(mStrupExampleTime));
+        }
         int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
         TextView txtAnswer = (TextView) findViewById(answerID);
         if (txtAnswer != null) {
@@ -354,6 +425,13 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         } else {
             mStrupMaxTime = 60;
         }
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME)) {
+            mStrupExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME, 0);
+        } else {
+            mStrupExampleTime = 0;
+        }
+
         //mStrupMaxTime = 10;
         if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE)) {
             // Получаем язык из настроек

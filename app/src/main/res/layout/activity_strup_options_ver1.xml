@@ -67,7 +67,7 @@
             android:layout_weight="50" />
 
         <RadioGroup
-            android:id="@+id/StrupLang"
+            android:id="@+id/rgStrupLang"
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/line3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line2"
@@ -111,14 +111,14 @@
             android:layout_weight="50" />
 
         <RadioGroup
-            android:id="@+id/StrupMaxTime"
+            android:id="@+id/rgStrupMaxTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="50" >
 
             <RadioButton
-                android:id="@+id/radioButton60"
+                android:id="@+id/radioButtonStrupMaxTime60"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -126,11 +126,62 @@
                 android:layout_weight="50" />
 
             <RadioButton
-                android:id="@+id/radioButton120"
+                android:id="@+id/radioButtonStrupMaxTime120"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="120"
                 android:layout_weight="50" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line3"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Время на пример (сек)"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="30" />
+
+        <RadioGroup
+            android:id="@+id/rgStrupExTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="70" >
+
+            <RadioButton
+                android:id="@+id/radioButtonStrupExTime0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_weight="33"
+                android:text="@string/infinity" />
+
+            <RadioButton
+                android:id="@+id/radioButtonStrupExTime5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:layout_weight="33" />
+
+            <RadioButton
+                android:id="@+id/radioButtonStrupExTime10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:layout_weight="33" />
+
         </RadioGroup>
     </LinearLayout>
 

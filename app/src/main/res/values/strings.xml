@@ -18,5 +18,6 @@
     <string name="shulte_name">Матрицы Шульте</string>
     <string name="shulteTestExplanation">Тренировка по матрицам Шульте</string>
     <string name="about_name">О программе</string>
+    <string name="infinity">∞</string>
     <string name="aboutExplanation">Эта программа была разработана в 2016 году для личных корыстных целей завоевания мира посредством отупливания пользователей, использующих данную программу!</string>
 </resources>

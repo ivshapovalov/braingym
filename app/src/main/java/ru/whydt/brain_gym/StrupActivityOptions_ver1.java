@@ -15,6 +15,7 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
     private SharedPreferences mSettings;
     private String mStrupLang;
     private int mStrupMaxTime;
+    private int mStrupExampleTime;
 
 
     @Override
@@ -30,6 +31,11 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
         } else {
             mStrupMaxTime = 60;
         }
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME)) {
+            mStrupExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME, 0);
+        } else {
+            mStrupExampleTime = 0;
+        }
         if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE)) {
             // Получаем язык из настроек
             mStrupLang = mSettings.getString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, "Ru");
@@ -37,15 +43,16 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
             mStrupLang="Ru";
         }
 
-        int maxtimeID = getResources().getIdentifier("radioButton"+mStrupMaxTime, "id", getPackageName());
+        //время тестирования
+        int maxtimeID = getResources().getIdentifier("radioButtonStrupMaxTime"+mStrupMaxTime, "id", getPackageName());
         RadioButton butTime = (RadioButton) findViewById(maxtimeID);
         butTime.setChecked(true);
 
         //
-        RadioGroup radiogroupTime = (RadioGroup) findViewById(R.id.StrupMaxTime);
+        RadioGroup radiogroupMaxTime = (RadioGroup) findViewById(R.id.rgStrupMaxTime);
 
-        if (radiogroupTime != null) {
-            radiogroupTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        if (radiogroupMaxTime != null) {
+            radiogroupMaxTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -53,11 +60,43 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButton60:
+                        case R.id.radioButtonStrupMaxTime60:
                             mStrupMaxTime = 60;
                             break;
-                        case R.id.radioButton120:
+                        case R.id.radioButtonStrupMaxTime120:
                             mStrupMaxTime=120;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+
+        int extimeID = getResources().getIdentifier("radioButtonStrupExTime"+mStrupExampleTime, "id", getPackageName());
+        RadioButton exTime = (RadioButton) findViewById(extimeID);
+        exTime.setChecked(true);
+
+        //
+        RadioGroup radiogroupExTime = (RadioGroup) findViewById(R.id.rgStrupExTime);
+
+        if (radiogroupExTime != null) {
+            radiogroupExTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    switch (checkedId) {
+                        case -1:
+                            break;
+                        case R.id.radioButtonStrupExTime0:
+                            mStrupExampleTime = 0;
+                            break;
+                        case R.id.radioButtonStrupExTime5:
+                            mStrupExampleTime=5;
+                            break;
+                        case R.id.radioButtonStrupExTime10:
+                            mStrupExampleTime=10;
                             break;
                         default:
                             break;
@@ -106,6 +145,7 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, mStrupLang);
         editor.putInt(MainActivity.APP_PREFERENCES_STRUP_VER1_TEST_TIME, mStrupMaxTime);
+        editor.putInt(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME, mStrupExampleTime);
         editor.apply();
 
 

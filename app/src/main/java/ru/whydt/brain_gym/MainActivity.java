@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES = "mysettings";
     public static final String APP_PREFERENCES_STRUP_LANGUAGE="strup_language";
     public static final String APP_PREFERENCES_STRUP_VER1_TEST_TIME="strup_ver1_max_test_time";
+    public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME="strup_ver1_max_example_time";
     public static final String APP_PREFERENCES_MATRIX_LANGUAGE="matrix_language";
     public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT="math_maximum_digit";
     public static final String APP_PREFERENCES_MATRIX_SIZE="matrix_size";
