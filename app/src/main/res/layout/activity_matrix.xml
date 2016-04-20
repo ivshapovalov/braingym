@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="ru.whydt.brain_gym.MatrixActivity"
+        android:id="@+id/groundMatrix">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button10"
+                android:onClick="buttonHome_onClick"
+                android:background="@drawable/ic_house"
+                android:layout_column="1"
+                android:layout_weight="20"
+                android:textSize="10sp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_nameUpdate"
+                android:id="@+id/buttonMatrixForm"
+                android:onClick="matrixForm_onClick"
+                android:textSize="10sp"
+                android:layout_weight="20"
+                android:layout_column="2"
+                android:layout_gravity="center" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_nameStartPause"
+                android:id="@+id/buttonMatrixStartPause"
+                android:textSize="10sp"
+                android:onClick="startPause_onClick"
+                android:layout_weight="20"
+                android:layout_column="3"
+                android:layout_gravity="center" />
+           <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_nameStop"
+                android:id="@+id/buttonMatrixClear"
+                android:onClick="matrixClear_onClick"
+             android:textSize="10sp"
+                android:layout_weight="20"
+                android:layout_column="4"
+               android:layout_gravity="center" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_nameOptions"
+                android:id="@+id/buttonMatrixOptions"
+                android:onClick="matrixOptions_onClick"
+                android:layout_weight="20"
+                android:textSize="10sp"
+                android:layout_column="5"
+                android:layout_gravity="center" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0">
+
+            <Chronometer
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chronometer_matrix"
+                android:onClick="startPause_onClick"
+                android:clickable="true"
+                android:textColor="#e71f1f"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:format="Time: %s"
+                android:layout_weight="100"
+                android:layout_gravity="center_vertical"
+                android:layout_span="4" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100">
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/table"
+                android:layout_weight="100"
+                android:layout_span="4">
+
+            </TableLayout>
+        </TableRow>
+    </TableLayout>

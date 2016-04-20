@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_nameSMALL">BRAIN GYM</string>
+    <string name="app_nameBIG">BRAIN GYM</string>
+    <string name="button_nameUpdate">Обновить</string>
+    <string name="button_nameStop">Стоп</string>
+    <string name="button_nameStartPause">Старт</string>
+    <string name="button_nameOptions">Настройки</string>
+    <string name="math_name">Арифметика</string>
+    <string name="matrix_name">Матрицы Шульте</string>
+    <string name="strup_name">Тест Струпа</string>
+    <string name="strup_name1">Тест Струпа (сложный)</string>
+    <string name="strup_name_options">Настройки Тест Струпа</string>
+    <string name="math_name_options">Настройки Арифметики</string>
+    <string name="matrix_name_options">Настройки таблиц Шульте</string>
+    <string name="mathTestExplanation">Решаем примеры на время</string>
+    <string name="strupTestExplanation">Читаем текст в уме, цвет произносим вслух</string>
+    <string name="strupTestExplanation1">Тренировка с цветами/названиями</string>
+    <string name="shulte_name">Матрицы Шульте</string>
+    <string name="shulteTestExplanation">Тренировка по матрицам Шульте</string>
+    <string name="about_name">О программе</string>
+    <string name="aboutExplanation">Эта программа была разработана в 2016 году для личных корыстных целей завоевания мира посредством отупливания пользователей, использующих данную программу!</string>
+</resources>

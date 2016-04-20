@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.whydt.brain_gym.MathActivityOptions">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/line1">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_weight="20"
+            android:background="@drawable/ic_house"
+            android:onClick="buttonHome_onClick"
+            android:layout_gravity="center" />
+
+        <Button
+
+            android:id="@+id/buttonSave"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="buttonSave_onClick"
+            android:text="Сохранить"
+            android:textSize="12sp"
+            android:layout_weight="40" />
+
+        <Button
+
+            android:id="@+id/buttonCancel"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="buttonCancel_onClick"
+            android:text="Отмена"
+            android:textSize="12sp"
+            android:layout_weight="40" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/line2"
+        android:layout_below="@+id/line1">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:text="Использовать числа до"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rgMathMaxDigit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton150"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:checked="true"
+                android:text="150"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton300"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:text="300"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton1000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:text="1000"
+                android:textSize="12sp" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</RelativeLayout>
