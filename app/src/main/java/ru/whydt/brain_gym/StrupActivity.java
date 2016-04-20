@@ -79,7 +79,7 @@ public class StrupActivity extends AppCompatActivity {
             txt.setText(currentEx.getWord());
             txt.setTextColor(currentEx.getColor());
 
-            txt.setTextSize(Math.min(mWidth,mHeight)/2);
+            txt.setTextSize(Math.min(mWidth,mHeight)/6);
         }
     }
 

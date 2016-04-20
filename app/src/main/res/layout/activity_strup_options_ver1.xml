@@ -17,7 +17,6 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
             android:layout_gravity="center"
             android:layout_weight="20"
             android:background="@drawable/ic_house"
@@ -53,7 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line1"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
 
         <TextView
             android:id="@+id/textView5"
@@ -80,14 +80,16 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="Ru"
-                android:layout_weight="50" />
+                android:layout_weight="50"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonEn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="En"
-                android:layout_weight="50" />
+                android:layout_weight="50"
+                android:textSize="12sp" />
         </RadioGroup>
 
     </LinearLayout>
@@ -98,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line2"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
 
         <TextView
             android:id="@+id/textView8"
@@ -123,14 +126,16 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="60"
-                android:layout_weight="50" />
+                android:layout_weight="50"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonStrupMaxTime120"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="120"
-                android:layout_weight="50" />
+                android:layout_weight="50"
+                android:textSize="12sp" />
         </RadioGroup>
 
     </LinearLayout>
@@ -141,7 +146,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line3"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp" >
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
 
         <TextView
             android:id="@+id/textView9"
@@ -166,22 +172,81 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:layout_weight="33"
-                android:text="@string/infinity" />
+                android:text="@string/infinity"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonStrupExTime5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
-                android:layout_weight="33" />
+                android:layout_weight="33"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonStrupExTime10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10"
-                android:layout_weight="33" />
+                android:layout_weight="33"
+                android:textSize="12sp" />
 
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line4"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Вариант расчета"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="15" />
+
+        <RadioGroup
+            android:id="@+id/rgStrupExType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="85" >
+
+            <RadioButton
+                android:id="@+id/radioButtonStrupExTypeRANDOM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_weight="40"
+                android:text="Случайно"
+                android:textSize="10sp"
+                android:singleLine="true" />
+
+            <RadioButton
+                android:id="@+id/radioButtonStrupExTypeWORD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Название"
+                android:layout_weight="40"
+                android:textSize="10sp"
+                android:singleLine="true" />
+
+            <RadioButton
+                android:id="@+id/radioButtonStrupExTypeCOLOR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Цвет"
+                android:layout_weight="20"
+                android:textSize="10sp"
+                android:singleLine="true" />
         </RadioGroup>
     </LinearLayout>
 

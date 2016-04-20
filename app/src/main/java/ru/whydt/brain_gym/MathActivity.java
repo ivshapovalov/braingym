@@ -82,7 +82,7 @@ public class MathActivity extends AppCompatActivity {
             currentEx = mathExamples.get(i - 1);
             String temp = String.valueOf(currentEx.getNum1()) + String.valueOf(currentEx.getOper()) + String.valueOf(currentEx.getNum2()) + " = ";
             txt.setText(temp);
-            txt.setTextSize(Math.min(mWidth,mHeight)/2);
+            txt.setTextSize(Math.min(mWidth,mHeight)/6);
             //txt.setBackgroundColor(0xfff00000);
 
             txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));

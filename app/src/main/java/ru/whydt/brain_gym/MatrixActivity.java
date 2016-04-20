@@ -158,7 +158,7 @@ public class MatrixActivity extends AppCompatActivity {
                 //txt.setBackgroundResource(R.drawable.textview_border);
                 //txt.setPadding(left, top, right, bottom);
                 //findViewById(R.id.tablerow1).setBackgroundResource(R.drawable.textview_border);
-                txt.setTextSize(Math.min(mWidth,mHeight)/4);
+                txt.setTextSize(Math.min(mWidth,mHeight)/9);
                 //txt.setTypeface(null, Typeface.BOLD);
                 txt.setGravity(Gravity.CENTER);
                 txt.setBackgroundResource(R.drawable.textview_border);
