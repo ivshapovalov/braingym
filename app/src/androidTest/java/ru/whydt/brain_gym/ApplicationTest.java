@@ -1,4 +1,4 @@
-package ru.whydt.brains;
+package ru.whydt.brain_gym;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

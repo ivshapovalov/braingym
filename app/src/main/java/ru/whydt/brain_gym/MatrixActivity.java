@@ -5,23 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.FrameLayout;
 
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -78,7 +72,6 @@ public class MatrixActivity extends AppCompatActivity {
         int mWidth = layout.getWidth() / mMatrixSize;
 
 
-        int mMaxDigits = mMatrixSize * mMatrixSize;
         for (Integer numString = 1; numString <= mMatrixSize; numString++) {
             TableRow row = new TableRow(this);
             //row.setBackgroundColor(Color.BLACK);
@@ -86,8 +79,6 @@ public class MatrixActivity extends AppCompatActivity {
             row.setMinimumWidth(mWidth);
             //row.setPadding(0, 0, 1, 0); //Border between rows
             row.setGravity(Gravity.CENTER);
-
-            int a;
 
             //row.setBackgroundColor(Color.WHITE);
             //row.setBackground(R.drawable.rounded_corners);
@@ -129,8 +120,6 @@ public class MatrixActivity extends AppCompatActivity {
                     //cell.addView(txt);
                     txt.setMinimumHeight(mHeight);
                     row.addView(txt);
-                } else {
-                    //txt.setVisibility(View.VISIBLE);
                 }
                 switch (mMatrixLang) {
                     case "Digit":
@@ -158,7 +147,8 @@ public class MatrixActivity extends AppCompatActivity {
                 //txt.setBackgroundResource(R.drawable.textview_border);
                 //txt.setPadding(left, top, right, bottom);
                 //findViewById(R.id.tablerow1).setBackgroundResource(R.drawable.textview_border);
-                txt.setTextSize(Math.min(mWidth,mHeight)/9);
+                //txt.setTextSize(Math.min(mWidth,mHeight)/9);
+                txt.setTextSize(Math.min(mWidth, mHeight) / 3/getApplicationContext().getResources().getDisplayMetrics().density);
                 //txt.setTypeface(null, Typeface.BOLD);
                 txt.setGravity(Gravity.CENTER);
                 txt.setBackgroundResource(R.drawable.textview_border);
@@ -202,15 +192,15 @@ public class MatrixActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList createMatrix() {
+    private ArrayList<Integer> createMatrix() {
         ArrayList<Integer> matrix = new ArrayList<>();
         int num;
-        int indPlace = 0;
+
         int mMaxDigits = mMatrixSize * mMatrixSize;
         while (matrix.size() != mMaxDigits) {
             Random random = new Random();
             num = random.nextInt(mMaxDigits) + 1;
-            indPlace = (matrix.size() == 0 ? 0 : random.nextInt(matrix.size()));
+            int indPlace = (matrix.size() == 0 ? 0 : random.nextInt(matrix.size()));
             if (!matrix.contains(num)) {
                matrix.add(indPlace, num);
             }

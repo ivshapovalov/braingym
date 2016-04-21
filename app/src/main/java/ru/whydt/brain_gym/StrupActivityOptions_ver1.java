@@ -87,7 +87,6 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
 
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    // TODO Auto-generated method stub
                     switch (checkedId) {
                         case -1:
                             break;
@@ -208,7 +207,6 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
 
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    // TODO Auto-generated method stub
                     switch (checkedId) {
                         case -1:
                             break;

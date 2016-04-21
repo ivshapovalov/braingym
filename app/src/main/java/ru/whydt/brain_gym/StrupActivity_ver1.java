@@ -4,24 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
+
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.FrameLayout;
+
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Random;
-import java.util.StringTokenizer;
 
 
 public class StrupActivity_ver1 extends AppCompatActivity {
@@ -41,12 +41,12 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     private int mCountRightAnswers = 0;
     private int mCountAllAnswers = 0;
     //настройки
-    private SharedPreferences mSettings;
+
     private String mStrupLang;
     private int mStrupMaxTime;
     private int mStrupExampleTime;
     private String mStrupExampleType;
-    private int mTextSize=0;
+    private int mTextSize = 0;
 
     private long mStrupExBeginTime = 0;
 
@@ -83,18 +83,17 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             int resID = getResources().getIdentifier("textViewColor" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
             if (txt != null) {
-                try {
-                    int curColor = alphabetColors.get(arrColors.get(i - 1));
-                    //int curColor = alphabetColors.get(0);
-                    String curWord = alphabetWords.get(arrWords.get(i - 1));
-                    String text=String.valueOf(i) + ". " + curWord;
-                    txt.setText(text);
-                    txt.setTextColor(curColor);
-                    mTextSize=Math.min(mWidth, mHeight) / 72;
-                    txt.setTextSize(mTextSize);
-                } catch (Exception e) {
-                    int a = 0;
-                }
+
+                int curColor = alphabetColors.get(arrColors.get(i - 1));
+                //int curColor = alphabetColors.get(0);
+                String curWord = alphabetWords.get(arrWords.get(i - 1));
+                String text = curWord;
+                mTextSize = (int)(Math.min(mWidth, mHeight) / 18/getApplicationContext().getResources().getDisplayMetrics().density);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
+                txt.setText(text);
+                txt.setTextColor(curColor);
+
+
             }
         }
     }
@@ -114,6 +113,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         mChronometerIsWorking = false;
         mCountRightAnswers = 0;
         mCountAllAnswers = 0;
+        mStrupExBeginTime=0;
 
         ChangeButtonText("buttonStrupStartPause", "Старт");
 
@@ -121,15 +121,15 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
 
         if (txtTimerMaxTime != null) {
-            txtTimerMaxTime.setTextSize(mTextSize);
-            String txt="Test: " + String.valueOf(mStrupMaxTime);
+            txtTimerMaxTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
+            String txt = "Тест: " + String.valueOf(mStrupMaxTime);
             txtTimerMaxTime.setText(txt);
         }
 
         int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
         TextView txtAnswer = (TextView) findViewById(answerID);
         if (txtAnswer != null) {
-            txtAnswer.setTextSize(mTextSize);
+            txtAnswer.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
             txtAnswer.setText("");
         }
 
@@ -138,9 +138,9 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
 
             if (txtTimerExTime != null) {
-                String txt="Ex: " + String.valueOf(mStrupExampleTime);
+                String txt = "Пример: " + String.valueOf(mStrupExampleTime);
                 txtTimerExTime.setText(txt);
-                txtTimerExTime.setTextSize(mTextSize);
+                txtTimerExTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
             }
         }
     }
@@ -154,7 +154,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
             if (txt != null) {
                 txt.setText(" ");
-                txt.setTextSize(mTextSize);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
 
             }
 
@@ -166,7 +166,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         if (txt1 != null) {
             txt1.setText("  ");
             txt1.setBackgroundResource(R.drawable.rounded_corners1);
-            txt1.setTextSize(mTextSize);
+            txt1.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
 
         }
 
@@ -176,7 +176,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         if (txt2 != null) {
             txt2.setText("  ");
             txt2.setBackgroundResource(R.drawable.rounded_corners1);
-            txt2.setTextSize(mTextSize);
+            txt2.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
         }
 
         int trowID = getResources().getIdentifier("trow1", "id", getPackageName());
@@ -197,8 +197,6 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     }
 
     private void createStrupExamples() {
-        int newColor = Color.WHITE;
-
         Random random = new Random();
 
         arrColors.clear();
@@ -249,8 +247,8 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         if (txtTimerMaxTime != null) {
             int time = (int) (mStrupMaxTime - (elapsedMillis / 1000));
             if (time == 0) {
-                txtTimerMaxTime.setText("Test is over!");
-                txtTimerMaxTime.setTextSize(mTextSize);
+                txtTimerMaxTime.setText("Тест окончен!");
+                txtTimerMaxTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
                 int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
                 TextView txtTimerExTime = (TextView) findViewById(timerExID);
                 if (txtTimerExTime != null) {
@@ -258,9 +256,9 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                 }
 
             } else {
-                String txt="Test: " + String.valueOf(time);
+                String txt = "Тест: " + String.valueOf(time);
                 txtTimerMaxTime.setText(txt);
-                txtTimerMaxTime.setTextSize(mTextSize);
+                txtTimerMaxTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
             }
 
         }
@@ -272,25 +270,25 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                 //System.out.println("mStrupeExampleTime=" + mStrupExampleTime + ", time=" + time + ", elapsed millis=" + elapsedMillis + ", mStrupExBeginTime=" + mStrupExBeginTime);
                 if (time == mStrupExampleTime) {
                     //новый пример
-                    String txt="Ex: " + String.valueOf(time);
+                    String txt = "Пример: " + String.valueOf(time);
                     txtTimerExTime.setText(txt);
-                    txtTimerExTime.setTextSize(mTextSize);
+                    txtTimerExTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
                     mCountAllAnswers++;
                     int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
                     TextView txtAnswer = (TextView) findViewById(answerID);
                     if (txtAnswer != null) {
-                        String txt1=String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
+                        String txt1 = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
                         txtAnswer.setText(txt1);
-                        txtAnswer.setTextSize(mTextSize);
+                        txtAnswer.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
                     }
 
                     showNextExample();
 
 
                 } else {
-                    String txt="Ex: " + String.valueOf(time);
+                    String txt = "Пример: " + String.valueOf(time);
                     txtTimerExTime.setText(txt);
-                    txtTimerExTime.setTextSize(mTextSize);
+                    txtTimerExTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
                 }
 
             }
@@ -300,10 +298,10 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             if (txtTimerExTime != null) {
 
                 txtTimerExTime.setText(" ");
-                txtTimerExTime.setTextSize(mTextSize);
+                txtTimerExTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
             }
         }
-     }
+    }
 
 
     public void startPause_onClick(View view) {
@@ -317,12 +315,19 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         if (!mChronometerIsWorking) {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
+
+                strupVer1Clear();
+                getPreferencesFromFile();
+                createStrupExamples();
+                drawStrupTest();
+
                 int timerID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
                 TextView txtTimerMaxTime = (TextView) findViewById(timerID);
                 if (txtTimerMaxTime != null) {
-                    String txt="Test: " + String.valueOf(mStrupMaxTime);
+                    txtTimerMaxTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
+                    String txt = "Тест: " + String.valueOf(mStrupMaxTime);
                     txtTimerMaxTime.setText(txt);
-                    txtTimerMaxTime.setTextSize(mTextSize);
+                    txtTimerMaxTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
                 }
                 mChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                     @Override
@@ -341,10 +346,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                         }
                     }
                 });
-                strupVer1Clear();
-                getPreferencesFromFile();
-                createStrupExamples();
-                drawStrupTest();
+
                 showNextExample();
             } else {
                 mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
@@ -399,8 +401,8 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                 txtType.setText("От цвета ищем слово");
             } else {
                 txtType.setText("От слова ищем цвет");
-             }
-            txtType.setTextSize(mTextSize);
+            }
+            txtType.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
         }
         //type = typeExample.COLOR;
         int indexColor = 0;
@@ -420,7 +422,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 //            indexWord=0;
 //            indexColor=7;
             txtExample.setText(alphabetWords.get(indexWord));
-            txtExample.setTextSize(mTextSize);
+            txtExample.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
             txtExample.setTextColor(alphabetColors.get(indexColor));
 
             if (type == typeExample.WORD) {
@@ -440,24 +442,24 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         if (a - 1 == answer) {
 
             mCountRightAnswers++;
-        } else {
-
         }
         mCountAllAnswers++;
         mStrupExBeginTime = elapsedMillis;
         int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
         TextView txtTimerExTime = (TextView) findViewById(timerExID);
-        if (txtTimerExTime != null) {
-            String txt="Ex: " + String.valueOf(mStrupExampleTime);
-            txtTimerExTime.setText(txt);
-            txtTimerExTime.setTextSize(mTextSize);
+        if (mStrupExampleTime != 0) {
+            if (txtTimerExTime != null) {
+                String txt = "Пример: " + String.valueOf(mStrupExampleTime);
+                txtTimerExTime.setText(txt);
+                txtTimerExTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
+            }
         }
         int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
         TextView txtAnswer = (TextView) findViewById(answerID);
         if (txtAnswer != null) {
-            String txt=String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
+            String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
             txtAnswer.setText(txt);
-            txtAnswer.setTextSize(mTextSize);
+            txtAnswer.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
         }
 
         showNextExample();
@@ -490,7 +492,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
     private void getPreferencesFromFile() {
 
-        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_VER1_TEST_TIME)) {
             mStrupMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_VER1_TEST_TIME, 60);

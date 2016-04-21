@@ -30,7 +30,7 @@ public class MathActivityOptions extends AppCompatActivity {
         } else {
             MathMaxDigit = 150;
         }
-        ;
+
 
         //Установим настройки в зависимости от сохраненного языка
         int langID = getResources().getIdentifier("radioButton" + String.valueOf(MathMaxDigit), "id", getPackageName());

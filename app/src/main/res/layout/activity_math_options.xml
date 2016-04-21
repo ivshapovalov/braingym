@@ -17,7 +17,6 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="1"
             android:layout_weight="20"
             android:background="@drawable/ic_house"
             android:onClick="buttonHome_onClick"
@@ -66,7 +65,7 @@
 
         <RadioGroup
             android:id="@+id/rgMathMaxDigit"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="80"
 

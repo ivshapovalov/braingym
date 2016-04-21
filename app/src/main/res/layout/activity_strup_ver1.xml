@@ -9,25 +9,24 @@
         tools:context="ru.whydt.brain_gym.StrupActivity_ver1"
         android:id="@+id/groundStrup_ver1">
          <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="0">
 
              <Button
                  style="?android:attr/buttonStyleSmall"
-                 android:layout_width="wrap_content"
+                 android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:id="@+id/button11"
                  android:onClick="buttonHome_onClick"
                  android:layout_column="1"
                  android:layout_weight="25"
                  android:textSize="10sp"
-                 android:layout_gravity="center"
                  android:background="@drawable/ic_house" />
 
              <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/button_nameStartPause"
                 android:id="@+id/buttonStrupStartPause"
@@ -35,14 +34,13 @@
                 android:onClick="startPause_onClick"
                 android:layout_weight="25"
                 android:layout_column="2"
-                android:layout_gravity="center"
-                android:background="@drawable/textview_border" />
+                 android:background="@drawable/textview_border" />
 
 
 
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/button_nameStop"
                 android:id="@+id/buttonStrupClear"
@@ -52,11 +50,10 @@
                 android:textSize="10sp"
                      android:layout_weight="25"
                 android:layout_column="3"
-                android:layout_gravity="center"
                 android:background="@drawable/textview_border" />
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/button_nameOptions"
                 android:id="@+id/buttonStrupOptions"
@@ -64,7 +61,6 @@
                 android:layout_weight="25"
                 android:textSize="10sp"
                 android:layout_column="4"
-                android:layout_gravity="center"
                 android:background="@drawable/textview_border" />
         </TableRow>
 
@@ -72,55 +68,43 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="20sp"
             android:id="@+id/trow1">
 
-            <Chronometer
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/chronometer_strup"
-                android:onClick="startPause_onClick"
-                android:clickable="true"
-                android:textColor="#e71f1f"
-                android:textSize="25dp"
-                android:gravity="center"
-                android:format="%s"
-                android:visibility="gone" />
-
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/txtTimerMaxTime"
-                android:textSize="15sp"
                 android:textColor="#bb1e1e"
-                android:layout_marginLeft="10dp"
                 android:layout_column="1"
-                android:layout_gravity="left"
-                android:layout_weight="50" />
+                android:layout_weight="25" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/txtTimerExTime"
-                android:textSize="15sp"
                 android:textColor="#bb1e1e"
-                android:layout_marginLeft="10dp"
                 android:layout_column="2"
-                android:layout_gravity="left"
                 android:layout_weight="25" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:layout_column="3"
+                android:layout_weight="25" />
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/textViewAnswers"
-                android:textSize="15sp"
                 android:textColor="#bb1e1e"
-                android:layout_column="3"
-                android:layout_gravity="left"
+                android:layout_column="4"
                 android:layout_weight="25" />
+
         </TableRow>
 
     <TableRow
@@ -128,7 +112,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="fill"
             android:layout_weight="0"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20sp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -164,7 +148,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50sp">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -188,7 +172,7 @@
                 android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewColor1"
                     android:textSize="12sp"
@@ -200,7 +184,7 @@
                     android:gravity="center" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewColor2"
                     android:textSize="12sp"
@@ -210,6 +194,7 @@
                     android:layout_weight="50"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center" />
+
             </TableRow>
 
             <TableRow
@@ -223,7 +208,7 @@
                 android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewColor3"
                     android:textSize="12sp"
@@ -235,7 +220,7 @@
                     android:gravity="center" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewColor4"
                     android:textSize="12sp"
@@ -258,7 +243,7 @@
                 android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewColor5"
                     android:textSize="12sp"
@@ -270,7 +255,7 @@
                     android:gravity="center" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewColor6"
                     android:textSize="12sp"
@@ -293,7 +278,7 @@
                 android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewColor7"
                     android:textSize="12sp"
@@ -305,7 +290,7 @@
                     android:gravity="center" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewColor8"
                     android:textSize="12sp"
@@ -318,6 +303,25 @@
             </TableRow>
 
         </TableLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <Chronometer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chronometer_strup"
+            android:onClick="startPause_onClick"
+            android:clickable="true"
+            android:textColor="#e71f1f"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:format="%s"
+            android:visibility="gone" />
     </TableRow>
 
 </TableLayout>

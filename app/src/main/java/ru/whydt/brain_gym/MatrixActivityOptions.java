@@ -23,8 +23,6 @@ public class MatrixActivityOptions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matrix_options);
 
-
-        ;
         getPreferencesFromFile();
         setPreferencesOnScreen();
 
@@ -101,7 +99,6 @@ public class MatrixActivityOptions extends AppCompatActivity {
 
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    // TODO Auto-generated method stub
                     switch (checkedId) {
                         case -1:
                             break;
@@ -136,7 +133,6 @@ public class MatrixActivityOptions extends AppCompatActivity {
 
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    // TODO Auto-generated method stub
                     switch (checkedId) {
                         case -1:
                             break;

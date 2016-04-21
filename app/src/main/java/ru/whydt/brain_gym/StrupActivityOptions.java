@@ -3,11 +3,11 @@ package ru.whydt.brain_gym;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -46,7 +46,6 @@ public class StrupActivityOptions extends AppCompatActivity {
 
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    // TODO Auto-generated method stub
                     switch (checkedId) {
                         case -1:
                             break;

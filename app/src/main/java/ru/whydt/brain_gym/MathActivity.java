@@ -8,11 +8,9 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,12 +18,10 @@ import java.util.Random;
 
 
 public class MathActivity extends AppCompatActivity {
+    private final int mCountExamples = 48;
     private Chronometer mChronometer;
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
-    private final int mCountExamples = 48;
-
-
     private SharedPreferences mSettings;
     private int MathMaxDigit;
 
@@ -35,7 +31,6 @@ public class MathActivity extends AppCompatActivity {
         setContentView(R.layout.activity_math);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer_math);
-
 
 
 //        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
@@ -62,19 +57,24 @@ public class MathActivity extends AppCompatActivity {
         MathExample currentEx;
 
         FrameLayout layout = (FrameLayout) findViewById(R.id.frame);
-        int mHeight=layout.getHeight()*98/100/mCountStrings;
-        int mWidth=layout.getWidth()*90/100/(mCountExamples/mCountStrings);
-        int numColumn=0;
-        int numString=0;
+        int mHeight = 0;
+        try {
+            mHeight = layout.getHeight() * 98 / 100 / mCountStrings;
+        } catch (Exception e) {
+            mHeight=0;
+        }
+        int mWidth = layout.getWidth() * 90 / 100 / (mCountExamples / mCountStrings);
+        int numColumn = 0;
+        int numString = 0;
         for (Integer i = 1; i <= mCountExamples; i++) {
             TextView txt = (TextView) findViewById(100 + i);
             if (txt == null) {
                 txt = new TextView(this);
 
                 txt.setId(100 + i);
-                numColumn=(i-1)/mCountStrings ;
-                numString=(i - 1) % mCountStrings;
-                txt.setPadding((numColumn) * mWidth+layout.getWidth()/100*10,layout.getHeight()*2/100+numString * mHeight, 0, 0);
+                numColumn = (i - 1) / mCountStrings;
+                numString = (i - 1) % mCountStrings;
+                txt.setPadding((numColumn) * mWidth + layout.getWidth() / 100 * 10, layout.getHeight() * 2 / 100 + numString * mHeight, 0, 0);
                 layout.addView(txt);
             } else {
                 txt.setVisibility(View.VISIBLE);
@@ -82,7 +82,8 @@ public class MathActivity extends AppCompatActivity {
             currentEx = mathExamples.get(i - 1);
             String temp = String.valueOf(currentEx.getNum1()) + String.valueOf(currentEx.getOper()) + String.valueOf(currentEx.getNum2()) + " = ";
             txt.setText(temp);
-            txt.setTextSize(Math.min(mWidth,mHeight)/6);
+            txt.setTextSize(Math.min(mWidth, mHeight) /3*2/getApplicationContext().getResources().getDisplayMetrics().density);
+            //txt.setTextSize(Math.min(mWidth, mHeight) / 6);
             //txt.setBackgroundColor(0xfff00000);
 
             txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -95,10 +96,10 @@ public class MathActivity extends AppCompatActivity {
         //mathClear();
         mChronometer.setBase(SystemClock.elapsedRealtime());
         mChronometer.stop();
-        mChronometerCount=0;
+        mChronometerCount = 0;
         mChronometerIsWorking = false;
 
-        ChangeButtonText("buttonMathStartPause","Старт");
+        ChangeButtonText("buttonMathStartPause", "Старт");
 
     }
 
@@ -107,7 +108,7 @@ public class MathActivity extends AppCompatActivity {
         for (int i = 1; i <= mCountExamples; i++) {
             TextView txt = (TextView) findViewById(100 + i);
 
-            if (txt!=null) {
+            if (txt != null) {
                 txt.setText("");
             }
 
@@ -115,12 +116,12 @@ public class MathActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList createMathExamples() {
+    private ArrayList<MathExample> createMathExamples() {
         ArrayList<MathExample> mathExamples = new ArrayList<>();
         int num1;
         int num2 = 0;
 
-         //генерация операции
+        //генерация операции
         //1	: - деление
         //2	- - вычитание
         //3	+ - сложение
@@ -236,7 +237,7 @@ public class MathActivity extends AppCompatActivity {
             mChronometer.start();
             mChronometerIsWorking = true;
 
-            ChangeButtonText("buttonMathStartPause","Пауза");
+            ChangeButtonText("buttonMathStartPause", "Пауза");
 
 
         } else {
@@ -245,16 +246,16 @@ public class MathActivity extends AppCompatActivity {
             mChronometerCount = SystemClock.elapsedRealtime() - mChronometer.getBase();
             mChronometer.stop();
             mChronometerIsWorking = false;
-            ChangeButtonText("buttonMathStartPause","Старт");
+            ChangeButtonText("buttonMathStartPause", "Старт");
         }
     }
 
 
     private void ChangeButtonText(String ButtonID, String ButtonText) {
 
-        int resID=getResources().getIdentifier(ButtonID, "id", getPackageName());
+        int resID = getResources().getIdentifier(ButtonID, "id", getPackageName());
         Button but = (Button) findViewById(resID);
-        if (but!=null) {
+        if (but != null) {
             but.setText(ButtonText);
         }
     }
@@ -285,9 +286,10 @@ public class MathActivity extends AppCompatActivity {
             // Получаем язык из настроек
             MathMaxDigit = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, 150);
         } else {
-            MathMaxDigit=150;
+            MathMaxDigit = 150;
         }
     }
+
     private class MathExample {
         private int num1;
         private int num2;

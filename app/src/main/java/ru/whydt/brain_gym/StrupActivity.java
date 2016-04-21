@@ -7,11 +7,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class StrupActivity extends AppCompatActivity {
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
     private final int mStrupExamples = 45;
-    private String mWordColors[] = new String[5];
+    private final String mWordColors[] = new String[5];
 
     //настройки
     private SharedPreferences mSettings;
@@ -79,7 +79,8 @@ public class StrupActivity extends AppCompatActivity {
             txt.setText(currentEx.getWord());
             txt.setTextColor(currentEx.getColor());
 
-            txt.setTextSize(Math.min(mWidth,mHeight)/6);
+            //txt.setTextSize(Math.min(mWidth,mHeight)/6);
+            txt.setTextSize(TypedValue.COMPLEX_UNIT_SP,Math.min(mWidth, mHeight) / 2/getApplicationContext().getResources().getDisplayMetrics().density);
         }
     }
 
@@ -113,7 +114,7 @@ public class StrupActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList createStrupExamples() {
+    private ArrayList<StrupExample> createStrupExamples() {
         ArrayList<StrupExample> strupExamples = new ArrayList<>();
         int newColor = Color.WHITE;
 
