@@ -46,8 +46,8 @@ public class MatrixActivity extends AppCompatActivity {
         //matrixClear();
         mChronometer = (Chronometer) findViewById(R.id.chronometer_matrix);
 
-        CreateAlphabetRu();
-        CreateAlphabetEn();
+        String[] AlphabetRu= MainActivity.AlphabetRu();
+        String [] AlphabetEn=MainActivity.AlphabetEn();
 
     }
 
@@ -278,29 +278,6 @@ public class MatrixActivity extends AppCompatActivity {
         }
     }
 
-    private void CreateAlphabetRu() {
-
-        AlphabetRu=new String[25];
-        AlphabetRu[0]="А";       AlphabetRu[7]="З";       AlphabetRu[13]="О";       AlphabetRu[19]="Ф";
-        AlphabetRu[1]="Б";       AlphabetRu[8]="И";       AlphabetRu[14]="П";       AlphabetRu[20]="Х";
-        AlphabetRu[2]="В";       AlphabetRu[9]="К";       AlphabetRu[15]="Р";       AlphabetRu[21]="Ц";
-        AlphabetRu[3]="Г";       AlphabetRu[10]="Л";       AlphabetRu[16]="С";       AlphabetRu[22]="Ч";
-        AlphabetRu[4]="Д";       AlphabetRu[11]="М";       AlphabetRu[17]="Т";       AlphabetRu[23]="Щ";
-        AlphabetRu[5]="Е";       AlphabetRu[12]="Н";       AlphabetRu[18]="У";       AlphabetRu[24]="Щ";
-        AlphabetRu[6]="Ж";
-         }
-
-    private void CreateAlphabetEn() {
-
-        AlphabetEn=new String[25];
-        AlphabetEn[0]="A";       AlphabetEn[7]="H";       AlphabetEn[13]="N";       AlphabetEn[19]="T";
-        AlphabetEn[1]="B";       AlphabetEn[8]="I";       AlphabetEn[14]="O";       AlphabetEn[20]="U";
-        AlphabetEn[2]="C";       AlphabetEn[9]="J";       AlphabetEn[15]="P";       AlphabetEn[21]="V";
-        AlphabetEn[3]="D";       AlphabetEn[10]="K";       AlphabetEn[16]="Q";       AlphabetEn[22]="W";
-        AlphabetEn[4]="E";       AlphabetEn[11]="L";       AlphabetEn[17]="R";       AlphabetEn[23]="X";
-        AlphabetEn[5]="F";       AlphabetEn[12]="M";       AlphabetEn[18]="S";       AlphabetEn[24]="Y";
-        AlphabetEn[6]="G";
-    }
 
 
 }

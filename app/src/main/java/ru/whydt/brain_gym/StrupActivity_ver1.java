@@ -67,16 +67,6 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     }
 
     private void drawStrupVer1Test() {
-        TableLayout frame = (TableLayout) findViewById(R.id.groundStrup_ver1);
-        int mWidth;
-        int mHeight;
-        if (frame != null) {
-            mWidth = frame.getWidth();
-            mHeight = frame.getHeight();
-        } else {
-            mWidth = 0;
-            mHeight = 0;
-        }
 
         for (Integer i = 1; i <= mStrupExamples; i++) {
             int resID = getResources().getIdentifier("tvStrupVer1Color" + String.valueOf(i), "id", getPackageName());
@@ -85,7 +75,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
                 int curColor = alphabetColors.get(arrColors.get(i - 1));
                 String curWord = alphabetWords.get(arrWords.get(i - 1));
-                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density);
+
                 txt.setTextSize(mTextSize);
                 txt.setText(curWord);
                 txt.setTextColor(curColor);
@@ -301,9 +291,21 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
     private void start_pause() {
 
-        if (!mChronometerIsWorking) {
+       if (!mChronometerIsWorking) {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
+
+                TableLayout frame = (TableLayout) findViewById(R.id.groundStrup_ver1);
+                int mWidth;
+                int mHeight;
+                if (frame != null) {
+                    mWidth = frame.getWidth();
+                    mHeight = frame.getHeight();
+                } else {
+                    mWidth = 0;
+                    mHeight = 0;
+                }
+                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density);
 
                 strupVer1Clear();
                 getPreferencesFromFile();

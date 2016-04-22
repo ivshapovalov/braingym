@@ -83,4 +83,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    static String[] AlphabetRu() {
+
+        String [] AlphabetRu=new String[33];
+        AlphabetRu[0]="А";       AlphabetRu[7]="Ж";       AlphabetRu[14]="Н";
+        AlphabetRu[1]="Б";       AlphabetRu[8]="З";
+        AlphabetRu[2]="В";       AlphabetRu[9]="И";       AlphabetRu[15]="О";       AlphabetRu[21]="Ф";
+        AlphabetRu[3]="Г";       AlphabetRu[10]="Й";       AlphabetRu[16]="П";       AlphabetRu[22]="Х";
+        AlphabetRu[4]="Д";       AlphabetRu[11]="К";       AlphabetRu[17]="Р";       AlphabetRu[23]="Ц";
+        AlphabetRu[5]="Е";       AlphabetRu[12]="Л";       AlphabetRu[18]="С";       AlphabetRu[24]="Ч";
+        AlphabetRu[6]="Ё";       AlphabetRu[13]="М";        AlphabetRu[19]="Т";
+
+        AlphabetRu[20]="У";
+        AlphabetRu[25]="Ш";
+        AlphabetRu[26]="Щ";
+        AlphabetRu[27]="Ъ";
+        AlphabetRu[28]="Ы";
+        AlphabetRu[29]="Ь";
+        AlphabetRu[30]="Э";
+        AlphabetRu[31]="Ю";
+        AlphabetRu[32]="Я";
+        return AlphabetRu;
+    }
+
+    static String[]  AlphabetEn() {
+
+        String[] AlphabetEn=new String[26];
+        AlphabetEn[0]="A";       AlphabetEn[7]="H";       AlphabetEn[13]="N";       AlphabetEn[19]="T";
+        AlphabetEn[1]="B";       AlphabetEn[8]="I";       AlphabetEn[14]="O";       AlphabetEn[20]="U";
+        AlphabetEn[2]="C";       AlphabetEn[9]="J";       AlphabetEn[15]="P";       AlphabetEn[21]="V";
+        AlphabetEn[3]="D";       AlphabetEn[10]="K";       AlphabetEn[16]="Q";       AlphabetEn[22]="W";
+        AlphabetEn[4]="E";       AlphabetEn[11]="L";       AlphabetEn[17]="R";       AlphabetEn[23]="X";
+        AlphabetEn[5]="F";       AlphabetEn[12]="M";       AlphabetEn[18]="S";       AlphabetEn[24]="Y";
+        AlphabetEn[6]="G";                                                             AlphabetEn[25]="Z";
+
+        return AlphabetEn;
+    }
+
 }

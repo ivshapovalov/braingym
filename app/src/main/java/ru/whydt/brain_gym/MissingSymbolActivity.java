@@ -24,11 +24,12 @@ public class MissingSymbolActivity extends AppCompatActivity {
 
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
-    private final int mStrupExamples = 8;
+    private final int mMissingSymbolCountAnswers = 8;
 
-    private ArrayList<Integer> arrColors = new ArrayList<>();
-    private ArrayList<Integer> arrWords = new ArrayList<>();
-    private int answer;
+    private ArrayList<Integer> arrAnswers = new ArrayList<>();
+    private ArrayList<Integer> arrExamples = new ArrayList<>();
+    private int indAnswer;
+    private String Question;
     private int mCountRightAnswers = 0;
     private int mCountAllAnswers = 0;
     //настройки
@@ -38,54 +39,30 @@ public class MissingSymbolActivity extends AppCompatActivity {
     private int mMissingSymbolExampleTime;
 
     private int mTextSize = 0;
-
-    private long mStrupExBeginTime = 0;
-
+    private long mMissingSymbolExBeginTime = 0;
     private long elapsedMillis;
 
+
+    private String[] AlphabetRu;
+    private String[] AlphabetEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_strup_ver1);
+        setContentView(R.layout.activity_missing_symbol);
 
-        mChronometer = (Chronometer) findViewById(R.id.chronometer_strup);
+        mChronometer = (Chronometer) findViewById(R.id.chronometer_missing_symbol);
 
+
+       AlphabetRu = MainActivity.AlphabetRu();
+       AlphabetEn = MainActivity.AlphabetEn();
     }
 
-    private void drawStrupTest() {
-        TableLayout frame = (TableLayout) findViewById(R.id.groundStrup_ver1);
-        int mWidth;
-        int mHeight;
-        if (frame != null) {
-            mWidth = frame.getWidth();
-            mHeight = frame.getHeight();
-        } else {
-            mWidth = 0;
-            mHeight = 0;
-        }
 
-        for (Integer i = 1; i <= mStrupExamples; i++) {
-            int resID = getResources().getIdentifier("textViewColor" + String.valueOf(i), "id", getPackageName());
-            TextView txt = (TextView) findViewById(resID);
-            if (txt != null) {
-
-                int curColor = alphabetColors.get(arrColors.get(i - 1));
-                String curWord = alphabetWords.get(arrWords.get(i - 1));
-                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density);
-                txt.setTextSize(mTextSize);
-                txt.setText(curWord);
-                txt.setTextColor(curColor);
-
-            }
-        }
-    }
-
-    public void strupVer1Clear_onClick(View view) {
+    public void MissingSymbolClear_onClick(View view) {
 
         timerStop(false);
-
     }
 
     private void timerStop(boolean auto) {
@@ -95,26 +72,25 @@ public class MissingSymbolActivity extends AppCompatActivity {
         mChronometerIsWorking = false;
         mCountRightAnswers = 0;
         mCountAllAnswers = 0;
-        mStrupExBeginTime = 0;
+        mMissingSymbolExBeginTime = 0;
 
-        ChangeButtonText("buttonStrupStartPause", "Старт");
+        ChangeButtonText("buttonMissingSymbolStartPause", "Старт");
 
-
-        int timerMaxID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
+        int timerMaxID = getResources().getIdentifier("tvMissingSymbolTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
 
         if (txtTimerMaxTime != null) {
             txtTimerMaxTime.setTextSize(mTextSize);
             String txt;
             if (!auto) {
-                txt = "Тест: " + String.valueOf(mStrupMaxTime);
+                txt = "Тест: " + String.valueOf(mMissingSymbolMaxTime);
             } else {
                 txt = "Тест окончен";
             }
             txtTimerMaxTime.setText(txt);
         }
 
-        int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
+        int answerID = getResources().getIdentifier("tvMissingSymbolAnswers", "id", getPackageName());
         TextView txtAnswer = (TextView) findViewById(answerID);
         if (txtAnswer != null) {
             txtAnswer.setTextSize(mTextSize);
@@ -123,14 +99,14 @@ public class MissingSymbolActivity extends AppCompatActivity {
             }
         }
 
-        if (mStrupExampleTime != 0) {
-            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
+        if (mMissingSymbolExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
 
             if (txtTimerExTime != null) {
                 String txt;
                 if (!auto) {
-                    txt = "Пример: " + String.valueOf(mStrupExampleTime);
+                    txt = "Пример: " + String.valueOf(mMissingSymbolExampleTime);
                 } else {
                     txt = "";
                 }
@@ -141,11 +117,11 @@ public class MissingSymbolActivity extends AppCompatActivity {
         }
     }
 
-    private void strupVer1Clear() {
+    private void missingSymbolClear() {
 
         for (int i = 1; i <= 8; i++) {
 
-            int resID = getResources().getIdentifier("textViewColor" + String.valueOf(i), "id", getPackageName());
+            int resID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
 
             if (txt != null) {
@@ -156,7 +132,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
 
         }
 
-        int exID = getResources().getIdentifier("textViewExample", "id", getPackageName());
+        int exID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
         TextView txt1 = (TextView) findViewById(exID);
 
         if (txt1 != null) {
@@ -166,93 +142,56 @@ public class MissingSymbolActivity extends AppCompatActivity {
 
         }
 
-        int typeID = getResources().getIdentifier("textViewType", "id", getPackageName());
-        TextView txt2 = (TextView) findViewById(typeID);
-
-        if (txt2 != null) {
-            txt2.setText("  ");
-            txt2.setBackgroundResource(R.drawable.rounded_corners1);
-            txt2.setTextSize(mTextSize);
-        }
-
-        int trowID = getResources().getIdentifier("trow1", "id", getPackageName());
+        int trowID = getResources().getIdentifier("trowMissingSymbol", "id", getPackageName());
         TableRow trow1 = (TableRow) findViewById(trowID);
 
         if (trow1 != null) {
             trow1.setBackgroundResource(R.drawable.rounded_corners1);
         }
 
-        int table1ID = getResources().getIdentifier("table1", "id", getPackageName());
-        TableLayout table1 = (TableLayout) findViewById(table1ID);
+        for (int i = 1; i <= mMissingSymbolCountAnswers; i++) {
+            int ansID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
+            TextView txtAns = (TextView) findViewById(ansID);
 
-        if (table1 != null) {
-            table1.setBackgroundResource(R.drawable.rounded_corners1);
-        }
-
-
-    }
-
-    private void createStrupExamples() {
-        Random random = new Random();
-
-        arrColors.clear();
-        arrWords.clear();
-
-        boolean doItWord = true;
-        while (arrColors.size() != 8) {
-            int indexColor = Math.abs(random.nextInt() % 8);
-            if (!arrColors.contains(indexColor)) {
-                int indPlace = Math.abs((arrColors.size() == 0 ? random.nextInt() : random.nextInt(arrColors.size())));
-                // strupExamples.add((strupExamples.size() == 0 ? 0 : indPlace % strupExamples.size()), newEx);
-                arrColors.add((arrColors.size() == 0 ? 0 : indPlace % arrColors.size()), indexColor);
+            if (txtAns != null) {
+                txtAns.setText("  ");
+                txtAns.setBackgroundResource(R.drawable.rounded_corners1);
+                txtAns.setTextSize(mTextSize);
 
             }
         }
-        while (arrWords.size() != 8) {
-
-            while (doItWord) {
-                int indexWord = Math.abs(random.nextInt() % 8);
-                if (!arrWords.contains(indexWord)) {
-                    int indPlace = Math.abs((arrWords.size() == 0 ? random.nextInt() : random.nextInt(arrWords.size())));
-                    //проверяем, не находится ли на том же месте в массиве цветов этот же цвет
-                    indPlace = (arrWords.size() == 0 ? 0 : indPlace % arrWords.size());
-                    if (indPlace != arrColors.indexOf(indexWord)) {
-                        arrWords.add(indPlace, indexWord);
-                        doItWord = false;
-                    }
-                }
-            }
-            doItWord = true;
-        }
-
+//        int table1ID = getResources().getIdentifier("tableMissingSymbolAnswers", "id", getPackageName());
+//        TableLayout table1 = (TableLayout) findViewById(table1ID);
+//
+//        if (table1 != null) {
+//            table1.setBackgroundResource(R.drawable.rounded_corners1);
+//        }
 
     }
+
 
     private void changeTimer(long elapsedMillis) {
-        int timerMaxID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
+        int timerMaxID = getResources().getIdentifier("tvMissingSymbolTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
         if (txtTimerMaxTime != null) {
-            int time = (int) (mStrupMaxTime - (elapsedMillis / 1000));
-
+            int time = (int) (mMissingSymbolMaxTime - (elapsedMillis / 1000));
             String txt = "Тест: " + String.valueOf(time);
             txtTimerMaxTime.setText(txt);
             txtTimerMaxTime.setTextSize(mTextSize);
-
-
         }
-        if (mStrupExampleTime != 0) {
-            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
+        if (mMissingSymbolExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
             if (txtTimerExTime != null) {
-                int time = (mStrupExampleTime - ((int) (((elapsedMillis - mStrupExBeginTime) / 1000)) % mStrupExampleTime));
+                int time = (mMissingSymbolExampleTime - ((int) (((elapsedMillis - mMissingSymbolExBeginTime) / 1000)) % mMissingSymbolExampleTime));
                 //System.out.println("mStrupeExampleTime=" + mStrupExampleTime + ", time=" + time + ", elapsed millis=" + elapsedMillis + ", mStrupExBeginTime=" + mStrupExBeginTime);
-                if (time == mStrupExampleTime) {
+                if (time == mMissingSymbolExampleTime) {
                     //новый пример
                     String txt = "Пример: " + String.valueOf(time);
                     txtTimerExTime.setText(txt);
                     txtTimerExTime.setTextSize(mTextSize);
                     mCountAllAnswers++;
-                    int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
+                    int answerID = getResources().getIdentifier("tvMissingSymbolAnswers", "id", getPackageName());
                     TextView txtAnswer = (TextView) findViewById(answerID);
                     if (txtAnswer != null) {
                         String txt1 = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
@@ -260,7 +199,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
                         txtAnswer.setTextSize(mTextSize);
                     }
 
-                    showNextExample();
+                    createExample();
 
 
                 } else {
@@ -271,7 +210,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
 
             }
         } else {
-            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
+            int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
             if (txtTimerExTime != null) {
 
@@ -294,16 +233,26 @@ public class MissingSymbolActivity extends AppCompatActivity {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
 
-                strupVer1Clear();
-                getPreferencesFromFile();
-//                createStrupExamples();
-//                drawStrupTest();
+                TableLayout frame = (TableLayout) findViewById(R.id.groundMissingSymbol);
+                int mWidth;
+                int mHeight;
+                if (frame != null) {
+                    mWidth = frame.getWidth();
+                    mHeight = frame.getHeight();
+                } else {
+                    mWidth = 0;
+                    mHeight = 0;
+                }
+                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density);
 
-                int timerID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
+                missingSymbolClear();
+                getPreferencesFromFile();
+
+                int timerID = getResources().getIdentifier("tvMissingSymbolTimerMaxTime", "id", getPackageName());
                 TextView txtTimerMaxTime = (TextView) findViewById(timerID);
                 if (txtTimerMaxTime != null) {
                     txtTimerMaxTime.setTextSize(mTextSize);
-                    String txt = "Тест: " + String.valueOf(mStrupMaxTime);
+                    String txt = "Тест: " + String.valueOf(mMissingSymbolMaxTime);
                     txtTimerMaxTime.setText(txt);
                     txtTimerMaxTime.setTextSize(mTextSize);
                 }
@@ -313,7 +262,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
                         elapsedMillis = SystemClock.elapsedRealtime()
                                 - mChronometer.getBase();
 
-                        if (mStrupMaxTime - (elapsedMillis / 1000) < 1) {
+                        if (mMissingSymbolMaxTime - (elapsedMillis / 1000) < 1) {
                             timerStop(true);
                         }
                         if (elapsedMillis > 1000) {
@@ -325,14 +274,14 @@ public class MissingSymbolActivity extends AppCompatActivity {
                     }
                 });
 
-                showNextExample();
+                createExample();
             } else {
                 mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
             }
 
             mChronometer.start();
             mChronometerIsWorking = true;
-            ChangeButtonText("buttonStrupStartPause", "Пауза");
+            ChangeButtonText("buttonMissingSymbolStartPause", "Пауза");
 
 
         } else {
@@ -341,80 +290,90 @@ public class MissingSymbolActivity extends AppCompatActivity {
             mChronometerCount = SystemClock.elapsedRealtime() - mChronometer.getBase();
             mChronometer.stop();
             mChronometerIsWorking = false;
-            ChangeButtonText("buttonStrupStartPause", "Старт");
+            ChangeButtonText("buttonMissingSymbolStartPause", "Старт");
         }
     }
 
-    private void showNextExample() {
-
-        createStrupExamples();
-        drawStrupTest();
+    private void createExample() {
 
         Random random = new Random();
-        int indexType = Math.abs(random.nextInt() % 2);
-        typeExample type = null;
 
-        switch (mStrupExampleType) {
-            case "RANDOM":
-
-                switch (indexType) {
-                    case 0:
-                        type = typeExample.WORD;
-                        break;
-                    case 1:
-                        type = typeExample.COLOR;
-                        break;
-                }
-                break;
-            case "COLOR":
-                type = typeExample.COLOR;
-                break;
-            case "WORD":
-                type = typeExample.WORD;
-                break;
+        int mBeginDigit=0;
+        if ("Digit".equals(mMissingSymbolLang)) {
+            mBeginDigit = Math.abs(random.nextInt(100));
+        } else if ("Ru".equals(mMissingSymbolLang)) {
+            mBeginDigit = Math.abs(random.nextInt() % (AlphabetRu.length - mMissingSymbolCountAnswers));
+        } else if ("En".equals(mMissingSymbolLang)) {
+            mBeginDigit = Math.abs(random.nextInt() % (AlphabetEn.length - mMissingSymbolCountAnswers));
         }
 
-        int typeID = getResources().getIdentifier("textViewType", "id", getPackageName());
-        TextView txtType = (TextView) findViewById(typeID);
-        if (txtType != null) {
-            //тип операции рандомно
-            if (type == typeExample.COLOR) {
-                txtType.setText("От цвета ищем слово");
+        int answer = Math.abs(random.nextInt() % mMissingSymbolCountAnswers) + mBeginDigit;
+
+        arrAnswers.clear();
+        arrExamples.clear();
+
+        while (arrAnswers.size() != mMissingSymbolCountAnswers) {
+            int newDigit = Math.abs(random.nextInt() % mMissingSymbolCountAnswers) + mBeginDigit;
+            if (!arrAnswers.contains(newDigit)) {
+                int indPlace = Math.abs((arrAnswers.size() == 0 ? random.nextInt() : random.nextInt(arrAnswers.size())));
+                arrAnswers.add((arrAnswers.size() == 0 ? 0 : indPlace % arrAnswers.size()), newDigit);
+            }
+        }
+        indAnswer = arrAnswers.indexOf(answer);
+
+        while (arrExamples.size() != mMissingSymbolCountAnswers) {
+            int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers + 1)) + mBeginDigit;
+            if (newDigit == answer) {
             } else {
-                txtType.setText("От слова ищем цвет");
-            }
-            txtType.setTextSize(mTextSize);
-        }
-        //type = typeExample.COLOR;
-        int indexColor = 0;
-        int indexWord = 0;
-        boolean doIt = true;
-        while (doIt) {
-            indexColor = Math.abs(random.nextInt() % 8);
-            indexWord = Math.abs(random.nextInt() % 8);
-            if (indexColor != indexWord) {
-                doIt = false;
+                if (!arrExamples.contains(newDigit)) {
+                    int indPlace = Math.abs((arrExamples.size() == 0 ? random.nextInt() : random.nextInt(arrExamples.size())));
+                    arrExamples.add((arrExamples.size() == 0 ? 0 : indPlace % arrExamples.size()), newDigit);
+                }
             }
         }
-        int exampleID = getResources().getIdentifier("textViewExample", "id", getPackageName());
-        TextView txtExample = (TextView) findViewById(exampleID);
-        if (txtExample != null) {
-            //тип операции рандомно
-//            indexWord=0;
-//            indexColor=7;
-            txtExample.setText(alphabetWords.get(indexWord));
-            txtExample.setTextSize(mTextSize);
-            txtExample.setTextColor(alphabetColors.get(indexColor));
 
-            if (type == typeExample.WORD) {
-                answer = arrColors.indexOf(indexWord);
-
-            } else if (type == typeExample.COLOR) {
-                answer = arrWords.indexOf(indexColor);
+        Question = "";
+        for (int i = 0; i < arrExamples.size(); i++) {
+            if ("Digit".equals(mMissingSymbolLang)) {
+                Question = Question + String.valueOf(arrExamples.get(i)) + "  ";
+            } else if ("Ru".equals(mMissingSymbolLang)) {
+                Question = Question + AlphabetRu[arrExamples.get(i)] + "  ";
+            } else if ("En".equals(mMissingSymbolLang)) {
+                Question = Question + AlphabetEn[arrExamples.get(i)] + "  ";
             }
         }
+
+        drawExamplesAndAnswers();
     }
 
+    private void drawExamplesAndAnswers() {
+
+        for (Integer i = 1; i <= mMissingSymbolCountAnswers; i++) {
+            int resID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+            if (txt != null) {
+                txt.setTextSize(mTextSize);
+                if ("Digit".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(arrAnswers.get(i - 1)));
+                } else if ("Ru".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(AlphabetRu[arrAnswers.get(i - 1)]));
+                } else if ("En".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(AlphabetEn[arrAnswers.get(i - 1)]));
+                }
+
+            }
+        }
+
+        int exampleID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
+        TextView txtExample = (TextView) findViewById(exampleID);
+        if (txtExample != null) {
+
+            txtExample.setText(Question);
+            txtExample.setTextSize(mTextSize);
+
+        }
+
+    }
 
     public void txt_onClick(View view) {
 
@@ -422,22 +381,22 @@ public class MissingSymbolActivity extends AppCompatActivity {
             //int a = Integer.valueOf(String.valueOf(((AppCompatTextView) view).getText().charAt(0)));
             String id = view.getResources().getResourceEntryName(view.getId());
             int a = Integer.valueOf(id.substring(id.length() - 1, id.length()));
-            if (a - 1 == answer) {
+            if (a - 1 == indAnswer) {
 
                 mCountRightAnswers++;
             }
             mCountAllAnswers++;
-            mStrupExBeginTime = elapsedMillis;
-            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
+            mMissingSymbolExBeginTime = elapsedMillis;
+            int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
-            if (mStrupExampleTime != 0) {
+            if (mMissingSymbolExampleTime != 0) {
                 if (txtTimerExTime != null) {
-                    String txt = "Пример: " + String.valueOf(mStrupExampleTime);
+                    String txt = "Пример: " + String.valueOf(mMissingSymbolExampleTime);
                     txtTimerExTime.setText(txt);
                     txtTimerExTime.setTextSize(mTextSize);
                 }
             }
-            int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
+            int answerID = getResources().getIdentifier("tvMissingSymbolAnswers", "id", getPackageName());
             TextView txtAnswer = (TextView) findViewById(answerID);
             if (txtAnswer != null) {
                 String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
@@ -445,13 +404,13 @@ public class MissingSymbolActivity extends AppCompatActivity {
                 txtAnswer.setTextSize(mTextSize);
             }
 
-            showNextExample();
+            createExample();
         }
     }
 
-    public void strupVer1Options_onClick(View view) {
+    public void MissingSymbolOptions_onClick(View view) {
 
-        Intent intent = new Intent(MissingSymbolActivity.this, StrupActivityOptions_ver1.class);
+        Intent intent = new Intent(MissingSymbolActivity.this, MissingSymbolActivityOptions.class);
         startActivity(intent);
 
     }
@@ -498,8 +457,6 @@ public class MissingSymbolActivity extends AppCompatActivity {
         } else {
             mMissingSymbolLang = "Digit";
         }
-
-
 
 
     }
