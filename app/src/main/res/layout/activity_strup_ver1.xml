@@ -143,166 +143,158 @@
             android:textStyle="bold" />
     </TableRow>
 
-    <TableRow
+    <TableLayout
+        android:id="@+id/table1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10sp">
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="100">
 
-        <TableLayout
-            android:id="@+id/table1"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_span="4"
-            android:layout_weight="100">
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="10sp"
+            android:layout_weight="0">
 
-            <TableRow
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textViewColor1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:layout_marginBottom="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="10sp"
-                android:layout_weight="0">
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewColor1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:onClick="txt_onClick"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewColor2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:onClick="txt_onClick"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textViewColor2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:layout_marginBottom="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="10sp"
-                android:layout_weight="0">
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewColor3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:onClick="txt_onClick"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/textViewColor4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:onClick="txt_onClick"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="10sp"
+            android:layout_weight="0">
 
-            <TableRow
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textViewColor3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:layout_marginBottom="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="10sp"
-                android:layout_weight="0">
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewColor5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:onClick="txt_onClick"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewColor6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:onClick="txt_onClick"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textViewColor4"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:layout_marginBottom="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="10sp"
-                android:layout_weight="0">
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/textViewColor7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:onClick="txt_onClick"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="10sp"
+            android:layout_weight="0">
 
-                <TextView
-                    android:id="@+id/textViewColor8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:onClick="txt_onClick"
-                    android:singleLine="true"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </TableRow>
+            <TextView
+                android:id="@+id/textViewColor5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-        </TableLayout>
+            <TextView
+                android:id="@+id/textViewColor6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
 
-    </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="10sp"
+            android:layout_weight="0">
+
+            <TextView
+                android:id="@+id/textViewColor7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewColor8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+    </TableLayout>
 
     <TableRow
         android:layout_width="match_parent"
