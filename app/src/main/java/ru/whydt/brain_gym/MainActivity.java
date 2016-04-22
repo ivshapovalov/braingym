@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_MATRIX_LANGUAGE="matrix_language";
     public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT="math_maximum_digit";
     public static final String APP_PREFERENCES_MATRIX_SIZE="matrix_size";
-
+    public static final String APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE="missing_symbol_language";
+    public static final String APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME="missing_symbol_max_test_time";
+    public static final String APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME="missing_symbol_max_example_time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void MissingSymbolActivity_onClick(View view) {
+
+        Intent intent = new Intent(MainActivity.this,MissingSymbolActivity.class);
+        startActivity(intent);
+    }
+
 
     public void exit_onClick(View view) {
         onBackPressed();
@@ -73,4 +81,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).setNegativeButton("Нет", null).show();
     }
+
+
 }

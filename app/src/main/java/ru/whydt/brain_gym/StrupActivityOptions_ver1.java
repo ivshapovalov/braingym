@@ -70,17 +70,13 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
             mStrupMaxTime = 60;
         }
 
-
-        //время тестирования
-        int maxtimeID = getResources().getIdentifier("radioButtonStrupMaxTime" + mStrupMaxTime, "id", getPackageName());
+        int maxtimeID = getResources().getIdentifier("rbStrupVer1MaxTime" + mStrupMaxTime, "id", getPackageName());
         RadioButton butTime = (RadioButton) findViewById(maxtimeID);
         if (butTime != null) {
             butTime.setChecked(true);
         }
 
-
-        //
-        RadioGroup radiogroupMaxTime = (RadioGroup) findViewById(R.id.rgStrupMaxTime);
+        RadioGroup radiogroupMaxTime = (RadioGroup) findViewById(R.id.rgStrupVer1MaxTime);
 
         if (radiogroupMaxTime != null) {
             radiogroupMaxTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -90,10 +86,10 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonStrupMaxTime60:
+                        case R.id.rbStrupVer1MaxTime60:
                             mStrupMaxTime = 60;
                             break;
-                        case R.id.radioButtonStrupMaxTime120:
+                        case R.id.rbStrupVer1MaxTime120:
                             mStrupMaxTime = 120;
                             break;
                         default:
@@ -109,15 +105,13 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
             mStrupExampleTime = 0;
         }
 
-        int extimeID = getResources().getIdentifier("radioButtonStrupExTime" + mStrupExampleTime, "id", getPackageName());
+        int extimeID = getResources().getIdentifier("rbStrupVer1ExTime" + mStrupExampleTime, "id", getPackageName());
         RadioButton exTime = (RadioButton) findViewById(extimeID);
         if (exTime != null) {
             exTime.setChecked(true);
         }
 
-
-        //
-        RadioGroup radiogroupExTime = (RadioGroup) findViewById(R.id.rgStrupExTime);
+        RadioGroup radiogroupExTime = (RadioGroup) findViewById(R.id.rgStrupVer1ExTime);
 
         if (radiogroupExTime != null) {
             radiogroupExTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -128,13 +122,13 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonStrupExTime0:
+                        case R.id.rbStrupVer1ExTime0:
                             mStrupExampleTime = 0;
                             break;
-                        case R.id.radioButtonStrupExTime5:
+                        case R.id.rbStrupVer1ExTime5:
                             mStrupExampleTime = 5;
                             break;
-                        case R.id.radioButtonStrupExTime10:
+                        case R.id.rbStrupVer1ExTime10:
                             mStrupExampleTime = 10;
                             break;
                         default:
@@ -151,15 +145,13 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
             mStrupExampleType = "RANDOM";
         }
 
-        int extypeID = getResources().getIdentifier("radioButtonStrupExType" + mStrupExampleType, "id", getPackageName());
+        int extypeID = getResources().getIdentifier("rbStrupVer1ExType" + mStrupExampleType, "id", getPackageName());
         RadioButton exType = (RadioButton) findViewById(extypeID);
         if (exType != null) {
             exType.setChecked(true);
         }
 
-
-        //
-        RadioGroup radiogroupExType = (RadioGroup) findViewById(R.id.rgStrupExType);
+        RadioGroup radiogroupExType = (RadioGroup) findViewById(R.id.rgStrupVer1ExType);
 
         if (radiogroupExType != null) {
             radiogroupExType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -170,13 +162,13 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonStrupExTypeRANDOM:
+                        case R.id.rbStrupVer1ExTypeRANDOM:
                             mStrupExampleType = "RANDOM";
                             break;
-                        case R.id.radioButtonStrupExTypeCOLOR:
+                        case R.id.rbStrupVer1ExTypeCOLOR:
                             mStrupExampleType = "COLOR";
                             break;
-                        case R.id.radioButtonStrupExTypeWORD:
+                        case R.id.rbStrupVer1ExTypeWORD:
                             mStrupExampleType = "WORD";
                             break;
                         default:
@@ -193,14 +185,15 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
             mStrupLang = "Ru";
         }
         //Установим настройки в зависимости от сохраненного языка
-        int langID = getResources().getIdentifier("radioButton" + mStrupLang, "id", getPackageName());
+        int langID = getResources().getIdentifier("rbStrupVer1Lang" + mStrupLang, "id", getPackageName());
         RadioButton butLang = (RadioButton) findViewById(langID);
-        if (butLang!=null) {
-        butLang.setChecked(true);}
+        if (butLang != null) {
+            butLang.setChecked(true);
+        }
 
 
         //
-        RadioGroup radiogroupLang = (RadioGroup) findViewById(R.id.rgStrupLang);
+        RadioGroup radiogroupLang = (RadioGroup) findViewById(R.id.rgStrupVer1Lang);
 
         if (radiogroupLang != null) {
             radiogroupLang.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -210,10 +203,10 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonRu:
+                        case R.id.rbStrupVer1LangRu:
                             mStrupLang = "Ru";
                             break;
-                        case R.id.radioButtonEn:
+                        case R.id.rbStrupVer1LangEn:
                             mStrupLang = "En";
                             break;
                         default:

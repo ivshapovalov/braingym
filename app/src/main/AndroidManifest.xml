@@ -51,6 +51,14 @@
             android:label="@string/math_name_options"
             android:screenOrientation="portrait">
         </activity>
+           <activity android:name=".MissingSymbolActivityOptions"
+               android:label="@string/missing_symbol_name_options"
+               android:screenOrientation="portrait">
+           </activity>
+           <activity android:name=".MissingSymbolActivity"
+               android:label="@string/missing_symbol_name"
+               android:screenOrientation="portrait">
+           </activity>
     </application>
 
 </manifest>

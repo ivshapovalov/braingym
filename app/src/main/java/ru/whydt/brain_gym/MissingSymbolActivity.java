@@ -4,27 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-
 import java.util.ArrayList;
-
 import java.util.Random;
 
 
-public class StrupActivity_ver1 extends AppCompatActivity {
-
+public class MissingSymbolActivity extends AppCompatActivity {
 
     private Chronometer mChronometer;
 
@@ -32,8 +26,6 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     private long mChronometerCount = 0;
     private final int mStrupExamples = 8;
 
-    private ArrayList<String> alphabetWords = new ArrayList<>();
-    private ArrayList<Integer> alphabetColors = new ArrayList<>();
     private ArrayList<Integer> arrColors = new ArrayList<>();
     private ArrayList<Integer> arrWords = new ArrayList<>();
     private int answer;
@@ -41,10 +33,10 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     private int mCountAllAnswers = 0;
     //настройки
 
-    private String mStrupLang;
-    private int mStrupMaxTime;
-    private int mStrupExampleTime;
-    private String mStrupExampleType;
+    private String mMissingSymbolLang;
+    private int mMissingSymbolMaxTime;
+    private int mMissingSymbolExampleTime;
+
     private int mTextSize = 0;
 
     private long mStrupExBeginTime = 0;
@@ -52,21 +44,17 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     private long elapsedMillis;
 
 
-    private enum typeExample {
-        WORD, COLOR
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strup_ver1);
 
-        mChronometer = (Chronometer) findViewById(R.id.chronometer_strup_ver1);
+        mChronometer = (Chronometer) findViewById(R.id.chronometer_strup);
 
     }
 
-    private void drawStrupVer1Test() {
+    private void drawStrupTest() {
         TableLayout frame = (TableLayout) findViewById(R.id.groundStrup_ver1);
         int mWidth;
         int mHeight;
@@ -79,7 +67,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         }
 
         for (Integer i = 1; i <= mStrupExamples; i++) {
-            int resID = getResources().getIdentifier("tvStrupVer1Color" + String.valueOf(i), "id", getPackageName());
+            int resID = getResources().getIdentifier("textViewColor" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
             if (txt != null) {
 
@@ -109,9 +97,10 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         mCountAllAnswers = 0;
         mStrupExBeginTime = 0;
 
-        ChangeButtonText("buttonStrupVer1StartPause", "Старт");
+        ChangeButtonText("buttonStrupStartPause", "Старт");
 
-       int timerMaxID = getResources().getIdentifier("tvStrupVer1TimerMaxTime", "id", getPackageName());
+
+        int timerMaxID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
 
         if (txtTimerMaxTime != null) {
@@ -125,7 +114,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             txtTimerMaxTime.setText(txt);
         }
 
-        int answerID = getResources().getIdentifier("tvStrupVer1Answers", "id", getPackageName());
+        int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
         TextView txtAnswer = (TextView) findViewById(answerID);
         if (txtAnswer != null) {
             txtAnswer.setTextSize(mTextSize);
@@ -135,7 +124,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         }
 
         if (mStrupExampleTime != 0) {
-            int timerExID = getResources().getIdentifier("tvStrupVer1TimerExTime", "id", getPackageName());
+            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
 
             if (txtTimerExTime != null) {
@@ -156,7 +145,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
         for (int i = 1; i <= 8; i++) {
 
-            int resID = getResources().getIdentifier("tvStrupVer1Color" + String.valueOf(i), "id", getPackageName());
+            int resID = getResources().getIdentifier("textViewColor" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
 
             if (txt != null) {
@@ -167,7 +156,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
         }
 
-        int exID = getResources().getIdentifier("tvStrupVer1Example", "id", getPackageName());
+        int exID = getResources().getIdentifier("textViewExample", "id", getPackageName());
         TextView txt1 = (TextView) findViewById(exID);
 
         if (txt1 != null) {
@@ -177,7 +166,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
         }
 
-        int typeID = getResources().getIdentifier("tvStrupVer1Type", "id", getPackageName());
+        int typeID = getResources().getIdentifier("textViewType", "id", getPackageName());
         TextView txt2 = (TextView) findViewById(typeID);
 
         if (txt2 != null) {
@@ -186,14 +175,14 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             txt2.setTextSize(mTextSize);
         }
 
-        int trowID = getResources().getIdentifier("trowStrupVer1", "id", getPackageName());
+        int trowID = getResources().getIdentifier("trow1", "id", getPackageName());
         TableRow trow1 = (TableRow) findViewById(trowID);
 
         if (trow1 != null) {
             trow1.setBackgroundResource(R.drawable.rounded_corners1);
         }
 
-        int table1ID = getResources().getIdentifier("tableStrupVer1", "id", getPackageName());
+        int table1ID = getResources().getIdentifier("table1", "id", getPackageName());
         TableLayout table1 = (TableLayout) findViewById(table1ID);
 
         if (table1 != null) {
@@ -203,7 +192,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
     }
 
-    private void createStrupVer1Examples() {
+    private void createStrupExamples() {
         Random random = new Random();
 
         arrColors.clear();
@@ -240,7 +229,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     }
 
     private void changeTimer(long elapsedMillis) {
-        int timerMaxID = getResources().getIdentifier("tvStrupVer1TimerMaxTime", "id", getPackageName());
+        int timerMaxID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
         if (txtTimerMaxTime != null) {
             int time = (int) (mStrupMaxTime - (elapsedMillis / 1000));
@@ -252,7 +241,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
         }
         if (mStrupExampleTime != 0) {
-            int timerExID = getResources().getIdentifier("tvStrupVer1TimerExTime", "id", getPackageName());
+            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
             if (txtTimerExTime != null) {
                 int time = (mStrupExampleTime - ((int) (((elapsedMillis - mStrupExBeginTime) / 1000)) % mStrupExampleTime));
@@ -263,7 +252,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                     txtTimerExTime.setText(txt);
                     txtTimerExTime.setTextSize(mTextSize);
                     mCountAllAnswers++;
-                    int answerID = getResources().getIdentifier("tvStrupVer1Answers", "id", getPackageName());
+                    int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
                     TextView txtAnswer = (TextView) findViewById(answerID);
                     if (txtAnswer != null) {
                         String txt1 = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
@@ -282,7 +271,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
             }
         } else {
-            int timerExID = getResources().getIdentifier("tvStrupVer1TimerExTime", "id", getPackageName());
+            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
             if (txtTimerExTime != null) {
 
@@ -293,7 +282,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     }
 
 
-    public void startPauseStrupVer1_onClick(View view) {
+    public void startPause_onClick(View view) {
 
         start_pause();
 
@@ -310,7 +299,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 //                createStrupExamples();
 //                drawStrupTest();
 
-                int timerID = getResources().getIdentifier("tvStrupVer1TimerMaxTime", "id", getPackageName());
+                int timerID = getResources().getIdentifier("txtTimerMaxTime", "id", getPackageName());
                 TextView txtTimerMaxTime = (TextView) findViewById(timerID);
                 if (txtTimerMaxTime != null) {
                     txtTimerMaxTime.setTextSize(mTextSize);
@@ -343,7 +332,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
             mChronometer.start();
             mChronometerIsWorking = true;
-            ChangeButtonText("buttonStrupVer1StartPause", "Пауза");
+            ChangeButtonText("buttonStrupStartPause", "Пауза");
 
 
         } else {
@@ -352,14 +341,14 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             mChronometerCount = SystemClock.elapsedRealtime() - mChronometer.getBase();
             mChronometer.stop();
             mChronometerIsWorking = false;
-            ChangeButtonText("buttonStrupVer1StartPause", "Старт");
+            ChangeButtonText("buttonStrupStartPause", "Старт");
         }
     }
 
     private void showNextExample() {
 
-        createStrupVer1Examples();
-        drawStrupVer1Test();
+        createStrupExamples();
+        drawStrupTest();
 
         Random random = new Random();
         int indexType = Math.abs(random.nextInt() % 2);
@@ -385,7 +374,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                 break;
         }
 
-        int typeID = getResources().getIdentifier("tvStrupVer1Type", "id", getPackageName());
+        int typeID = getResources().getIdentifier("textViewType", "id", getPackageName());
         TextView txtType = (TextView) findViewById(typeID);
         if (txtType != null) {
             //тип операции рандомно
@@ -407,7 +396,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                 doIt = false;
             }
         }
-        int exampleID = getResources().getIdentifier("tvStrupVer1Example", "id", getPackageName());
+        int exampleID = getResources().getIdentifier("textViewExample", "id", getPackageName());
         TextView txtExample = (TextView) findViewById(exampleID);
         if (txtExample != null) {
             //тип операции рандомно
@@ -439,7 +428,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             }
             mCountAllAnswers++;
             mStrupExBeginTime = elapsedMillis;
-            int timerExID = getResources().getIdentifier("tvStrupVer1TimerExTime", "id", getPackageName());
+            int timerExID = getResources().getIdentifier("txtTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
             if (mStrupExampleTime != 0) {
                 if (txtTimerExTime != null) {
@@ -448,7 +437,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                     txtTimerExTime.setTextSize(mTextSize);
                 }
             }
-            int answerID = getResources().getIdentifier("tvStrupVer1Answers", "id", getPackageName());
+            int answerID = getResources().getIdentifier("textViewAnswers", "id", getPackageName());
             TextView txtAnswer = (TextView) findViewById(answerID);
             if (txtAnswer != null) {
                 String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
@@ -462,7 +451,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
     public void strupVer1Options_onClick(View view) {
 
-        Intent intent = new Intent(StrupActivity_ver1.this, StrupActivityOptions_ver1.class);
+        Intent intent = new Intent(MissingSymbolActivity.this, StrupActivityOptions_ver1.class);
         startActivity(intent);
 
     }
@@ -484,68 +473,34 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
     }
 
+
     private void getPreferencesFromFile() {
 
         SharedPreferences mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_VER1_TEST_TIME)) {
-            mStrupMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_VER1_TEST_TIME, 60);
+        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME)) {
+            mMissingSymbolMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME, 60);
         } else {
-            mStrupMaxTime = 60;
+            mMissingSymbolMaxTime = 60;
         }
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME)) {
-            mStrupExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME, 0);
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME)) {
+            mMissingSymbolExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME, 0);
         } else {
-            mStrupExampleTime = 0;
+            mMissingSymbolExampleTime = 0;
         }
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TYPE)) {
-            mStrupExampleType = mSettings.getString(MainActivity.APP_PREFERENCES_STRUP_VER1_EXAMPLE_TYPE, "Random");
-        } else {
-            mStrupExampleType = "Random";
-        }
-
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE)) {
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE)) {
             // Получаем язык из настроек
-            mStrupLang = mSettings.getString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, "Ru");
+            mMissingSymbolLang = mSettings.getString(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE, "Digit");
         } else {
-            mStrupLang = "Ru";
+            mMissingSymbolLang = "Digit";
         }
-        alphabetColors.clear();
-        alphabetColors.add(Color.RED);
-        alphabetColors.add(Color.parseColor("#FFA500"));
-        alphabetColors.add(Color.parseColor("#53b814"));
-        alphabetColors.add(Color.parseColor("#FF7B15CE"));
-        alphabetColors.add(Color.BLUE);
-        alphabetColors.add(Color.GRAY);
-        alphabetColors.add(Color.parseColor("#EE82EE"));
-        alphabetColors.add(Color.parseColor("#8B4513"));
-        alphabetWords.clear();
-        switch (mStrupLang) {
 
-            case "Ru":
-                alphabetWords.add("КРАСНЫЙ");
-                alphabetWords.add("ОРАНЖЕВЫЙ");
-                alphabetWords.add("ЗЕЛЕНЫЙ");
-                alphabetWords.add("ФИОЛЕТОВЫЙ");
-                alphabetWords.add("СИНИЙ");
-                alphabetWords.add("СЕРЫЙ");
-                alphabetWords.add("РОЗОВЫЙ");
-                alphabetWords.add("КОРИЧНЕВЫЙ");
 
-            case "En":
-                alphabetWords.add("RED");
-                alphabetWords.add("ORANGE");
-                alphabetWords.add("GREEN");
-                alphabetWords.add("VIOLET");
-                alphabetWords.add("BLUE");
-                alphabetWords.add("GRAY");
-                alphabetWords.add("ROSE");
-                alphabetWords.add("BROWN");
-            default:
-                break;
-        }
+
 
     }
 

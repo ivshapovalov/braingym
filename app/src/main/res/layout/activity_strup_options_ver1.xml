@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="40"
-            android:onClick="buttonSave_onClick"
+            android:onClick="buttonStrupOptionsVer1Save_onClick"
             android:text="Сохранить"
             android:textSize="12sp" />
 
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="40"
-            android:onClick="buttonCancel_onClick"
+            android:onClick="buttonStrupOptionsVer1Cancel_onClick"
             android:text="Отмена"
             android:textSize="12sp" />
     </LinearLayout>
@@ -67,7 +67,7 @@
             android:layout_weight="50" />
 
         <RadioGroup
-            android:id="@+id/rgStrupLang"
+            android:id="@+id/rgStrupVer1Lang"
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:layout_weight="50">
 
             <RadioButton
-                android:id="@+id/radioButtonRu"
+                android:id="@+id/rbStrupVer1LangRu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -84,7 +84,7 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/radioButtonEn"
+                android:id="@+id/rbStrupVer1LangEn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="En"
@@ -114,14 +114,14 @@
             android:layout_weight="50" />
 
         <RadioGroup
-            android:id="@+id/rgStrupMaxTime"
+            android:id="@+id/rgStrupVer1MaxTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="50" >
 
             <RadioButton
-                android:id="@+id/radioButtonStrupMaxTime60"
+                android:id="@+id/rbStrupVer1MaxTime60"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -130,7 +130,7 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/radioButtonStrupMaxTime120"
+                android:id="@+id/rbStrupVer1MaxTime120"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="120"
@@ -160,14 +160,14 @@
             android:layout_weight="30" />
 
         <RadioGroup
-            android:id="@+id/rgStrupExTime"
+            android:id="@+id/rgStrupVer1ExTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="70" >
 
             <RadioButton
-                android:id="@+id/radioButtonStrupExTime0"
+                android:id="@+id/rbStrupVer1ExTime0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -176,7 +176,7 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/radioButtonStrupExTime5"
+                android:id="@+id/rbStrupVer1ExTime5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
@@ -184,7 +184,7 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/radioButtonStrupExTime10"
+                android:id="@+id/rbStrupVer1ExTime10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10"
@@ -214,14 +214,14 @@
             android:layout_weight="15" />
 
         <RadioGroup
-            android:id="@+id/rgStrupExType"
+            android:id="@+id/rgStrupVer1ExType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="85" >
 
             <RadioButton
-                android:id="@+id/radioButtonStrupExTypeRANDOM"
+                android:id="@+id/rbStrupVer1ExTypeRANDOM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -231,7 +231,7 @@
                 android:singleLine="true" />
 
             <RadioButton
-                android:id="@+id/radioButtonStrupExTypeWORD"
+                android:id="@+id/rbStrupVer1ExTypeWORD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Название"
@@ -240,7 +240,7 @@
                 android:singleLine="true" />
 
             <RadioButton
-                android:id="@+id/radioButtonStrupExTypeCOLOR"
+                android:id="@+id/rbStrupVer1ExTypeCOLOR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Цвет"
