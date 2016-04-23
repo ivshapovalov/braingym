@@ -29,7 +29,7 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
 
     }
 
-    public void buttonSave_onClick(View view) {
+    public void buttonStrupOptionsVer1Save_onClick(View view) {
 
         //MainActivity.APP_PREFERENCES;
         // int resID = getResources().getIdentifier(ButtonID, "id", getPackageName());

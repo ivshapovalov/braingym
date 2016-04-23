@@ -24,6 +24,8 @@ public class MathActivity extends AppCompatActivity {
     private long mChronometerCount = 0;
     private SharedPreferences mSettings;
     private int MathMaxDigit;
+    private int MathFontSizeChange;
+    private int MathTextSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +40,47 @@ public class MathActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_main);
 //
 //        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-    }
 
-    public void mathForm_onClick(View view) {
-        updateForm();
-    }
-
-    private void updateForm() {
-        mathClear();
         getPreferencesFromFile();
-        ArrayList<MathExample> mathExamples = createMathExamples();
-        drawMathTest(mathExamples);
     }
+
+
+    public void startPause_onClick(View view) {
+
+
+        start_pause();
+
+    }
+
+    private void start_pause() {
+        if (!mChronometerIsWorking) {
+            if (mChronometerCount == 0) {
+                mChronometer.setBase(SystemClock.elapsedRealtime());
+
+                mathClear();
+                getPreferencesFromFile();
+                ArrayList<MathExample> mathExamples = createMathExamples();
+                drawMathTest(mathExamples);
+            } else {
+                mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
+            }
+
+            mChronometer.start();
+            mChronometerIsWorking = true;
+
+            ChangeButtonText("buttonMathStartPause", "Пауза");
+
+
+        } else {
+
+            //mChronometerBase=mChronometer.getBase();
+            mChronometerCount = SystemClock.elapsedRealtime() - mChronometer.getBase();
+            mChronometer.stop();
+            mChronometerIsWorking = false;
+            ChangeButtonText("buttonMathStartPause", "Старт");
+        }
+    }
+
 
     private void drawMathTest(ArrayList<MathExample> mathExamples) {
         //для математических тестов id начинается со ста
@@ -82,7 +113,8 @@ public class MathActivity extends AppCompatActivity {
             currentEx = mathExamples.get(i - 1);
             String temp = String.valueOf(currentEx.getNum1()) + String.valueOf(currentEx.getOper()) + String.valueOf(currentEx.getNum2()) + " = ";
             txt.setText(temp);
-            txt.setTextSize(Math.min(mWidth, mHeight) /3*2/getApplicationContext().getResources().getDisplayMetrics().density);
+            MathTextSize=(int)(Math.min(mWidth, mHeight) /3*2/getApplicationContext().getResources().getDisplayMetrics().density)+MathFontSizeChange;
+            txt.setTextSize(MathTextSize);
             //txt.setTextSize(Math.min(mWidth, mHeight) / 6);
             //txt.setBackgroundColor(0xfff00000);
 
@@ -220,35 +252,6 @@ public class MathActivity extends AppCompatActivity {
         return mathExamples;
     }
 
-    public void startPause_onClick(View view) {
-
-        start_pause();
-
-    }
-
-    private void start_pause() {
-        if (!mChronometerIsWorking) {
-            if (mChronometerCount == 0) {
-                mChronometer.setBase(SystemClock.elapsedRealtime());
-            } else {
-                mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
-            }
-
-            mChronometer.start();
-            mChronometerIsWorking = true;
-
-            ChangeButtonText("buttonMathStartPause", "Пауза");
-
-
-        } else {
-
-            //mChronometerBase=mChronometer.getBase();
-            mChronometerCount = SystemClock.elapsedRealtime() - mChronometer.getBase();
-            mChronometer.stop();
-            mChronometerIsWorking = false;
-            ChangeButtonText("buttonMathStartPause", "Старт");
-        }
-    }
 
 
     private void ChangeButtonText(String ButtonID, String ButtonText) {
@@ -263,6 +266,7 @@ public class MathActivity extends AppCompatActivity {
     public void mathOptions_onClick(View view) {
 
         Intent intent = new Intent(MathActivity.this, MathActivityOptions.class);
+        intent.putExtra("MathTextSize",MathTextSize);
         startActivity(intent);
 
 
@@ -282,6 +286,14 @@ public class MathActivity extends AppCompatActivity {
 
     private void getPreferencesFromFile() {
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE)) {
+            // Получаем язык из настроек
+            MathFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE, 0);
+        } else {
+            MathFontSizeChange = 0;
+        }
+
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT)) {
             // Получаем язык из настроек
             MathMaxDigit = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, 150);

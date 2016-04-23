@@ -43,13 +43,6 @@ public class StrupActivity extends AppCompatActivity {
 
     }
 
-    public void strupForm_onClick(View view) {
-        strupClear();
-        getPreferencesFromFile();
-        ArrayList<StrupExample> strupExamples = createStrupExamples();
-        drawStrupTest(strupExamples);
-    }
-
     private void drawStrupTest(ArrayList<StrupExample> strupExamples) {
 
         int mCountStrings = 15;
@@ -86,8 +79,7 @@ public class StrupActivity extends AppCompatActivity {
 
     public void strupClear_onClick(View view) {
 
-        //RelativeLayout layout = (RelativeLayout) findViewById(R.id.ground1);
-        //strupClear();
+
         mChronometer.setBase(SystemClock.elapsedRealtime());
         mChronometer.stop();
         mChronometerCount=0;
@@ -107,11 +99,6 @@ public class StrupActivity extends AppCompatActivity {
             }
 
         }
-       // ChangeButtonText("buttonStrupStartPause", "Старт");
-
-        //txt.setVisibility(View.GONE);
-
-
     }
 
     private ArrayList<StrupExample> createStrupExamples() {
@@ -154,6 +141,11 @@ public class StrupActivity extends AppCompatActivity {
         if (!mChronometerIsWorking) {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
+
+                strupClear();
+                getPreferencesFromFile();
+                ArrayList<StrupExample> strupExamples = createStrupExamples();
+                drawStrupTest(strupExamples);
             } else {
                 mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
             }

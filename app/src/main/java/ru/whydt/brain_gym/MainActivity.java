@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TYPE="strup_ver1_max_example_type";
     public static final String APP_PREFERENCES_MATRIX_LANGUAGE="matrix_language";
     public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT="math_maximum_digit";
+    public static final String APP_PREFERENCES_MATH_FONT_SIZE_CHANGE="math_font_size_change";
     public static final String APP_PREFERENCES_MATRIX_SIZE="matrix_size";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE="missing_symbol_language";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME="missing_symbol_max_test_time";

@@ -51,12 +51,6 @@ public class MatrixActivity extends AppCompatActivity {
 
     }
 
-    public void matrixForm_onClick(View view) {
-        //matrixClear();
-        getPreferencesFromFile();
-        ArrayList<Integer> matrix = createMatrix();
-        drawMatrixTest(matrix);
-    }
 
     private void drawMatrixTest(ArrayList<Integer> matrix) {
         //для матриц тестов id начинается со 300
@@ -170,7 +164,7 @@ public class MatrixActivity extends AppCompatActivity {
         mChronometerCount=0;
         mChronometerIsWorking = false;
 
-        ChangeButtonText("buttonMarixStartPause","Старт");
+        ChangeButtonText("buttonMatrixStartPause","Старт");
 
     }
 
@@ -215,6 +209,11 @@ public class MatrixActivity extends AppCompatActivity {
         if (!mChronometerIsWorking) {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
+
+                getPreferencesFromFile();
+                ArrayList<Integer> matrix = createMatrix();
+                drawMatrixTest(matrix);
+
             } else {
                 mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
             }

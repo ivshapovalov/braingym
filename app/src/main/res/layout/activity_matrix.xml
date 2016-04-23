@@ -20,20 +20,8 @@
                 android:onClick="buttonHome_onClick"
                 android:background="@drawable/ic_house"
                 android:layout_column="1"
-                android:layout_weight="20"
+                android:layout_weight="25"
                 android:textSize="10dp" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_nameUpdate"
-                android:id="@+id/buttonMatrixForm"
-                android:onClick="matrixForm_onClick"
-                android:textSize="10dp"
-                android:layout_weight="20"
-                android:layout_column="2"
-                android:layout_gravity="center" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -43,9 +31,9 @@
                 android:id="@+id/buttonMatrixStartPause"
                 android:textSize="10dp"
                 android:onClick="startPause_onClick"
-                android:layout_weight="20"
-                android:layout_column="3"
-                android:layout_gravity="center" />
+                android:layout_weight="25"
+                android:layout_gravity="center"
+                android:layout_column="2" />
            <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
@@ -54,8 +42,8 @@
                 android:id="@+id/buttonMatrixClear"
                 android:onClick="matrixClear_onClick"
              android:textSize="10dp"
-                android:layout_weight="20"
-                android:layout_column="4"
+                android:layout_weight="25"
+                android:layout_column="3"
                android:layout_gravity="center" />
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -64,9 +52,9 @@
                 android:text="@string/button_nameOptions"
                 android:id="@+id/buttonMatrixOptions"
                 android:onClick="matrixOptions_onClick"
-                android:layout_weight="20"
+                android:layout_weight="25"
                 android:textSize="10dp"
-                android:layout_column="5"
+                android:layout_column="4"
                 android:layout_gravity="center" />
 
         </TableRow>

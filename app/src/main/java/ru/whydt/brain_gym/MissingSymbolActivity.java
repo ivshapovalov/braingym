@@ -243,7 +243,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
                     mWidth = 0;
                     mHeight = 0;
                 }
-                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density);
+                mTextSize = (int) (Math.min(mWidth, mHeight) / 15 / getApplicationContext().getResources().getDisplayMetrics().density);
 
                 missingSymbolClear();
                 getPreferencesFromFile();
@@ -307,7 +307,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
             mBeginDigit = Math.abs(random.nextInt() % (AlphabetEn.length - mMissingSymbolCountAnswers));
         }
 
-        int answer = Math.abs(random.nextInt() % mMissingSymbolCountAnswers) + mBeginDigit;
+        int answer = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers-2)) + mBeginDigit+1;
 
         arrAnswers.clear();
         arrExamples.clear();
@@ -321,16 +321,37 @@ public class MissingSymbolActivity extends AppCompatActivity {
         }
         indAnswer = arrAnswers.indexOf(answer);
 
-        while (arrExamples.size() != mMissingSymbolCountAnswers) {
-            int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers + 1)) + mBeginDigit;
+        arrExamples.add(0,mBeginDigit);
+
+        int ind=1;
+        while (arrExamples.size() != mMissingSymbolCountAnswers-1) {
+            //int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers -2)) + mBeginDigit+1;
+            int newDigit=mBeginDigit+ind;
+            ind++;
             if (newDigit == answer) {
-            } else {
-                if (!arrExamples.contains(newDigit)) {
-                    int indPlace = Math.abs((arrExamples.size() == 0 ? random.nextInt() : random.nextInt(arrExamples.size())));
-                    arrExamples.add((arrExamples.size() == 0 ? 0 : indPlace % arrExamples.size()), newDigit);
-                }
-            }
+            } else
+            {
+                int indPlace = Math.abs(random.nextInt());
+                arrExamples.add((arrExamples.size() == 1 ? 1 : indPlace % (arrExamples.size()-1)+1), newDigit);
+           }
         }
+        arrExamples.add(7,mBeginDigit+mMissingSymbolCountAnswers);
+
+//        while (arrExamples.size() != mMissingSymbolCountAnswers-1) {
+//            int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers -2)) + mBeginDigit+1;
+//
+//            if (newDigit == answer) {
+//            } else {
+//                if (!arrExamples.contains(newDigit)) {
+//                    //int indPlace = Math.abs((arrExamples.size() == 0 ? random.nextInt() : random.nextInt(arrExamples.size())));
+//                    //arrExamples.add((arrExamples.size() == 0 ? 0 : indPlace % arrExamples.size()), newDigit);
+//                    arrExamples.add(newDigit);
+//                }
+//            }
+//        }
+
+        //первое и последнее числа
+
 
         Question = "";
         for (int i = 0; i < arrExamples.size(); i++) {
@@ -360,6 +381,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
                 } else if ("En".equals(mMissingSymbolLang)) {
                     txt.setText(String.valueOf(AlphabetEn[arrAnswers.get(i - 1)]));
                 }
+                txt.setPadding(0,15,0,15);
 
             }
         }
