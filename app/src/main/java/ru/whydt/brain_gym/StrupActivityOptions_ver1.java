@@ -54,7 +54,7 @@ public class StrupActivityOptions_ver1 extends AppCompatActivity {
 
     }
 
-    public void buttonCancel_onClick(View view) {
+    public void buttonStrupOptionsVer1Cancel_onClick(View view) {
 
         this.finish();
 

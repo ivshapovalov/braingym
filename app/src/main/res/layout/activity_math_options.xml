@@ -69,7 +69,6 @@
             android:inputType="numberSigned"
             android:ems="10"
             android:id="@+id/evMathOptionsFontSizeChange"
-            android:editable="true"
             android:layout_weight="20" />
 
     </LinearLayout>

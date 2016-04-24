@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -132,15 +134,29 @@ public class MissingSymbolActivity extends AppCompatActivity {
 
         }
 
-        int exID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
-        TextView txt1 = (TextView) findViewById(exID);
+        for (int i = 1; i <= 8; i++) {
 
-        if (txt1 != null) {
-            txt1.setText("  ");
-            txt1.setBackgroundResource(R.drawable.rounded_corners1);
-            txt1.setTextSize(mTextSize);
+            int resID = getResources().getIdentifier("  tvMissingSymbolExample" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+
+            if (txt != null) {
+                txt.setText(" ");
+                txt.setTextSize(mTextSize);
+                txt.setTextColor(Color.parseColor("#FF6D6464"));
+
+            }
 
         }
+
+//        int exID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
+//        TextView txt1 = (TextView) findViewById(exID);
+//
+//        if (txt1 != null) {
+//            txt1.setText("  ");
+//            txt1.setBackgroundResource(R.drawable.rounded_corners1);
+//            txt1.setTextSize(mTextSize);
+//
+//        }
 
         int trowID = getResources().getIdentifier("trowMissingSymbol", "id", getPackageName());
         TableRow trow1 = (TableRow) findViewById(trowID);
@@ -321,21 +337,20 @@ public class MissingSymbolActivity extends AppCompatActivity {
         }
         indAnswer = arrAnswers.indexOf(answer);
 
-        arrExamples.add(0,mBeginDigit);
+        //arrExamples.add(0,mBeginDigit);
 
-        int ind=1;
-        while (arrExamples.size() != mMissingSymbolCountAnswers-1) {
+        int ind=0;
+        while (arrExamples.size() != mMissingSymbolCountAnswers) {
             //int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers -2)) + mBeginDigit+1;
             int newDigit=mBeginDigit+ind;
             ind++;
-            if (newDigit == answer) {
-            } else
+            if (newDigit != answer)
             {
                 int indPlace = Math.abs(random.nextInt());
-                arrExamples.add((arrExamples.size() == 1 ? 1 : indPlace % (arrExamples.size()-1)+1), newDigit);
+                arrExamples.add((arrExamples.size() == 0 ? 0 : indPlace % (arrExamples.size())), newDigit);
            }
         }
-        arrExamples.add(7,mBeginDigit+mMissingSymbolCountAnswers);
+        //arrExamples.add(7,mBeginDigit+mMissingSymbolCountAnswers);
 
 //        while (arrExamples.size() != mMissingSymbolCountAnswers-1) {
 //            int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers -2)) + mBeginDigit+1;
@@ -353,23 +368,23 @@ public class MissingSymbolActivity extends AppCompatActivity {
         //первое и последнее числа
 
 
-        Question = "";
-        for (int i = 0; i < arrExamples.size(); i++) {
-            if ("Digit".equals(mMissingSymbolLang)) {
-                Question = Question + String.valueOf(arrExamples.get(i)) + "  ";
-            } else if ("Ru".equals(mMissingSymbolLang)) {
-                Question = Question + AlphabetRu[arrExamples.get(i)] + "  ";
-            } else if ("En".equals(mMissingSymbolLang)) {
-                Question = Question + AlphabetEn[arrExamples.get(i)] + "  ";
-            }
-        }
+//        Question = "";
+//        for (int i = 0; i < arrExamples.size(); i++) {
+//            if ("Digit".equals(mMissingSymbolLang)) {
+//                Question = Question + String.valueOf(arrExamples.get(i)) + "  ";
+//            } else if ("Ru".equals(mMissingSymbolLang)) {
+//                Question = Question + AlphabetRu[arrExamples.get(i)] + "  ";
+//            } else if ("En".equals(mMissingSymbolLang)) {
+//                Question = Question + AlphabetEn[arrExamples.get(i)] + "  ";
+//            }
+//        }
 
         drawExamplesAndAnswers();
     }
 
     private void drawExamplesAndAnswers() {
 
-        for (Integer i = 1; i <= mMissingSymbolCountAnswers; i++) {
+      for (Integer i = 1; i <= mMissingSymbolCountAnswers; i++) {
             int resID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
             if (txt != null) {
@@ -385,15 +400,42 @@ public class MissingSymbolActivity extends AppCompatActivity {
 
             }
         }
+        int mMaxExample= Collections.max(arrExamples);
+        int mMinExample= Collections.min(arrExamples);
+        for (Integer i = 1; i <= mMissingSymbolCountAnswers; i++) {
+            int resID = getResources().getIdentifier("tvMissingSymbolExample" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+            if (txt != null) {
+                txt.setTextSize(mTextSize);
+                if ("Digit".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(arrExamples.get(i - 1)));
+                } else if ("Ru".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(AlphabetRu[arrExamples.get(i - 1)]));
+                } else if ("En".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(AlphabetEn[arrExamples.get(i - 1)]));
+                }
+                //txt.setPadding(0,15,0,15);
+                if (arrExamples.get(i-1).equals(mMaxExample) || arrExamples.get(i-1).equals(mMinExample)) {
+                    txt.setTextColor(Color.parseColor("#FF11B131"));}
+                else {
+                    txt.setTextColor(Color.parseColor("#FF6D6464"));
+                    //System.out.println("make color");
+                }
 
-        int exampleID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
-        TextView txtExample = (TextView) findViewById(exampleID);
-        if (txtExample != null) {
-
-            txtExample.setText(Question);
-            txtExample.setTextSize(mTextSize);
-
+            }
         }
+
+
+
+
+//        int exampleID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
+//        TextView txtExample = (TextView) findViewById(exampleID);
+//        if (txtExample != null) {
+//
+//            txtExample.setText(Question);
+//            txtExample.setTextSize(mTextSize);
+//
+//        }
 
     }
 
