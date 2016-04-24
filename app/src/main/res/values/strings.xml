@@ -14,12 +14,12 @@
     <string name="strup_name_options">Настройки Тест Струпа</string>
     <string name="math_name_options">Настройки Арифметики</string>
     <string name="matrix_name_options">Настройки таблиц Шульте</string>
-    <string name="mathTestExplanation">Решаем примеры на время</string>
-    <string name="strupTestExplanation">Читаем текст в уме, цвет произносим вслух</string>
-    <string name="strupTestExplanation1">Тренировка с цветами/названиями</string>
-    <string name="missingSymbolTestExplanation">Поиск пропущенного символа</string>
+    <string name="mathTestExplanation">Арифметика - Решаем примеры на время</string>
+    <string name="strupTestExplanation">Тест Струпа - Читаем текст в уме, цвет произносим вслух</string>
+    <string name="strupTestExplanation1">Тест Струпа (сложный) - Тренировка с цветами/названиями</string>
+    <string name="missingSymbolTestExplanation">Пропущенный символ - Поиск пропущенного символа</string>
     <string name="shulte_name">Матрицы Шульте</string>
-    <string name="shulteTestExplanation">Тренировка по матрицам Шульте</string>
+    <string name="shulteTestExplanation">Матрицы Шульте - Тренировка по матрицам Шульте</string>
     <string name="about_name">О программе</string>
     <string name="infinity">∞</string>
     <string name="aboutExplanation">Эта программа была разработана в 2016 году для личных корыстных целей завоевания мира посредством отупливания пользователей, использующих данную программу!</string>

@@ -183,12 +183,25 @@ public class StrupActivity_ver1 extends AppCompatActivity {
             trow1.setBackgroundResource(R.drawable.rounded_corners1);
         }
 
-        int table1ID = getResources().getIdentifier("tableStrupVer1", "id", getPackageName());
-        TableLayout table1 = (TableLayout) findViewById(table1ID);
+        for (int i = 1; i <= 8; i++) {
 
-        if (table1 != null) {
-            table1.setBackgroundResource(R.drawable.rounded_corners1);
+            int ansID = getResources().getIdentifier("tvStrupVer1Color"+String.valueOf(i), "id", getPackageName());
+            TextView txtAns = (TextView) findViewById(ansID);
+
+            if (txtAns != null) {
+                txtAns.setText("  ");
+                //txtAns.setBackgroundResource(R.drawable.rounded_corners1);
+                txtAns.setTextSize(mTextSize);
+                txtAns.setPadding(0,10,0,10);
+            }
         }
+
+//        int table1ID = getResources().getIdentifier("tableStrupVer1", "id", getPackageName());
+//        TableLayout table1 = (TableLayout) findViewById(table1ID);
+//
+//        if (table1 != null) {
+//            table1.setBackgroundResource(R.drawable.rounded_corners1);
+//        }
 
 
     }

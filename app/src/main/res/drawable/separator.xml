@@ -4,8 +4,12 @@
 
     <gradient
         android:angle="0"
-        android:centerColor="#47CF4F"
-        android:endColor="#000000"
-        android:startColor="#000000" />
+        android:centerColor="#000000"
+        android:endColor="#3f64b5"
+        android:startColor="#3f64b5" />
 
+    <stroke
+        android:width="3dp"
+        android:color="#FFFFFF" >
+    </stroke>
 </shape>
