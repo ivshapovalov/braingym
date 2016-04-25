@@ -62,6 +62,14 @@
             android:name=".MissingSymbolActivity"
             android:label="@string/missing_symbol_name"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ChainCharacterActivity"
+            android:label="@string/chain_char_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ChainCharacterActivityOptions"
+            android:label="@string/chain_char_name_options"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

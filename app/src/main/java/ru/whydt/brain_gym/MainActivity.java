@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE="missing_symbol_language";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME="missing_symbol_max_test_time";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME="missing_symbol_max_example_time";
+    public static final String APP_PREFERENCES_CHAIN_CHARACTER_LANGUAGE="chain_character_language";
+    public static final String APP_PREFERENCES_CHAIN_CHARACTER_MAX_TIME="chain_character_max_test_time";
+    public static final String APP_PREFERENCES_CHAIN_CHARACTER_EXAMPLE_TIME="chain_character_max_example_time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

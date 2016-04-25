@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.whydt.brain_gym.ChainCharacterActivityOptions">
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="20"
+            android:background="@drawable/ic_house"
+            android:onClick="buttonHome_onClick" />
+
+        <Button
+
+            android:id="@+id/buttonSave"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="buttonSave_onClick"
+            android:text="Сохранить"
+            android:textSize="12sp" />
+
+        <Button
+
+            android:id="@+id/buttonCancel"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="buttonCancel_onClick"
+            android:text="Отмена"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:text="Элементы"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="50" />
+
+        <RadioGroup
+            android:id="@+id/rgChainCharacterLang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="50">
+
+            <RadioButton
+                android:id="@+id/rbChainCharacterLangDigit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="1-100"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbChainCharacterLangRu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Ru"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbChainCharacterLangEn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="En"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line2"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Время теста (сек)"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="50" />
+
+        <RadioGroup
+            android:id="@+id/rgChainCharacterMaxTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="50" >
+
+            <RadioButton
+                android:id="@+id/rbChainCharacterMaxTime60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="60"
+                android:layout_weight="50"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbChainCharacterMaxTime120"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120"
+                android:layout_weight="50"
+                android:textSize="12sp" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line3"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Время на пример (сек)"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="30" />
+
+        <RadioGroup
+            android:id="@+id/rgChainCharacterExTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="70" >
+
+            <RadioButton
+                android:id="@+id/rbChainCharacterExTime0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_weight="33"
+                android:text="@string/infinity"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbChainCharacterExTime5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbChainCharacterExTime10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+</RelativeLayout>
+

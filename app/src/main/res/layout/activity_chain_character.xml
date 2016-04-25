@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/groundChainCharacter"
+    android:id="@+id/groundMissingSymbol"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    tools:context="ru.whydt.brain_gym.MissingSymbolActivity"
+    tools:context="ru.whydt.brain_gym.ChainCharacterActivity"
     android:stretchColumns="*">
 
     <TableRow
@@ -26,7 +26,7 @@
             android:layout_span="2" />
 
         <Button
-            android:id="@+id/buttonMissingSymbolStartPause"
+            android:id="@+id/buttonChainCharacterStartPause"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,37 +38,37 @@
 
 
         <Button
-            android:id="@+id/buttonMissingSymbolClear"
+            android:id="@+id/buttonChainCharacterClear"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/textview_border"
-            android:onClick="MissingSymbolClear_onClick"
+            android:onClick="ChainCharacterClear_onClick"
             android:text="@string/button_nameStop"
             android:textSize="12sp"
             android:layout_span="2" />
 
         <Button
-            android:id="@+id/buttonMissingSymbolOptions"
+            android:id="@+id/buttonChainCharacterOptions"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/textview_border"
-            android:onClick="MissingSymbolOptions_onClick"
+            android:onClick="ChainCharacterOptions_onClick"
             android:text="@string/button_nameOptions"
             android:textSize="12sp"
             android:layout_span="2" />
     </TableRow>
 
     <TableRow
-        android:id="@+id/trowMissingSymbol"
+        android:id="@+id/trowChainCharacter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10sp"
         android:layout_weight="0">
 
         <TextView
-            android:id="@+id/tvMissingSymbolTimerMaxTime"
+            android:id="@+id/tvChainCharacterTimerMaxTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12sp"
@@ -78,7 +78,7 @@
             android:layout_span="3" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolTimerExTime"
+            android:id="@+id/tvChainCharacterTimerExTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12sp"
@@ -88,7 +88,7 @@
             android:layout_span="3" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolAnswers"
+            android:id="@+id/tvChainCharacterAnswers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12sp"
@@ -106,7 +106,7 @@
         android:layout_marginTop="10dp">
 
         <TextView
-            android:id="@+id/tvMissingSymbolExample1"
+            android:id="@+id/tvChainCharacterExample1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -119,7 +119,7 @@
             android:textColor="#6d6464" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolExample2"
+            android:id="@+id/tvChainCharacterExample2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -132,7 +132,7 @@
             android:textColor="#6d6464" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolExample3"
+            android:id="@+id/tvChainCharacterExample3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -145,7 +145,7 @@
             android:textColor="#6d6464" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolExample4"
+            android:id="@+id/tvChainCharacterExample4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -158,7 +158,7 @@
             android:textColor="#6d6464" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolExample5"
+            android:id="@+id/tvChainCharacterExample5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -171,7 +171,7 @@
             android:textColor="#6d6464" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolExample6"
+            android:id="@+id/tvChainCharacterExample6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -184,7 +184,7 @@
             android:textColor="#6d6464" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolExample7"
+            android:id="@+id/tvChainCharacterExample7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -197,7 +197,7 @@
             android:textColor="#6d6464" />
 
         <TextView
-            android:id="@+id/tvMissingSymbolExample8"
+            android:id="@+id/tChainCharacterExample8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -211,7 +211,7 @@
     </TableRow>
 
     <TableLayout
-        android:id="@+id/tableMissingSymbolAnswers"
+        android:id="@+id/tableChainCharacterAnswers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
@@ -227,7 +227,7 @@
             android:layout_weight="0">
 
             <TextView
-                android:id="@+id/tvMissingSymbolAnswer1"
+                android:id="@+id/tvChainCharacterAnswer1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
@@ -241,7 +241,7 @@
                 android:gravity="center" />
 
             <TextView
-                android:id="@+id/tvMissingSymbolAnswer2"
+                android:id="@+id/tvChainCharacterAnswer2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
@@ -267,7 +267,7 @@
             android:layout_weight="0">
 
             <TextView
-                android:id="@+id/tvMissingSymbolAnswer3"
+                android:id="@+id/tvChainCharacterAnswer3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -281,46 +281,7 @@
                 android:paddingTop="20sp" />
 
             <TextView
-                android:id="@+id/tvMissingSymbolAnswer4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:onClick="txt_onClick"
-                android:singleLine="true"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:paddingBottom="20sp"
-                android:paddingTop="20sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginTop="10sp"
-            android:layout_weight="0">
-
-            <TextView
-                android:id="@+id/tvMissingSymbolAnswer5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:onClick="txt_onClick"
-                android:singleLine="true"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:paddingBottom="20sp"
-                android:paddingTop="20sp" />
-
-            <TextView
-                android:id="@+id/tvMissingSymbolAnswer6"
+                android:id="@+id/tvChainCharacterAnswer4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -345,7 +306,7 @@
             android:layout_weight="0">
 
             <TextView
-                android:id="@+id/tvMissingSymbolAnswer7"
+                android:id="@+id/tvChainCharacterAnswer5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -359,7 +320,46 @@
                 android:paddingTop="20sp" />
 
             <TextView
-                android:id="@+id/tvMissingSymbolAnswer8"
+                android:id="@+id/tvChainCharacterAnswer6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingBottom="20sp"
+                android:paddingTop="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="10sp"
+            android:layout_weight="0">
+
+            <TextView
+                android:id="@+id/tvChainCharacterAnswer7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:onClick="txt_onClick"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingBottom="20sp"
+                android:paddingTop="20sp" />
+
+            <TextView
+                android:id="@+id/tvChainCharacterAnswer8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -381,7 +381,7 @@
         android:visibility="invisible">
 
         <Chronometer
-            android:id="@+id/chronometer_missing_symbol"
+            android:id="@+id/chronometer_chain_character"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="100"
