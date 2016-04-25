@@ -15,8 +15,8 @@ import android.widget.TextView;
 public class MathActivityOptions extends AppCompatActivity {
 
     private SharedPreferences mSettings;
-    private int MathMaxDigit;
-    private int MathFontSizeChange;
+    private int mMathMaxDigit;
+    private int mMathFontSizeChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +44,16 @@ public class MathActivityOptions extends AppCompatActivity {
     public void buttonSave_onClick(View view) {
 
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, MathMaxDigit);
+        editor.putInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, mMathMaxDigit);
 
         int sizeID = getResources().getIdentifier("evMathOptionsFontSizeChange", "id", getPackageName());
         EditText txtSize = (EditText) findViewById(sizeID);
 
         if (txtSize != null) {
-            MathFontSizeChange= Integer.parseInt((txtSize.getText().toString().equals("")?"0":txtSize.getText().toString()));
+            mMathFontSizeChange= Integer.parseInt((txtSize.getText().toString().equals("")?"0":txtSize.getText().toString()));
         }
 
-        editor.putInt(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE, MathFontSizeChange);
+        editor.putInt(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE, mMathFontSizeChange);
         editor.apply();
 
 //        Intent intent = new Intent(MathActivityOptions.this, MathActivity.class);
@@ -76,9 +76,9 @@ public class MathActivityOptions extends AppCompatActivity {
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE)) {
             // Получаем язык из настроек
-            MathFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE, 0);
+           mMathFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE, 0);
         } else {
-            MathFontSizeChange = 0;
+            mMathFontSizeChange = 0;
         }
 
         //Установим настройки в зависимости от сохраненного языка
@@ -86,30 +86,30 @@ public class MathActivityOptions extends AppCompatActivity {
         EditText txtSize = (EditText) findViewById(sizeID);
 
         if (txtSize != null) {
-            txtSize.setText(String.valueOf(MathFontSizeChange));
+            txtSize.setText(String.valueOf(mMathFontSizeChange));
         }
 
-        int sizeLabelID = getResources().getIdentifier("tvFontSizeLabel", "id", getPackageName());
+        int sizeLabelID = getResources().getIdentifier("tvMathFontSizeLabel", "id", getPackageName());
         TextView tvSizeLabel = (TextView) findViewById(sizeLabelID);
 
-        int MathTextSize = getIntent().getIntExtra("MathTextSize", 0);
+        int mMathTextSize = getIntent().getIntExtra("mMathTextSize", 0);
 
         if (tvSizeLabel != null) {
-            tvSizeLabel.setText("Изменение шрифта ("+String.valueOf(MathTextSize)+"+/-sp):");
+            tvSizeLabel.setText("Изменение шрифта ("+String.valueOf(mMathTextSize)+"+/-sp):");
         }
 
 
 
-        MathMaxDigit = 150;
+        mMathMaxDigit = 150;
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT)) {
             // Получаем язык из настроек
-            MathMaxDigit = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, 150);
+            mMathMaxDigit = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, 150);
         } else {
-            MathMaxDigit = 150;
+            mMathMaxDigit = 150;
         }
 
         //Установим настройки в зависимости от сохраненного языка
-        int langID = getResources().getIdentifier("radioButton" + String.valueOf(MathMaxDigit), "id", getPackageName());
+        int langID = getResources().getIdentifier("radioButton" + String.valueOf(mMathMaxDigit), "id", getPackageName());
         RadioButton but = (RadioButton) findViewById(langID);
 
         if (but != null) {
@@ -126,19 +126,19 @@ public class MathActivityOptions extends AppCompatActivity {
 
                     switch (checkedId) {
                         case -1:
-                            MathMaxDigit = 150;
+                            mMathMaxDigit = 150;
                             break;
                         case R.id.radioButton150:
-                            MathMaxDigit = 150;
+                            mMathMaxDigit = 150;
                             break;
                         case R.id.radioButton300:
-                            MathMaxDigit = 300;
+                            mMathMaxDigit = 300;
                             break;
                         case R.id.radioButton1000:
-                            MathMaxDigit = 1000;
+                            mMathMaxDigit = 1000;
                             break;
                         default:
-                            MathMaxDigit = 150;
+                            mMathMaxDigit = 150;
                             break;
                     }
                 }

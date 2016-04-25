@@ -50,8 +50,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:id="@+id/line4"
+        android:layout_below="@+id/line1" >
+
+        <TextView
+            android:id="@+id/tvMatrixFontSizeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:text="Изменение шрифта (+/-sp):"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="80" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/evMatrixOptionsFontSizeChange"
+            android:layout_weight="20" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:id="@+id/line2"
-        android:layout_below="@+id/line1"
+        android:layout_below="@+id/line4"
         android:layout_marginTop="15dp">
 
         <TextView

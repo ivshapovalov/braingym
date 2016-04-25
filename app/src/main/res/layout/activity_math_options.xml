@@ -54,7 +54,7 @@
         android:layout_below="@+id/line1" >
 
         <TextView
-            android:id="@+id/tvFontSizeLabel"
+            android:id="@+id/tvMathFontSizeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center"

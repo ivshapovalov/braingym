@@ -29,7 +29,9 @@ public class StrupActivity extends AppCompatActivity {
 
     //настройки
     private SharedPreferences mSettings;
-    private String StrupLang;
+    private String mStrupLang;
+    private int mStrupFontSizeChange;
+    private int mStrupTextSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,6 @@ public class StrupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_strup);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer_strup);
-
-
-
     }
 
     private void drawStrupTest(ArrayList<StrupExample> strupExamples) {
@@ -73,7 +72,8 @@ public class StrupActivity extends AppCompatActivity {
             txt.setTextColor(currentEx.getColor());
 
             //txt.setTextSize(Math.min(mWidth,mHeight)/6);
-            txt.setTextSize(TypedValue.COMPLEX_UNIT_SP,Math.min(mWidth, mHeight) / 2/getApplicationContext().getResources().getDisplayMetrics().density);
+            mStrupTextSize=(int)(Math.min(mWidth, mHeight) / 2/getApplicationContext().getResources().getDisplayMetrics().density)+mStrupFontSizeChange;
+            txt.setTextSize(mStrupTextSize);
         }
     }
 
@@ -167,6 +167,7 @@ public class StrupActivity extends AppCompatActivity {
     public void strupOptions_onClick(View view) {
 
         Intent intent = new Intent(StrupActivity.this, StrupActivityOptions.class);
+        intent.putExtra("mStrupTextSize",mStrupTextSize-mStrupFontSizeChange);
         startActivity(intent);
 
     }
@@ -191,13 +192,20 @@ public class StrupActivity extends AppCompatActivity {
 
     private void getPreferencesFromFile() {
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_FONT_SIZE_CHANGE)) {
+            // Получаем язык из настроек
+            mStrupFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_FONT_SIZE_CHANGE, 0);
+        } else {
+            mStrupFontSizeChange = 0;
+        }
         if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE)) {
             // Получаем язык из настроек
-            StrupLang = mSettings.getString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, "Ru");
+            mStrupLang = mSettings.getString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, "Ru");
         } else {
-            StrupLang="Ru";
+            mStrupLang="Ru";
         }
-        switch (StrupLang) {
+        switch (mStrupLang) {
             case "Ru":
                 mWordColors[0] = "КРАСНЫЙ";
                 mWordColors[1] = "ЖЕЛТЫЙ";

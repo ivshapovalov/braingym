@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -16,6 +18,7 @@ public class MatrixActivityOptions extends AppCompatActivity {
     private SharedPreferences mSettings;
     private String mMatrixLang;
     private int mMatrixSize;
+    private int mMatrixFontSizeChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,15 @@ public class MatrixActivityOptions extends AppCompatActivity {
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putString(MainActivity.APP_PREFERENCES_MATRIX_LANGUAGE, mMatrixLang);
             editor.putInt(MainActivity.APP_PREFERENCES_MATRIX_SIZE, mMatrixSize);
+
+            int sizeID = getResources().getIdentifier("evMatrixOptionsFontSizeChange", "id", getPackageName());
+            EditText txtSize = (EditText) findViewById(sizeID);
+
+            if (txtSize != null) {
+                mMatrixFontSizeChange= Integer.parseInt((txtSize.getText().toString().equals("")?"0":txtSize.getText().toString()));
+            }
+
+            editor.putInt(MainActivity.APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE, mMatrixFontSizeChange);
             editor.apply();
 
             this.finish();
@@ -63,6 +75,13 @@ public class MatrixActivityOptions extends AppCompatActivity {
 
     private void getPreferencesFromFile() {
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE)) {
+            // Получаем язык из настроек
+            mMatrixFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE, 0);
+        } else {
+            mMatrixFontSizeChange = 0;
+        }
 
         mMatrixLang = "Digit";
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_LANGUAGE)) {
@@ -84,6 +103,24 @@ public class MatrixActivityOptions extends AppCompatActivity {
     }
 
     private void setPreferencesOnScreen() {
+
+        //Установим настройки в зависимости от сохраненного языка
+        int sizeID = getResources().getIdentifier("evMatrixOptionsFontSizeChange", "id", getPackageName());
+        EditText txtSize = (EditText) findViewById(sizeID);
+
+        if (txtSize != null) {
+            txtSize.setText(String.valueOf(mMatrixFontSizeChange));
+        }
+
+        int sizeLabelID = getResources().getIdentifier("tvMatrixFontSizeLabel", "id", getPackageName());
+        TextView tvSizeLabel = (TextView) findViewById(sizeLabelID);
+
+        int mMatrixTextSize = getIntent().getIntExtra("mMatrixTextSize", 0);
+
+        if (tvSizeLabel != null) {
+            tvSizeLabel.setText("Изменение шрифта ("+String.valueOf(mMatrixTextSize)+"+/-sp):");
+        }
+
         //Установим настройки в зависимости от сохраненного языка
         int langID = getResources().getIdentifier("radioButtonLang" + mMatrixLang, "id", getPackageName());
         RadioButton but = (RadioButton) findViewById(langID);
@@ -119,8 +156,8 @@ public class MatrixActivityOptions extends AppCompatActivity {
         }
 
         //Установим настройки в зависимости от сохраненного размера
-        int sizeID = getResources().getIdentifier("radioButtonSize" + String.valueOf(mMatrixSize), "id", getPackageName());
-        but = (RadioButton) findViewById(sizeID);
+        int size1ID = getResources().getIdentifier("radioButtonSize" + String.valueOf(mMatrixSize), "id", getPackageName());
+        but = (RadioButton) findViewById(size1ID);
         if (but != null) {
             but.setChecked(true);
         }

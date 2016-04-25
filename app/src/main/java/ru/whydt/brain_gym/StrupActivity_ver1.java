@@ -46,6 +46,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     private int mStrupExampleTime;
     private String mStrupExampleType;
     private int mTextSize = 0;
+    private int mStrupVer1FontSizeChange;
 
     private long mStrupExBeginTime = 0;
 
@@ -318,7 +319,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                     mWidth = 0;
                     mHeight = 0;
                 }
-                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density);
+                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density)+mStrupVer1FontSizeChange;
 
                 strupVer1Clear();
                 getPreferencesFromFile();
@@ -478,6 +479,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     public void strupVer1Options_onClick(View view) {
 
         Intent intent = new Intent(StrupActivity_ver1.this, StrupActivityOptions_ver1.class);
+        intent.putExtra("mStrupVer1TextSize",mTextSize-mStrupVer1FontSizeChange);
         startActivity(intent);
 
     }
@@ -503,6 +505,12 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
         SharedPreferences mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_VER1_FONT_SIZE_CHANGE)) {
+            // Получаем язык из настроек
+            mStrupVer1FontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_VER1_FONT_SIZE_CHANGE, 0);
+        } else {
+            mStrupVer1FontSizeChange = 0;
+        }
         if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_VER1_TEST_TIME)) {
             mStrupMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_VER1_TEST_TIME, 60);
         } else {

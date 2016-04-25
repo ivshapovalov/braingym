@@ -33,7 +33,8 @@ public class MatrixActivity extends AppCompatActivity {
     private SharedPreferences mSettings;
     private String mMatrixLang;
     private int mMatrixSize;
-
+    private int mMatrixTextSize;
+    private int mMatrixFontSizeChange;
     //алфавиты
     private String[] AlphabetRu;
     private String[] AlphabetEn;
@@ -142,7 +143,8 @@ public class MatrixActivity extends AppCompatActivity {
                 //txt.setPadding(left, top, right, bottom);
                 //findViewById(R.id.tablerow1).setBackgroundResource(R.drawable.textview_border);
                 //txt.setTextSize(Math.min(mWidth,mHeight)/9);
-                txt.setTextSize(Math.min(mWidth, mHeight) / 3/getApplicationContext().getResources().getDisplayMetrics().density);
+                mMatrixTextSize=(int)(Math.min(mWidth, mHeight) / 3/getApplicationContext().getResources().getDisplayMetrics().density)+mMatrixFontSizeChange;
+                txt.setTextSize(mMatrixTextSize);
                 //txt.setTypeface(null, Typeface.BOLD);
                 txt.setGravity(Gravity.CENTER);
                 txt.setBackgroundResource(R.drawable.textview_border);
@@ -236,6 +238,7 @@ public class MatrixActivity extends AppCompatActivity {
     public void matrixOptions_onClick(View view) {
 
         Intent intent = new Intent(MatrixActivity.this, MatrixActivityOptions.class);
+        intent.putExtra("mMatrixTextSize",mMatrixTextSize-mMatrixFontSizeChange);
         startActivity(intent);
 
     }
@@ -259,6 +262,13 @@ public class MatrixActivity extends AppCompatActivity {
 
     private void getPreferencesFromFile() {
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE)) {
+            // Получаем язык из настроек
+            mMatrixFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE, 0);
+        } else {
+            mMatrixFontSizeChange = 0;
+        }
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_LANGUAGE)) {
             // Получаем язык из настроек
             try {

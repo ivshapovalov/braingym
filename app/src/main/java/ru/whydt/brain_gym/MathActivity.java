@@ -23,9 +23,9 @@ public class MathActivity extends AppCompatActivity {
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
     private SharedPreferences mSettings;
-    private int MathMaxDigit;
-    private int MathFontSizeChange;
-    private int MathTextSize;
+    private int mMathMaxDigit;
+    private int mMathFontSizeChange;
+    private int mMathTextSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +113,8 @@ public class MathActivity extends AppCompatActivity {
             currentEx = mathExamples.get(i - 1);
             String temp = String.valueOf(currentEx.getNum1()) + String.valueOf(currentEx.getOper()) + String.valueOf(currentEx.getNum2()) + " = ";
             txt.setText(temp);
-            MathTextSize=(int)(Math.min(mWidth, mHeight) /3*2/getApplicationContext().getResources().getDisplayMetrics().density)+MathFontSizeChange;
-            txt.setTextSize(MathTextSize);
+           mMathTextSize=(int)(Math.min(mWidth, mHeight) /3*2/getApplicationContext().getResources().getDisplayMetrics().density)+mMathFontSizeChange;
+            txt.setTextSize(mMathTextSize);
             //txt.setTextSize(Math.min(mWidth, mHeight) / 6);
             //txt.setBackgroundColor(0xfff00000);
 
@@ -186,7 +186,7 @@ public class MathActivity extends AppCompatActivity {
             switch (indOper) {
                 case 1:
                     while (!numberIsFound) {
-                        num2 = 1 + random.nextInt(MathMaxDigit);
+                        num2 = 1 + random.nextInt(mMathMaxDigit);
                         if (num1 % num2 == 0) {
                             numberIsFound = true;
                         }
@@ -199,7 +199,7 @@ public class MathActivity extends AppCompatActivity {
                     break;
                 case 2:
                     while (!numberIsFound) {
-                        num2 = 1 + random.nextInt(MathMaxDigit);
+                        num2 = 1 + random.nextInt(mMathMaxDigit);
                         if (num1 - num2 >= 0) {
                             numberIsFound = true;
                         }
@@ -211,8 +211,8 @@ public class MathActivity extends AppCompatActivity {
                     break;
                 case 3:
                     while (!numberIsFound) {
-                        num2 = 1 + random.nextInt(MathMaxDigit);
-                        if (num1 + num2 <= MathMaxDigit) {
+                        num2 = 1 + random.nextInt(mMathMaxDigit);
+                        if (num1 + num2 <= mMathMaxDigit) {
                             numberIsFound = true;
                         }
                     }
@@ -223,8 +223,8 @@ public class MathActivity extends AppCompatActivity {
                     break;
                 case 4:
                     while (!numberIsFound) {
-                        num2 = 1 + random.nextInt(MathMaxDigit);
-                        if (num1 * num2 <= MathMaxDigit) {
+                        num2 = 1 + random.nextInt(mMathMaxDigit);
+                        if (num1 * num2 <= mMathMaxDigit) {
                             numberIsFound = true;
                         }
                     }
@@ -235,8 +235,8 @@ public class MathActivity extends AppCompatActivity {
                     break;
                 case 5:
                     while (!numberIsFound) {
-                        num2 = 1 + random.nextInt(MathMaxDigit);
-                        if (num1 * num2 <= MathMaxDigit) {
+                        num2 = 1 + random.nextInt(mMathMaxDigit);
+                        if (num1 * num2 <= mMathMaxDigit) {
                             numberIsFound = true;
                         }
                     }
@@ -266,7 +266,7 @@ public class MathActivity extends AppCompatActivity {
     public void mathOptions_onClick(View view) {
 
         Intent intent = new Intent(MathActivity.this, MathActivityOptions.class);
-        intent.putExtra("MathTextSize",MathTextSize);
+        intent.putExtra("mMathTextSize",mMathTextSize-mMathFontSizeChange);
         startActivity(intent);
 
 
@@ -289,16 +289,16 @@ public class MathActivity extends AppCompatActivity {
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE)) {
             // Получаем язык из настроек
-            MathFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE, 0);
+            mMathFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_FONT_SIZE_CHANGE, 0);
         } else {
-            MathFontSizeChange = 0;
+            mMathFontSizeChange = 0;
         }
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT)) {
             // Получаем язык из настроек
-            MathMaxDigit = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, 150);
+            mMathMaxDigit = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, 150);
         } else {
-            MathMaxDigit = 150;
+            mMathMaxDigit = 150;
         }
     }
 
