@@ -158,24 +158,24 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
         }
 
-        int exID = getResources().getIdentifier("tvStrupVer1Example", "id", getPackageName());
-        TextView txt1 = (TextView) findViewById(exID);
-
-        if (txt1 != null) {
-            txt1.setText("  ");
-            txt1.setBackgroundResource(R.drawable.rounded_corners1);
-            txt1.setTextSize(mTextSize);
-
-        }
-
-        int typeID = getResources().getIdentifier("tvStrupVer1Type", "id", getPackageName());
-        TextView txt2 = (TextView) findViewById(typeID);
-
-        if (txt2 != null) {
-            txt2.setText("  ");
-            txt2.setBackgroundResource(R.drawable.rounded_corners1);
-            txt2.setTextSize(mTextSize);
-        }
+//        int exID = getResources().getIdentifier("tvStrupVer1Example", "id", getPackageName());
+//        TextView txt1 = (TextView) findViewById(exID);
+//
+//        if (txt1 != null) {
+//            txt1.setText("  ");
+//            txt1.setBackgroundResource(R.drawable.rounded_corners1);
+//            txt1.setTextSize(mTextSize);
+//
+//        }
+//
+//        int typeID = getResources().getIdentifier("tvStrupVer1Type", "id", getPackageName());
+//        TextView txt2 = (TextView) findViewById(typeID);
+//
+//        if (txt2 != null) {
+//            txt2.setText("  ");
+//            txt2.setBackgroundResource(R.drawable.rounded_corners1);
+//            txt2.setTextSize(mTextSize);
+//        }
 
         int trowID = getResources().getIdentifier("trowStrupVer1", "id", getPackageName());
         TableRow trow1 = (TableRow) findViewById(trowID);
@@ -191,9 +191,9 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
             if (txtAns != null) {
                 txtAns.setText("  ");
-                //txtAns.setBackgroundResource(R.drawable.rounded_corners1);
+                txtAns.setBackgroundResource(R.drawable.rounded_corners2);
                 txtAns.setTextSize(mTextSize);
-                txtAns.setPadding(0,10,0,10);
+                txtAns.setPadding(0,mTextSize,0,mTextSize);
             }
         }
 

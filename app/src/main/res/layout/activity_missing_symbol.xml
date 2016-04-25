@@ -71,7 +71,8 @@
             android:id="@+id/tvMissingSymbolTimerMaxTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5sp"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#bb1e1e"
             android:layout_span="3" />
@@ -80,7 +81,8 @@
             android:id="@+id/tvMissingSymbolTimerExTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5sp"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#bb1e1e"
             android:layout_span="3" />
@@ -89,7 +91,8 @@
             android:id="@+id/tvMissingSymbolAnswers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5sp"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#bb1e1e"
             android:layout_span="2" />
@@ -221,14 +224,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="fill"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
             android:layout_weight="0">
 
             <TextView
                 android:id="@+id/tvMissingSymbolAnswer1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:onClick="txt_onClick"
@@ -242,7 +242,7 @@
 
             <TextView
                 android:id="@+id/tvMissingSymbolAnswer2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:onClick="txt_onClick"
@@ -268,7 +268,7 @@
 
             <TextView
                 android:id="@+id/tvMissingSymbolAnswer3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="50"
@@ -282,7 +282,7 @@
 
             <TextView
                 android:id="@+id/tvMissingSymbolAnswer4"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="50"
@@ -307,7 +307,7 @@
 
             <TextView
                 android:id="@+id/tvMissingSymbolAnswer5"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="50"
@@ -321,7 +321,7 @@
 
             <TextView
                 android:id="@+id/tvMissingSymbolAnswer6"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="50"
@@ -346,7 +346,7 @@
 
             <TextView
                 android:id="@+id/tvMissingSymbolAnswer7"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="50"
@@ -360,7 +360,7 @@
 
             <TextView
                 android:id="@+id/tvMissingSymbolAnswer8"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="50"
