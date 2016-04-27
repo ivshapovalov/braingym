@@ -11,6 +11,8 @@
     <string name="strup_name1">Тест Струпа (сложный)</string>
     <string name="missing_symbol_name">Пропущенный символ</string>
     <string name="chain_char_name">Цепочка символов</string>
+    <string name="number_search_name">Поиск числа</string>
+    <string name="number_search_name_options">Настройки "Поиск числа"</string>
     <string name="missing_symbol_name_options">Настройки "Пропущенный символ"</string>
     <string name="strup_name_options">Настройки Тест Струпа</string>
     <string name="math_name_options">Настройки Арифметики</string>
@@ -20,6 +22,7 @@
     <string name="strupTestExplanation">Тест Струпа - Читаем текст в уме, цвет произносим вслух</string>
     <string name="strupTestExplanation1">Тест Струпа (сложный) - Тренировка с цветами/названиями</string>
     <string name="missingSymbolTestExplanation">Пропущенный символ - Поиск пропущенного символа</string>
+    <string name="numberSearchTestExplanation">Поиск числа - ищем символ в матрице</string>
     <string name="chainCharTestExplanation">Цепочка символов - сколько раз символ встречается в цепочке</string>
     <string name="shulte_name">Матрицы Шульте</string>
     <string name="shulteTestExplanation">Матрицы Шульте - Тренировка по матрицам Шульте</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/groundChainCharacter"
+    android:id="@+id/groundMissingSymbol"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentLeft="true"
@@ -58,6 +58,27 @@
             android:text="@string/button_nameOptions"
             android:textSize="12sp"
             android:layout_span="2" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_weight="100"
+            android:textColor="#6d6464"
+            android:layout_span="8"
+            android:text="Определите пропущенный символ последовательности. Цветом выделены первый и последний символ последовательности."
+            android:textIsSelectable="false" />
     </TableRow>
 
     <TableRow

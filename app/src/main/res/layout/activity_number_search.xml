@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="ru.whydt.brain_gym.NumberSearchActivity"
+        android:id="@+id/groundNumberSearch">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button10"
+                android:onClick="buttonHome_onClick"
+                android:background="@drawable/ic_house"
+                android:layout_column="1"
+                android:layout_weight="25"
+                android:textSize="10dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_nameStartPause"
+                android:id="@+id/buttonNumberSearchStartPause"
+                android:textSize="10dp"
+                android:onClick="startPause_onClick"
+                android:layout_weight="25"
+                android:layout_gravity="center"
+                android:layout_column="2" />
+           <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_nameStop"
+                android:id="@+id/buttonNumberSearchClear"
+                android:onClick="numberSearchClear_onClick"
+             android:textSize="10dp"
+                android:layout_weight="25"
+                android:layout_column="3"
+               android:layout_gravity="center" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_nameOptions"
+                android:id="@+id/buttonNumberSearchOptions"
+                android:onClick="numberSearchOptions_onClick"
+                android:layout_weight="25"
+                android:textSize="10dp"
+                android:layout_column="4"
+                android:layout_gravity="center" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0">
+
+            <Chronometer
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chronometer_number_search"
+                android:onClick="startPause_onClick"
+                android:clickable="true"
+                android:textColor="#e71f1f"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:format="Time: %s"
+                android:layout_weight="100"
+                android:layout_gravity="center_vertical"
+                android:layout_span="4" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100">
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/table"
+                android:layout_weight="100"
+                android:layout_span="4">
+
+            </TableLayout>
+        </TableRow>
+    </TableLayout>

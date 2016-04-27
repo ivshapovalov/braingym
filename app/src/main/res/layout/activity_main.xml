@@ -112,6 +112,40 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="20" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chain_char_name"
+                    android:id="@+id/button3"
+                    android:onClick="ChainCharacterActivity_onClick"
+                    android:singleLine="false"
+                    android:focusableInTouchMode="false"
+                    android:background="@drawable/separator"
+                    android:textColor="#ffffff" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="20" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/number_search_name"
+                    android:id="@+id/button8"
+                    android:onClick="NumberSearchActivity_onClick"
+                    android:singleLine="false"
+                    android:focusableInTouchMode="false"
+                    android:background="@drawable/separator"
+                    android:textColor="#ffffff" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="20">
 
                 <Button

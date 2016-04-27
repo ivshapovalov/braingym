@@ -61,6 +61,27 @@
     </TableRow>
 
     <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_weight="100"
+            android:textColor="#6d6464"
+            android:layout_span="8"
+            android:text="Определите цвет или слово в зависимости от задания"
+            android:textIsSelectable="false" />
+    </TableRow>
+
+    <TableRow
         android:id="@+id/trowStrupVer1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -172,6 +172,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
                 txtAns.setText("  ");
                 txtAns.setBackgroundResource(R.drawable.rounded_corners1);
                 txtAns.setTextSize(mTextSize);
+                txtAns.setPadding(0,mTextSize,0,mTextSize);
 
             }
         }
@@ -258,7 +259,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
                     mWidth = 0;
                     mHeight = 0;
                 }
-                mTextSize = (int) (Math.min(mWidth, mHeight) / 15 / getApplicationContext().getResources().getDisplayMetrics().density);
+                mTextSize = (int) (Math.min(mWidth, mHeight) / 20 / getApplicationContext().getResources().getDisplayMetrics().density);
 
                 missingSymbolClear();
                 getPreferencesFromFile();
@@ -395,7 +396,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
                 } else if ("En".equals(mMissingSymbolLang)) {
                     txt.setText(String.valueOf(AlphabetEn[arrAnswers.get(i - 1)]));
                 }
-                txt.setPadding(0,15,0,15);
+                txt.setPadding(0,mTextSize,0,mTextSize);
 
             }
         }

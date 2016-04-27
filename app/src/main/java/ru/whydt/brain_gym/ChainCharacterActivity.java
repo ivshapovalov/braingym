@@ -26,6 +26,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
     private final int mChainCharacterCountAnswers = 8;
+    private final int mChainCharacterCountExamples = 20;
 
     private ArrayList<Integer> arrAnswers = new ArrayList<>();
     private ArrayList<Integer> arrExamples = new ArrayList<>();
@@ -56,8 +57,8 @@ public class ChainCharacterActivity extends AppCompatActivity {
         mChronometer = (Chronometer) findViewById(R.id.chronometer_chain_character);
 
 
-       AlphabetRu = MainActivity.AlphabetRu();
-       AlphabetEn = MainActivity.AlphabetEn();
+        AlphabetRu = MainActivity.AlphabetRu();
+        AlphabetEn = MainActivity.AlphabetEn();
     }
 
 
@@ -99,6 +100,14 @@ public class ChainCharacterActivity extends AppCompatActivity {
                 txtAnswer.setText("");
             }
         }
+        int exampleID = getResources().getIdentifier("tvChainCharacterExample", "id", getPackageName());
+        TextView txtExample = (TextView) findViewById(exampleID);
+        if (txtExample != null) {
+            txtExample.setTextSize(mTextSize);
+            if (!auto) {
+                txtExample.setText("");
+            }
+        }
 
         if (mChainCharacterExampleTime != 0) {
             int timerExID = getResources().getIdentifier("tvChainCharacterTimerExTime", "id", getPackageName());
@@ -120,22 +129,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
     private void chainCharacterClear() {
 
-        for (int i = 1; i <= 8; i++) {
-
-            int resID = getResources().getIdentifier("tvChainCharacterAnswer" + String.valueOf(i), "id", getPackageName());
-            TextView txt = (TextView) findViewById(resID);
-
-            if (txt != null) {
-                txt.setText(" ");
-                txt.setTextSize(mTextSize);
-
-            }
-
-        }
-
-        for (int i = 1; i <= 8; i++) {
-
-            int resID = getResources().getIdentifier("  tvChainCharacterExample" + String.valueOf(i), "id", getPackageName());
+            int resID = getResources().getIdentifier(" tvChainCharacterExample", "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
 
             if (txt != null) {
@@ -145,7 +139,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
             }
 
-        }
+
 
 //        int exID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
 //        TextView txt1 = (TextView) findViewById(exID);
@@ -172,6 +166,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
                 txtAns.setText("  ");
                 txtAns.setBackgroundResource(R.drawable.rounded_corners1);
                 txtAns.setTextSize(mTextSize);
+                txtAns.setPadding(0,mTextSize/2,0,mTextSize/2);
 
             }
         }
@@ -258,7 +253,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
                     mWidth = 0;
                     mHeight = 0;
                 }
-                mTextSize = (int) (Math.min(mWidth, mHeight) / 15 / getApplicationContext().getResources().getDisplayMetrics().density);
+                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density);
 
                 chainCharacterClear();
                 getPreferencesFromFile();
@@ -313,42 +308,66 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
         Random random = new Random();
 
-        int mBeginDigit=0;
+        int symbol = 0;
         if ("Digit".equals(mChainCharacterLang)) {
-            mBeginDigit = Math.abs(random.nextInt(100));
+            symbol = Math.abs(random.nextInt(10));
         } else if ("Ru".equals(mChainCharacterLang)) {
-            mBeginDigit = Math.abs(random.nextInt() % (AlphabetRu.length - mChainCharacterCountAnswers));
+            symbol = Math.abs(random.nextInt() % (AlphabetRu.length));
         } else if ("En".equals(mChainCharacterLang)) {
-            mBeginDigit = Math.abs(random.nextInt() % (AlphabetEn.length - mChainCharacterCountAnswers));
+            symbol = Math.abs(random.nextInt() % (AlphabetEn.length));
         }
-
-        int answer = Math.abs(random.nextInt() % (mChainCharacterCountAnswers-2)) + mBeginDigit+1;
-
+        System.out.println("symbol:"+symbol);
         arrAnswers.clear();
         arrExamples.clear();
 
-        while (arrAnswers.size() != mChainCharacterCountAnswers) {
-            int newDigit = Math.abs(random.nextInt() % mChainCharacterCountAnswers) + mBeginDigit;
-            if (!arrAnswers.contains(newDigit)) {
+        int answer = 0;
+        while (arrExamples.size() != mChainCharacterCountExamples) {
+            //int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers -2)) + mBeginDigit+1;
+            int newDigit = Math.abs(random.nextInt() % 10);
+            int indPlace = (arrExamples.size() == 0 ? 0 : Math.abs(random.nextInt()) % (arrExamples.size()));
+            arrExamples.add(indPlace, newDigit);
+            if (newDigit == symbol) {
+                answer++;
+            }
+        }
+
+        while (arrAnswers.size() != mChainCharacterCountAnswers - 1) {
+
+            int newDigit = Math.abs(random.nextInt() % mChainCharacterCountExamples);
+            if (!arrAnswers.contains(newDigit)&&newDigit!=answer) {
                 int indPlace = Math.abs((arrAnswers.size() == 0 ? random.nextInt() : random.nextInt(arrAnswers.size())));
                 arrAnswers.add((arrAnswers.size() == 0 ? 0 : indPlace % arrAnswers.size()), newDigit);
             }
         }
-        indAnswer = arrAnswers.indexOf(answer);
+        int indPlace = Math.abs((arrAnswers.size() == 0 ? random.nextInt() : random.nextInt(arrAnswers.size())));
+        arrAnswers.add(indPlace % arrAnswers.size(), answer);
+        indAnswer=arrAnswers.indexOf(answer);
+        System.out.println("indAnswer:"+indAnswer);
 
+        Question="";
+        if ("Digit".equals(
+                mChainCharacterLang)) {
+            Question = String.valueOf(symbol) + ": ";
+        } else if ("Ru".equals(mChainCharacterLang)) {
+            Question = Question + AlphabetRu[symbol] + ": ";
+        } else if ("En".equals(mChainCharacterLang)) {
+            Question = Question + AlphabetEn[symbol] + ": ";
+        }
+        for (int i = 0; i < arrExamples.size(); i++) {
+            if ("Digit".equals(
+                    mChainCharacterLang)) {
+                Question = Question + String.valueOf(arrExamples.get(i)) + "";
+            } else if ("Ru".equals(mChainCharacterLang)) {
+                Question = Question + AlphabetRu[arrExamples.get(i)] + "";
+            } else if ("En".equals(mChainCharacterLang)) {
+                Question = Question + AlphabetEn[arrExamples.get(i)] + "";
+            }
+        }
+
+        System.out.println("Question:"+Question);
         //arrExamples.add(0,mBeginDigit);
 
-        int ind=0;
-        while (arrExamples.size() != mChainCharacterCountAnswers) {
-            //int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers -2)) + mBeginDigit+1;
-            int newDigit=mBeginDigit+ind;
-            ind++;
-            if (newDigit != answer)
-            {
-                int indPlace = Math.abs(random.nextInt());
-                arrExamples.add((arrExamples.size() == 0 ? 0 : indPlace % (arrExamples.size())), newDigit);
-           }
-        }
+
         //arrExamples.add(7,mBeginDigit+mMissingSymbolCountAnswers);
 
 //        while (arrExamples.size() != mMissingSymbolCountAnswers-1) {
@@ -367,74 +386,35 @@ public class ChainCharacterActivity extends AppCompatActivity {
         //первое и последнее числа
 
 
-//        Question = "";
-//        for (int i = 0; i < arrExamples.size(); i++) {
-//            if ("Digit".equals(mMissingSymbolLang)) {
-//                Question = Question + String.valueOf(arrExamples.get(i)) + "  ";
-//            } else if ("Ru".equals(mMissingSymbolLang)) {
-//                Question = Question + AlphabetRu[arrExamples.get(i)] + "  ";
-//            } else if ("En".equals(mMissingSymbolLang)) {
-//                Question = Question + AlphabetEn[arrExamples.get(i)] + "  ";
-//            }
-//        }
-
         drawExamplesAndAnswers();
     }
 
     private void drawExamplesAndAnswers() {
 
-      for (Integer i = 1; i <= mChainCharacterCountAnswers; i++) {
+        for (Integer i = 1; i <= mChainCharacterCountAnswers; i++) {
             int resID = getResources().getIdentifier("tvChainCharacterAnswer" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
             if (txt != null) {
                 txt.setTextSize(mTextSize);
-                if ("Digit".equals(mChainCharacterLang)) {
+                //if ("Digit".equals(mChainCharacterLang)) {
                     txt.setText(String.valueOf(arrAnswers.get(i - 1)));
-                } else if ("Ru".equals(mChainCharacterLang)) {
-                    txt.setText(String.valueOf(AlphabetRu[arrAnswers.get(i - 1)]));
-                } else if ("En".equals(mChainCharacterLang)) {
-                    txt.setText(String.valueOf(AlphabetEn[arrAnswers.get(i - 1)]));
-                }
-                txt.setPadding(0,15,0,15);
+//                } else if ("Ru".equals(mChainCharacterLang)) {
+//                    txt.setText(String.valueOf(AlphabetRu[arrAnswers.get(i - 1)]));
+//                } else if ("En".equals(mChainCharacterLang)) {
+//                    txt.setText(String.valueOf(AlphabetEn[arrAnswers.get(i - 1)]));
+//                }
+                txt.setPadding(0, mTextSize/2, 0, mTextSize/2);
 
             }
         }
-        int mMaxExample= Collections.max(arrExamples);
-        int mMinExample= Collections.min(arrExamples);
-        for (Integer i = 1; i <= mChainCharacterCountAnswers; i++) {
-            int resID = getResources().getIdentifier("tvChainCharacterExample" + String.valueOf(i), "id", getPackageName());
-            TextView txt = (TextView) findViewById(resID);
-            if (txt != null) {
-                txt.setTextSize(mTextSize);
-                if ("Digit".equals(mChainCharacterLang)) {
-                    txt.setText(String.valueOf(arrExamples.get(i - 1)));
-                } else if ("Ru".equals(mChainCharacterLang)) {
-                    txt.setText(String.valueOf(AlphabetRu[arrExamples.get(i - 1)]));
-                } else if ("En".equals(mChainCharacterLang)) {
-                    txt.setText(String.valueOf(AlphabetEn[arrExamples.get(i - 1)]));
-                }
-                //txt.setPadding(0,15,0,15);
-                if (arrExamples.get(i-1).equals(mMaxExample) || arrExamples.get(i-1).equals(mMinExample)) {
-                    txt.setTextColor(Color.parseColor("#FF11B131"));}
-                else {
-                    txt.setTextColor(Color.parseColor("#FF6D6464"));
-                    //System.out.println("make color");
-                }
+        int exampleID = getResources().getIdentifier("tvChainCharacterExample", "id", getPackageName());
+        TextView txtExample = (TextView) findViewById(exampleID);
+        if (txtExample != null) {
 
-            }
+            txtExample.setText(Question);
+            txtExample.setTextSize(mTextSize);
+
         }
-
-
-
-
-//        int exampleID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
-//        TextView txtExample = (TextView) findViewById(exampleID);
-//        if (txtExample != null) {
-//
-//            txtExample.setText(Question);
-//            txtExample.setTextSize(mTextSize);
-//
-//        }
 
     }
 

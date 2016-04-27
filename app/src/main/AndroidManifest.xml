@@ -70,6 +70,14 @@
             android:name=".ChainCharacterActivityOptions"
             android:label="@string/chain_char_name_options"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".NumberSearchActivity"
+            android:label="@string/number_search_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".NumberSearchActivityOptions"
+            android:label="@string/number_search_name_options"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

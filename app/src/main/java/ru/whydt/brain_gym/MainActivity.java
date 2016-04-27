@@ -19,10 +19,13 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME="strup_ver1_max_example_time";
     public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TYPE="strup_ver1_max_example_type";
     public static final String APP_PREFERENCES_MATRIX_LANGUAGE="matrix_language";
-    public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT="math_maximum_digit";
-    public static final String APP_PREFERENCES_MATH_FONT_SIZE_CHANGE="math_font_size_change";
     public static final String APP_PREFERENCES_MATRIX_SIZE="matrix_size";
     public static final String APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE="matrix_font_size_change";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE="number_search_language";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_SIZE="number_search_size";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE="number_search_font_size_change";
+    public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT="math_maximum_digit";
+    public static final String APP_PREFERENCES_MATH_FONT_SIZE_CHANGE="math_font_size_change";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE="missing_symbol_language";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME="missing_symbol_max_test_time";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME="missing_symbol_max_example_time";
@@ -70,6 +73,18 @@ public class MainActivity extends AppCompatActivity {
     public void MissingSymbolActivity_onClick(View view) {
 
         Intent intent = new Intent(MainActivity.this,MissingSymbolActivity.class);
+        startActivity(intent);
+    }
+
+    public void ChainCharacterActivity_onClick(View view) {
+
+        Intent intent = new Intent(MainActivity.this,ChainCharacterActivity.class);
+        startActivity(intent);
+    }
+
+    public void NumberSearchActivity_onClick(View view) {
+
+        Intent intent = new Intent(MainActivity.this,NumberSearchActivity.class);
         startActivity(intent);
     }
 
