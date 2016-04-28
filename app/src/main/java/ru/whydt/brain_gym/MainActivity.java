@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE="number_search_language";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_SIZE="number_search_size";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE="number_search_font_size_change";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME="number_search_max_test_time";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME="number_search_max_example_time";
     public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT="math_maximum_digit";
     public static final String APP_PREFERENCES_MATH_FONT_SIZE_CHANGE="math_font_size_change";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE="missing_symbol_language";

@@ -47,8 +47,8 @@ public class MatrixActivity extends AppCompatActivity {
         //matrixClear();
         mChronometer = (Chronometer) findViewById(R.id.chronometer_matrix);
 
-        String[] AlphabetRu= MainActivity.AlphabetRu();
-        String [] AlphabetEn=MainActivity.AlphabetEn();
+        AlphabetRu= MainActivity.AlphabetRu();
+        AlphabetEn=MainActivity.AlphabetEn();
 
     }
 

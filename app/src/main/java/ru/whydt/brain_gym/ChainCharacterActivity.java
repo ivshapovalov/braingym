@@ -316,7 +316,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
         } else if ("En".equals(mChainCharacterLang)) {
             symbol = Math.abs(random.nextInt() % (AlphabetEn.length));
         }
-        System.out.println("symbol:"+symbol);
+        //System.out.println("symbol:"+symbol);
         arrAnswers.clear();
         arrExamples.clear();
 
@@ -342,7 +342,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
         int indPlace = Math.abs((arrAnswers.size() == 0 ? random.nextInt() : random.nextInt(arrAnswers.size())));
         arrAnswers.add(indPlace % arrAnswers.size(), answer);
         indAnswer=arrAnswers.indexOf(answer);
-        System.out.println("indAnswer:"+indAnswer);
+        //System.out.println("indAnswer:"+indAnswer);
 
         Question="";
         if ("Digit".equals(
@@ -364,7 +364,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
             }
         }
 
-        System.out.println("Question:"+Question);
+        //System.out.println("Question:"+Question);
         //arrExamples.add(0,mBeginDigit);
 
 

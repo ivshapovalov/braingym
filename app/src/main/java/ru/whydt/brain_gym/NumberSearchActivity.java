@@ -5,18 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -28,9 +33,24 @@ public class NumberSearchActivity extends AppCompatActivity {
 
     private SharedPreferences mSettings;
     private String mNumberSearchLang;
+    private int mTextSize = 0;
     private int mNumberSearchSize;
-    private int mNumberSearchTextSize;
     private int mNumberSearchFontSizeChange;
+    private int mNumberSearchMaxTime;
+    private int mNumberSearchExampleTime;
+    private int mTextSizeDirection;
+
+    private ArrayList<Integer> alphabetColors = new ArrayList<>();
+
+    ArrayList<NumberSearchExample> matrix = new ArrayList<>();
+    ArrayList<Integer> ElementsWithFontSizeChanges = new ArrayList<>();
+
+    private String Question;
+    private int indAnswer;
+    private int mCountRightAnswers = 0;
+    private int mCountAllAnswers = 0;
+    private long mNumberSearchExBeginTime = 0;
+    private long elapsedMillis;
     //алфавиты
     private String[] AlphabetRu;
     private String[] AlphabetEn;
@@ -43,126 +63,68 @@ public class NumberSearchActivity extends AppCompatActivity {
         //matrixClear();
         mChronometer = (Chronometer) findViewById(R.id.chronometer_number_search);
 
-        String[] AlphabetRu= MainActivity.AlphabetRu();
-        String [] AlphabetEn=MainActivity.AlphabetEn();
+        AlphabetRu = MainActivity.AlphabetRu();
+        AlphabetEn = MainActivity.AlphabetEn();
 
     }
 
-
-    private void drawNumberSearchTest(ArrayList<Integer> matrix) {
-        //для матриц тестов id начинается со 300
-        TableLayout layout = (TableLayout) findViewById(R.id.table);
-        layout.removeAllViews();
-
-        layout.setStretchAllColumns(true);
-        layout.setShrinkAllColumns(true);
-
-        layout.setBackgroundColor(Color.BLACK);
-        int mHeight = layout.getHeight() / mNumberSearchSize;
-        int mWidth = layout.getWidth() / mNumberSearchSize;
-
-
-        for (Integer numString = 1; numString <= mNumberSearchSize; numString++) {
-            TableRow row = new TableRow(this);
-            //row.setBackgroundColor(Color.BLACK);
-            row.setMinimumHeight(mHeight);
-            row.setMinimumWidth(mWidth);
-            //row.setPadding(0, 0, 1, 0); //Border between rows
-            row.setGravity(Gravity.CENTER);
-
-            //row.setBackgroundColor(Color.WHITE);
-            //row.setBackground(R.drawable.rounded_corners);
-            //TableRow.LayoutParams params=new TableRow.LayoutParams(layout.getWidth()*95/100,mHeight,20);
-            //row.setLayoutParams(params);
-
-            //row.setMinimumWidth(mHeight);
-
-            // TableRow.LayoutParams llp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-            //llp.setMargins(0, 0, 2, 0);//2px right-margin
-
-            for (int numColumn = 1; numColumn <= mNumberSearchSize; numColumn++) {
-                //int resID=getResources().getIdentifier("txt"+(String.valueOf(300+(numString-1)*5+numColumn)), "id", getPackageName());
-                //TextView txt = (TextView) findViewById(resID);
-                //TextView txt = (TextView) findViewById(300+(numString-1)*5+numColumn);
-                TextView txt = (TextView) findViewById(300 + (numString - 1) * mNumberSearchSize + numColumn);
-                if (txt == null) {
-                    //System.out.println("Привет");
-//                    ShapeDrawable border = new ShapeDrawable(new RectShape());
-//                    border.getPaint().setStyle(Paint.Style.STROKE);
-//                    border.getPaint().setColor(Color.BLACK);
-                    //LinearLayout cell = new LinearLayout(this);
-                    //cell.setGravity(Gravity.CENTER);
-                    //cell.setBackgroundResource(R.drawable.textview_border);
-                    //cell.setBackgroundColor(Color.WHITE);
-//                    cell.setBackgroundColor(Color.WHITE);
-//                    cell.setLayoutParams(llp);//2px border on the right for the cell
-//                    cell.setBackgroundDrawable(border);
-                    txt = new TextView(this);
-                    txt.setId(300 + (numString - 1) * mNumberSearchSize + numColumn);
-                    //txt.setPadding(0, 0, 4, 3);
-                    //10% слева
-                    //txt.setPadding((numColumn) * mWidth+layout.getWidth()/100*5,layout.getHeight()*5/100+ numString * mHeight, 0, 0);
-
-                    //txt.setPadding((i - (i - 1) % mMatrixSize) / (mMatrixSize / 2) * 33 + 30, 200 + (i - 1) % mMatrixSize * 75, 0, 0);
-                    //txt.setLayoutParams(new android.view.ViewGroup.LayoutParams(mWidth,mHeight));
-
-                    //txt.setBackgroundDrawable(border);
-                    //cell.addView(txt);
-                    txt.setMinimumHeight(mHeight);
-                    row.addView(txt);
-                }
-                switch (mNumberSearchLang) {
-                    case "Digit":
-                        txt.setText(String.valueOf(matrix.get((numString - 1) * mNumberSearchSize + numColumn - 1)));
-                        break;
-                    case "Ru":
-                        String strRu=AlphabetRu[matrix.get((numString - 1) * mNumberSearchSize + numColumn - 1)-1];
-                        txt.setText(strRu);
-                        break;
-                    case "En":
-                        String strEn=AlphabetEn[matrix.get((numString - 1) * mNumberSearchSize + numColumn - 1)-1];
-                        txt.setText(strEn);
-                        break;
-                    default:
-                        txt.setText(String.valueOf(matrix.get((numString - 1) * mNumberSearchSize + numColumn - 1)));
-                        break;
-
-                }
-
-                //txt.setText(String.valueOf((numString-1)*5+numColumn));
-//                int bottom = txt.getPaddingBottom();
-//                int top = txt.getPaddingTop();
-//                int right = txt.getPaddingRight();
-//                int left = txt.getPaddingLeft();
-                //txt.setBackgroundResource(R.drawable.textview_border);
-                //txt.setPadding(left, top, right, bottom);
-                //findViewById(R.id.tablerow1).setBackgroundResource(R.drawable.textview_border);
-                //txt.setTextSize(Math.min(mWidth,mHeight)/9);
-                mNumberSearchTextSize=(int)(Math.min(mWidth, mHeight) / 3/getApplicationContext().getResources().getDisplayMetrics().density)+mNumberSearchFontSizeChange;
-                txt.setTextSize(mNumberSearchTextSize);
-                //txt.setTypeface(null, Typeface.BOLD);
-                txt.setGravity(Gravity.CENTER);
-                txt.setBackgroundResource(R.drawable.textview_border);
-                txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                //row.addView(txt);
-            }
-            layout.addView(row);
-        }
-        //setContentView(layout);
-        //int r=0;
-
-    }
-
-    public void numberSearchClear_onClick(View view) {
+    public void NumberSearchСlear_onClick(View view) {
 
         //matrixClear();
+        timerStop(false);
+
+    }
+
+    private void timerStop(boolean auto) {
         mChronometer.setBase(SystemClock.elapsedRealtime());
         mChronometer.stop();
-        mChronometerCount=0;
+        mChronometerCount = 0;
         mChronometerIsWorking = false;
+        mCountRightAnswers = 0;
+        mCountAllAnswers = 0;
+        mNumberSearchExBeginTime = 0;
 
-        ChangeButtonText("buttonNumberSearchStartPause","Старт");
+        ChangeButtonText("buttonNumberSearchStartPause", "Старт");
 
+        int timerMaxID = getResources().getIdentifier("tvNumberSearchTimerMaxTime", "id", getPackageName());
+        TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
+
+        if (txtTimerMaxTime != null) {
+            txtTimerMaxTime.setTextSize(mTextSize);
+            String txt;
+            if (!auto) {
+                txt = "Тест: " + String.valueOf(mNumberSearchMaxTime);
+            } else {
+                txt = "Тест окончен";
+            }
+            txtTimerMaxTime.setText(txt);
+        }
+
+        int answerID = getResources().getIdentifier("tvNumberSearchAnswers", "id", getPackageName());
+        TextView txtAnswer = (TextView) findViewById(answerID);
+        if (txtAnswer != null) {
+            txtAnswer.setTextSize(mTextSize);
+            if (!auto) {
+                txtAnswer.setText("");
+            }
+        }
+
+        if (mNumberSearchExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("tvNumberSearchTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+
+            if (txtTimerExTime != null) {
+                String txt;
+                if (!auto) {
+                    txt = "Пример: " + String.valueOf(mNumberSearchExampleTime);
+                } else {
+                    txt = "";
+                }
+
+                txtTimerExTime.setText(txt);
+                txtTimerExTime.setTextSize(mTextSize);
+            }
+        }
     }
 
     private void numberSearchClear() {
@@ -171,46 +133,170 @@ public class NumberSearchActivity extends AppCompatActivity {
         for (int i = 1; i <= mCountNumberSearch; i++) {
             //int resID=getResources().getIdentifier("txt"+String.valueOf(300+i), "id", getPackageName());
             //TextView txt = (TextView) findViewById(resID);
-            TextView txt = (TextView) findViewById(300 + i);
+            Button but = (Button) findViewById(600 + i);
             //txt.setVisibility(View.INVISIBLE);
-            if (txt != null) {
-                txt.setText("");
+            if (but != null) {
+                but.setText("");
+                but.setTextSize(mTextSize);
+                but.setBackgroundResource(R.drawable.rounded_corners1);
                 //txt.setVisibility(View.GONE);
                 //
             }
         }
+
+
+        int resID = getResources().getIdentifier("tvNumberSearchExample", "id", getPackageName());
+        TextView txt = (TextView) findViewById(resID);
+
+        if (txt != null) {
+            txt.setText(" ");
+            txt.setTextSize(mTextSize+2);
+            txt.setTextColor(Color.parseColor("#FF6D6464"));
+
+        }
+
+
+        int trowID = getResources().getIdentifier("trowNumberSearch", "id", getPackageName());
+        TableRow trow1 = (TableRow) findViewById(trowID);
+
+        if (trow1 != null) {
+            trow1.setBackgroundResource(R.drawable.rounded_corners1);
+        }
+
         //ChangeButtonText("buttonMatrixStartPause", "Старт");
 
     }
 
-    private ArrayList<Integer> createMatrix() {
-        ArrayList<Integer> matrix = new ArrayList<>();
-        int num;
+    private void changeTimer(long elapsedMillis) {
 
-        int mMaxDigits = mNumberSearchSize * mNumberSearchSize;
-        while (matrix.size() != mMaxDigits) {
-            Random random = new Random();
-            num = random.nextInt(mMaxDigits) + 1;
-            int indPlace = (matrix.size() == 0 ? 0 : random.nextInt(matrix.size()));
-            if (!matrix.contains(num)) {
-               matrix.add(indPlace, num);
+        for (int i = 0; i < ElementsWithFontSizeChanges.size(); i++) {
+            Button but = (Button) findViewById(600 + ElementsWithFontSizeChanges.get(i));
+            if (but != null) {
+
+                float mButTextSize = but.getTextSize()
+                        / getApplicationContext().getResources().getDisplayMetrics().density;
+                if (mButTextSize == mTextSize) {
+                    but.setTextSize(mButTextSize - 1);
+                    mTextSizeDirection = 2;
+                } else if (mButTextSize == mTextSize - 5) {
+                    but.setTextSize(mButTextSize + 1);
+                    mTextSizeDirection = 8;
+                } else if (mTextSizeDirection == 8) {
+                    but.setTextSize(mButTextSize + 1);
+                } else if (mTextSizeDirection == 2) {
+                    but.setTextSize(mButTextSize - 1);
+                }
+
+
             }
         }
-        return matrix;
+
+
+        int timerMaxID = getResources().getIdentifier("tvNumberSearchTimerMaxTime", "id", getPackageName());
+        TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
+        if (txtTimerMaxTime != null) {
+            int time = (int) (mNumberSearchMaxTime - (elapsedMillis / 1000));
+            String txt = "Тест: " + String.valueOf(time);
+            txtTimerMaxTime.setText(txt);
+            txtTimerMaxTime.setTextSize(mTextSize);
+        }
+        if (mNumberSearchExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("tvNumberSearchTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+            if (txtTimerExTime != null) {
+                int time = (mNumberSearchExampleTime - ((int) (((elapsedMillis - mNumberSearchExBeginTime) / 1000)) % mNumberSearchExampleTime));
+                //System.out.println("mStrupeExampleTime=" + mStrupExampleTime + ", time=" + time + ", elapsed millis=" + elapsedMillis + ", mStrupExBeginTime=" + mStrupExBeginTime);
+                if (time == mNumberSearchExampleTime) {
+                    //новый пример
+                    String txt = "Пример: " + String.valueOf(time);
+                    txtTimerExTime.setText(txt);
+                    txtTimerExTime.setTextSize(mTextSize);
+                    mCountAllAnswers++;
+                    int answerID = getResources().getIdentifier("tvNumberSearchAnswers", "id", getPackageName());
+                    TextView txtAnswer = (TextView) findViewById(answerID);
+                    if (txtAnswer != null) {
+                        String txt1 = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
+                        txtAnswer.setText(txt1);
+                        txtAnswer.setTextSize(mTextSize);
+                    }
+
+                    createExample();
+
+
+                } else {
+                    String txt = "Пример: " + String.valueOf(time);
+                    txtTimerExTime.setText(txt);
+                    txtTimerExTime.setTextSize(mTextSize);
+                }
+
+            }
+        } else {
+            int timerExID = getResources().getIdentifier("tvNumberSearchTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+            if (txtTimerExTime != null) {
+
+                txtTimerExTime.setText(" ");
+                txtTimerExTime.setTextSize(mTextSize);
+            }
+        }
     }
 
 
-
     public void startPause_onClick(View view) {
+
+        start_pause();
+
+    }
+
+    private void start_pause() {
 
         if (!mChronometerIsWorking) {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
 
-                getPreferencesFromFile();
-                ArrayList<Integer> matrix = createMatrix();
-                drawNumberSearchTest(matrix);
+                TableLayout frame = (TableLayout) findViewById(R.id.tableNumberSearch);
+                int mWidth;
+                int mHeight;
+                if (frame != null) {
+                    mWidth = frame.getWidth();
+                    mHeight = frame.getHeight();
+                } else {
+                    mWidth = 0;
+                    mHeight = 0;
+                }
+                mTextSize = (int) (Math.min(mWidth, mHeight) / 20 / getApplicationContext().getResources().getDisplayMetrics().density);
 
+                numberSearchClear();
+                getPreferencesFromFile();
+
+                int timerID = getResources().getIdentifier("tvNumberSearchTimerMaxTime", "id", getPackageName());
+                TextView txtTimerMaxTime = (TextView) findViewById(timerID);
+                if (txtTimerMaxTime != null) {
+                    txtTimerMaxTime.setTextSize(mTextSize);
+                    String txt = "Тест: " + String.valueOf(mNumberSearchMaxTime);
+                    txtTimerMaxTime.setText(txt);
+
+                }
+                mChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                    @Override
+                    public void onChronometerTick(Chronometer chronometer) {
+                        elapsedMillis = SystemClock.elapsedRealtime()
+                                - mChronometer.getBase();
+
+
+                        if (mNumberSearchMaxTime - (elapsedMillis / 1000) < 1) {
+                            timerStop(true);
+                        }
+                        if (elapsedMillis > 1000) {
+
+                            changeTimer(elapsedMillis);
+
+                            //elapsedMillis=0;
+                        }
+                    }
+                });
+
+                createExample();
             } else {
                 mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
             }
@@ -219,21 +305,212 @@ public class NumberSearchActivity extends AppCompatActivity {
             mChronometerIsWorking = true;
             ChangeButtonText("buttonNumberSearchStartPause", "Пауза");
 
+
         } else {
 
+            //mChronometerBase=mChronometer.getBase();
             mChronometerCount = SystemClock.elapsedRealtime() - mChronometer.getBase();
             mChronometer.stop();
             mChronometerIsWorking = false;
-
             ChangeButtonText("buttonNumberSearchStartPause", "Старт");
         }
-
     }
 
-    public void numberSearchOptions_onClick(View view) {
+    private void createExample() {
+
+        Random random = new Random();
+
+        int mCountAnswers = Math.abs(random.nextInt(10) + 5);
+        String txtNum = "";
+        int num;
+        matrix.clear();
+
+        while (matrix.size() != mCountAnswers) {
+            txtNum = "";
+            for (int i = 0; i < 4; i++) {
+
+                switch (mNumberSearchLang) {
+                    case "Digit":
+                        num = random.nextInt(10);
+                        txtNum += String.valueOf(num);
+                        break;
+                    case "Ru":
+                        num = random.nextInt(AlphabetRu.length);
+                        txtNum += AlphabetRu[num];
+                        break;
+                    case "En":
+                        num = random.nextInt(AlphabetEn.length);
+                        txtNum += AlphabetEn[num];
+                        break;
+                }
+
+            }
+            int indColor1 = Math.abs(random.nextInt() % 7);
+            int indColor2 = Math.abs(random.nextInt() % 7);
+
+            //тип 0 - обычная кнопка
+            //тип 1 - мигающая кнопка
+            //тип 2 - увеличивающаяся кнопка
+
+            int indType = Math.abs(random.nextInt() % 3);
+
+            NumberSearchExample Ex = new NumberSearchExample(txtNum, indColor1, indColor2, indType);
+            matrix.add(Ex);
+
+        }
+        int mMatrixSize = mNumberSearchSize * mNumberSearchSize;
+        while (matrix.size() != mMatrixSize) {
+            int indPlace = random.nextInt(matrix.size());
+            matrix.add(indPlace % matrix.size(), null);
+        }
+
+        boolean AnswerIsFound = false;
+        while (!AnswerIsFound) {
+            indAnswer = Math.abs(random.nextInt() % mMatrixSize);
+            if (matrix.get(indAnswer) != null) {
+                AnswerIsFound = true;
+                Question = matrix.get(indAnswer).getWord();
+
+            }
+        }
+
+        drawExamplesAndAnswers();
+    }
+
+    private void drawExamplesAndAnswers() {
+
+        Random random = new Random();
+        TableLayout layout = (TableLayout) findViewById(R.id.tableNumberSearch);
+        layout.removeAllViews();
+
+        layout.setStretchAllColumns(true);
+        layout.setShrinkAllColumns(true);
+
+        //layout.setBackgroundColor(Color.BLACK);
+        int mHeight = layout.getHeight() / mNumberSearchSize;
+        int mWidth = layout.getWidth() / mNumberSearchSize;
+
+        for (Integer numString = 1; numString <= mNumberSearchSize; numString++) {
+            System.out.println("numString:" + String.valueOf(numString));
+            TableRow row = new TableRow(this);
+            row.setMinimumHeight(mHeight);
+            row.setMinimumWidth(mWidth);
+            row.setGravity(Gravity.CENTER);
+
+            for (int numColumn = 1; numColumn <= mNumberSearchSize; numColumn++) {
+                System.out.println("numColumn:" + String.valueOf(numColumn));
+                Button but = (Button) findViewById(600 + (numString - 1) * mNumberSearchSize + numColumn);
+                if (but == null) {
+
+                    but = new Button(this);
+                    but.setId(600 + (numString - 1) * mNumberSearchSize + numColumn);
+                    but.setMinimumHeight(mHeight);
+                    but.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+                    //but.setPadding(5,5,5,5);
+                    row.addView(but);
+                }
+
+                but.setTextSize(mTextSize);
+                NumberSearchExample Ex = matrix.get((numString - 1) * mNumberSearchSize + numColumn - 1);
+                System.out.println("Число:" + String.valueOf((numString - 1) * mNumberSearchSize + numColumn - 1));
+                if (Ex == null) {
+                    but.setText("0000");
+                    but.setTextColor(Color.WHITE);
+                    but.setBackgroundResource(R.drawable.textview_border);
+                } else {
+                    but.setText(String.valueOf(Ex.getWord()));
+                    //but.setBackgroundColor(Ex.getColor());
+                    int type = Ex.getType();
+                    if (type == 1) {
+                        final AnimationDrawable drawable = new AnimationDrawable();
+                        final Handler handler = new Handler();
+                        int ms1 = Math.abs(random.nextInt() % 1000);
+                        int ms2 = Math.abs(random.nextInt() % 1000);
+                        drawable.addFrame(new ColorDrawable(alphabetColors.get(Ex.getColor1())), ms1);
+                        drawable.addFrame(new ColorDrawable(alphabetColors.get(Ex.getColor2())), ms2);
+                        drawable.setOneShot(false);
+                        but.setBackgroundDrawable(drawable);
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                drawable.start();
+                            }
+                        }, 100);
+                    } else if (type == 0) {
+                        but.setBackgroundColor(alphabetColors.get(Ex.getColor1()));
+                    } else if (type == 2) {
+                        ElementsWithFontSizeChanges.add((numString - 1) * mNumberSearchSize + numColumn - 1);
+                        but.setBackgroundColor(alphabetColors.get(Ex.getColor1()));
+                    }
+
+
+                    //mNumberSearchTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density) + mNumberSearchFontSizeChange;
+                    but.setTextSize(mTextSize);
+                    but.setGravity(Gravity.CENTER);
+                    //but.setBackgroundResource(R.drawable.textview_border);
+                    but.setTextColor(Color.WHITE);
+
+
+                    but.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            button_onClick(v);
+                        }
+                    });
+
+                }
+            }
+            layout.addView(row);
+        }
+        int exampleID = getResources().getIdentifier("tvNumberSearchExample", "id", getPackageName());
+        TextView txtExample = (TextView) findViewById(exampleID);
+        if (txtExample != null) {
+
+            txtExample.setText("Ищем слово: "+Question);
+            txtExample.setTextSize(mTextSize+2);
+
+        }
+    }
+
+
+    public void button_onClick(View view) {
+
+        if (mChronometerIsWorking) {
+            //int a = Integer.valueOf(String.valueOf(((AppCompatTextView) view).getText().charAt(0)));
+
+            int a = view.getId() % 100;
+            if (a - 1 == indAnswer) {
+
+                mCountRightAnswers++;
+            }
+            mCountAllAnswers++;
+            mNumberSearchExBeginTime = elapsedMillis;
+            int timerExID = getResources().getIdentifier("tvNumberSearchTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+            if (mNumberSearchExampleTime != 0) {
+                if (txtTimerExTime != null) {
+                    String txt = "Пример: " + String.valueOf(mNumberSearchExampleTime);
+                    txtTimerExTime.setText(txt);
+                    txtTimerExTime.setTextSize(mTextSize);
+                }
+            }
+            int answerID = getResources().getIdentifier("tvNumberSearchAnswers", "id", getPackageName());
+            TextView txtAnswer = (TextView) findViewById(answerID);
+            if (txtAnswer != null) {
+                String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
+                txtAnswer.setText(txt);
+                txtAnswer.setTextSize(mTextSize);
+            }
+
+            createExample();
+        }
+    }
+
+
+    public void NumberSearchOptions_onClick(View view) {
 
         Intent intent = new Intent(NumberSearchActivity.this, NumberSearchActivityOptions.class);
-        intent.putExtra("mNumberSearchTextSize",mNumberSearchTextSize-mNumberSearchFontSizeChange);
+        intent.putExtra("mNumberSearchTextSize", mTextSize - mNumberSearchFontSizeChange);
         startActivity(intent);
 
     }
@@ -258,30 +535,108 @@ public class NumberSearchActivity extends AppCompatActivity {
     private void getPreferencesFromFile() {
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
+        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
         if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE)) {
             // Получаем язык из настроек
             mNumberSearchFontSizeChange = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE, 0);
         } else {
             mNumberSearchFontSizeChange = 0;
         }
+
+        mNumberSearchLang = "Digit";
         if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE)) {
             // Получаем язык из настроек
             try {
                 mNumberSearchLang = mSettings.getString(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE, "Digit");
             } catch (Exception e) {
-                mNumberSearchLang="Digit";
+                mNumberSearchLang = "Digit";
             }
+
+        } else {
+            mNumberSearchLang = "Digit";
+
+        }
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_SIZE)) {
+            // Получаем язык из настроек
             try {
                 mNumberSearchSize = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_SIZE, 5);
             } catch (Exception e) {
-                mNumberSearchSize=5;
+                mNumberSearchSize = 5;
             }
+
         } else {
-            mNumberSearchLang="Digit";
-            mNumberSearchSize=5;
+            mNumberSearchSize = 5;
+
         }
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME)) {
+            mNumberSearchMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME, 60);
+        } else {
+            mNumberSearchMaxTime = 60;
+        }
+
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME)) {
+            mNumberSearchExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME, 0);
+        } else {
+            mNumberSearchExampleTime = 0;
+        }
+
+        alphabetColors.add(Color.RED);
+        alphabetColors.add(Color.parseColor("#FFA500"));
+        alphabetColors.add(Color.parseColor("#53b814"));
+        alphabetColors.add(Color.parseColor("#FF7B15CE"));
+        alphabetColors.add(Color.BLUE);
+        alphabetColors.add(Color.parseColor("#EE82EE"));
+        alphabetColors.add(Color.parseColor("#8B4513"));
     }
 
+    private class NumberSearchExample {
+        private String word;
+        private int color1;
+        private int color2;
+        private int type;
+
+        public NumberSearchExample(String word, int color1, int color2, int type) {
+            this.word = word;
+            this.color1 = color1;
+            this.color2 = color2;
+            this.type = type;
+        }
+
+        public String getWord() {
+            return word;
+        }
+
+        public void setWord(String word) {
+            this.word = word;
+        }
+
+        public int getColor1() {
+            return color1;
+        }
+
+        public void setColor1(int color1) {
+            this.color1 = color1;
+        }
+
+        public int getColor2() {
+            return color2;
+        }
+
+        public void setColor2(int color2) {
+            this.color2 = color2;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+    }
 
 
 }

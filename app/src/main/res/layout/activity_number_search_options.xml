@@ -51,7 +51,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/line4"
-        android:layout_below="@+id/line1" >
+        android:layout_below="@+id/line1"
+        android:background="@drawable/textview_border">
 
         <TextView
             android:id="@+id/tvNumberSearchFontSizeLabel"
@@ -78,7 +79,8 @@
         android:orientation="horizontal"
         android:id="@+id/line2"
         android:layout_below="@+id/line4"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:background="@drawable/textview_border">
 
         <TextView
             android:id="@+id/textView5"
@@ -127,7 +129,8 @@
         android:orientation="horizontal"
         android:id="@+id/line3"
         android:layout_below="@+id/line2"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:background="@drawable/textview_border">
 
         <TextView
             android:id="@+id/textView6"
@@ -147,24 +150,118 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="4"
+                android:id="@+id/radioButtonNumberSearchSize4"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="5"
                 android:id="@+id/radioButtonNumberSearchSize5"
                 android:checked="true"
                 android:textSize="12sp" />
 
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line3"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Время теста (сек)"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="50" />
+
+        <RadioGroup
+            android:id="@+id/rgNumberSearchMaxTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="50" >
+
             <RadioButton
+                android:id="@+id/rbNumberSearchMaxTime60"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6"
-                android:id="@+id/radioButtonNumberSearchSize6"
+                android:checked="true"
+                android:text="60"
+                android:layout_weight="50"
                 android:textSize="12sp" />
 
             <RadioButton
+                android:id="@+id/rbNumberSearchMaxTime120"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7"
-                android:id="@+id/radioButtonNumberSearchSize7"
+                android:text="120"
+                android:layout_weight="50"
                 android:textSize="12sp" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line6"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Время на пример (сек)"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="30" />
+
+        <RadioGroup
+            android:id="@+id/rgNumberSearchExTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="70" >
+
+            <RadioButton
+                android:id="@+id/rbNumberSearchExTime0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_weight="33"
+                android:text="@string/infinity"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbNumberSearchExTime5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbNumberSearchExTime10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+
         </RadioGroup>
     </LinearLayout>
 

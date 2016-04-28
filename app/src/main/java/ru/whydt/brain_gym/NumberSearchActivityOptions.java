@@ -19,6 +19,8 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
     private String mNumberSearchLang;
     private int mNumberSearchSize;
     private int mNumberSearchFontSizeChange;
+    private int mNumberSearchMaxTime;
+    private int mNumberSearchExampleTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +50,25 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
 //                    "В выбранных языках нет столько букв. Выберите цифры или измените размерность!", Toast.LENGTH_SHORT);
 //            toast.show();
 //        } else {
-            SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE, mNumberSearchLang);
-            editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_SIZE, mNumberSearchSize);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putString(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE, mNumberSearchLang);
+        editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_SIZE, mNumberSearchSize);
+        editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME, mNumberSearchMaxTime);
+        editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME, mNumberSearchExampleTime);
 
-            int sizeID = getResources().getIdentifier("evNumberSearchOptionsFontSizeChange", "id", getPackageName());
-            EditText txtSize = (EditText) findViewById(sizeID);
+        int sizeID = getResources().getIdentifier("evNumberSearchOptionsFontSizeChange", "id", getPackageName());
+        EditText txtSize = (EditText) findViewById(sizeID);
 
-            if (txtSize != null) {
-                mNumberSearchFontSizeChange= Integer.parseInt((txtSize.getText().toString().equals("")?"0":txtSize.getText().toString()));
-            }
+        if (txtSize != null) {
+            mNumberSearchFontSizeChange = Integer.parseInt((txtSize.getText().toString().equals("") ? "0" : txtSize.getText().toString()));
+        }
 
-            editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE, mNumberSearchFontSizeChange);
-            editor.apply();
+        editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE, mNumberSearchFontSizeChange);
 
-            this.finish();
+
+        editor.apply();
+
+        this.finish();
 //        }
 
     }
@@ -91,15 +97,40 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
             } catch (Exception e) {
                 mNumberSearchLang = "Digit";
             }
+
+        } else {
+            mNumberSearchLang = "Digit";
+
+        }
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_SIZE)) {
+            // Получаем язык из настроек
             try {
                 mNumberSearchSize = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_SIZE, 5);
             } catch (Exception e) {
-                mNumberSearchSize=5;
+                mNumberSearchSize = 5;
             }
+
         } else {
-            mNumberSearchLang = "Digit";
-            mNumberSearchSize=5;
+            mNumberSearchSize = 5;
+
         }
+
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME)) {
+            mNumberSearchMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME, 60);
+        } else {
+            mNumberSearchMaxTime = 60;
+        }
+
+
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME)) {
+            mNumberSearchExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME, 0);
+        } else {
+            mNumberSearchExampleTime = 0;
+        }
+
+
     }
 
     private void setPreferencesOnScreen() {
@@ -118,7 +149,7 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
         int mNumberSearchTextSize = getIntent().getIntExtra("mNumberSearchTextSize", 0);
 
         if (tvSizeLabel != null) {
-            tvSizeLabel.setText("Изменение шрифта ("+String.valueOf(mNumberSearchTextSize)+"+/-sp):");
+            tvSizeLabel.setText("Изменение шрифта (" + String.valueOf(mNumberSearchTextSize) + "+/-sp):");
         }
 
         //Установим настройки в зависимости от сохраненного языка
@@ -174,16 +205,78 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
                         case -1:
                             break;
                         case R.id.radioButtonNumberSearchSize5:
-                            mNumberSearchSize= 5;
+                            mNumberSearchSize = 5;
                             break;
-                        case  R.id.radioButtonSize6:
-                            mNumberSearchSize= 6;
-                            break;
-                        case  R.id.radioButtonSize7:
-                            mNumberSearchSize= 7;
+
+                        case R.id.radioButtonNumberSearchSize4:
+                            mNumberSearchSize = 4;
                             break;
                         default:
-                            mNumberSearchSize= 5;
+                            mNumberSearchSize = 5;
+                            break;
+                    }
+                }
+            });
+        }
+
+        //время тестирования
+        int maxtimeID = getResources().getIdentifier("rbNumberSearchMaxTime" + mNumberSearchMaxTime, "id", getPackageName());
+        RadioButton butTime = (RadioButton) findViewById(maxtimeID);
+        if (butTime != null) {
+            butTime.setChecked(true);
+        }
+
+        //
+        RadioGroup rgMaxTime = (RadioGroup) findViewById(R.id.rgNumberSearchMaxTime);
+
+        if (rgMaxTime != null) {
+            rgMaxTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case -1:
+                            break;
+                        case R.id.rbNumberSearchMaxTime60:
+                            mNumberSearchMaxTime = 60;
+                            break;
+                        case R.id.rbNumberSearchMaxTime120:
+                            mNumberSearchMaxTime = 120;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+
+        int extimeID = getResources().getIdentifier("rbNumberSearchExTime" + mNumberSearchExampleTime, "id", getPackageName());
+        RadioButton exTime = (RadioButton) findViewById(extimeID);
+        if (exTime != null) {
+            exTime.setChecked(true);
+        }
+        //
+        RadioGroup rgExTime = (RadioGroup) findViewById(R.id.rgNumberSearchExTime);
+
+        if (rgExTime != null) {
+            rgExTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    switch (checkedId) {
+                        case -1:
+                            break;
+                        case R.id.rbNumberSearchExTime0:
+                            mNumberSearchExampleTime = 0;
+                            break;
+                        case R.id.rbNumberSearchExTime5:
+                            mNumberSearchExampleTime = 5;
+                            break;
+                        case R.id.rbNumberSearchExTime10:
+                            mNumberSearchExampleTime = 10;
+                            break;
+                        default:
                             break;
                     }
                 }

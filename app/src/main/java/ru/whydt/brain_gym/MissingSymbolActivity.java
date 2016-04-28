@@ -147,16 +147,6 @@ public class MissingSymbolActivity extends AppCompatActivity {
 
         }
 
-//        int exID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
-//        TextView txt1 = (TextView) findViewById(exID);
-//
-//        if (txt1 != null) {
-//            txt1.setText("  ");
-//            txt1.setBackgroundResource(R.drawable.rounded_corners1);
-//            txt1.setTextSize(mTextSize);
-//
-//        }
-
         int trowID = getResources().getIdentifier("trowMissingSymbol", "id", getPackageName());
         TableRow trow1 = (TableRow) findViewById(trowID);
 
