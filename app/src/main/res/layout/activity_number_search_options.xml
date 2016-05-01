@@ -100,7 +100,7 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1-25"
+                android:text="0-9"
                 android:id="@+id/radioButtonNumberSearchLangDigit"
                 android:checked="true"
                 android:textSize="12sp" />

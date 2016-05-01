@@ -320,7 +320,7 @@ public class NumberSearchActivity extends AppCompatActivity {
 
         Random random = new Random();
 
-        int mCountAnswers = Math.abs(random.nextInt(10) + 5);
+        int mCountAnswers = Math.abs(random.nextInt(10) + 7);
         String txtNum = "";
         int num;
         matrix.clear();
@@ -347,6 +347,7 @@ public class NumberSearchActivity extends AppCompatActivity {
             }
             int indColor1 = Math.abs(random.nextInt() % 7);
             int indColor2 = Math.abs(random.nextInt() % 7);
+            int indColor3 = Math.abs(random.nextInt() % 7);
 
             //тип 0 - обычная кнопка
             //тип 1 - мигающая кнопка
@@ -354,7 +355,7 @@ public class NumberSearchActivity extends AppCompatActivity {
 
             int indType = Math.abs(random.nextInt() % 3);
 
-            NumberSearchExample Ex = new NumberSearchExample(txtNum, indColor1, indColor2, indType);
+            NumberSearchExample Ex = new NumberSearchExample(txtNum, indColor1, indColor2,indColor3, indType);
             matrix.add(Ex);
 
         }
@@ -426,8 +427,10 @@ public class NumberSearchActivity extends AppCompatActivity {
                         final Handler handler = new Handler();
                         int ms1 = Math.abs(random.nextInt() % 1000);
                         int ms2 = Math.abs(random.nextInt() % 1000);
+                        int ms3 = Math.abs(random.nextInt() % 1000);
                         drawable.addFrame(new ColorDrawable(alphabetColors.get(Ex.getColor1())), ms1);
                         drawable.addFrame(new ColorDrawable(alphabetColors.get(Ex.getColor2())), ms2);
+                        drawable.addFrame(new ColorDrawable(alphabetColors.get(Ex.getColor3())), ms3);
                         drawable.setOneShot(false);
                         but.setBackgroundDrawable(drawable);
                         handler.postDelayed(new Runnable() {
@@ -596,12 +599,14 @@ public class NumberSearchActivity extends AppCompatActivity {
         private String word;
         private int color1;
         private int color2;
+        private int color3;
         private int type;
 
-        public NumberSearchExample(String word, int color1, int color2, int type) {
+        public NumberSearchExample(String word, int color1, int color2,int color3, int type) {
             this.word = word;
             this.color1 = color1;
             this.color2 = color2;
+            this.color3 = color3;
             this.type = type;
         }
 
@@ -635,6 +640,14 @@ public class NumberSearchActivity extends AppCompatActivity {
 
         public void setType(int type) {
             this.type = type;
+        }
+
+        public int getColor3() {
+            return color3;
+        }
+
+        public void setColor3(int color3) {
+            this.color3 = color3;
         }
     }
 
