@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/groundMath"
-        tools:context="ru.whydt.brain_gym.MathActivity"
+        tools:context="ru.brainworkout.brain_gym.MathActivity"
         >
 
         <TableRow

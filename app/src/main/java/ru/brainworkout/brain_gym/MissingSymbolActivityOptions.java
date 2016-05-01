@@ -1,4 +1,4 @@
-package ru.whydt.brain_gym;
+package ru.brainworkout.brain_gym;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,18 +10,18 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 
-public class ChainCharacterActivityOptions extends AppCompatActivity {
+public class MissingSymbolActivityOptions extends AppCompatActivity {
 
     private SharedPreferences mSettings;
-    private String mChainCharacterLang;
-    private int mChainCharacterMaxTime;
-    private int mChainCharacterExampleTime;
+    private String mMissingSymbolLang;
+    private int mMissingSymbolMaxTime;
+    private int mMissingSymbolExampleTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chain_character_options);
+        setContentView(R.layout.activity_missing_symbol_options);
 
         getPreferencesFromFile();
 
@@ -31,11 +31,13 @@ public class ChainCharacterActivityOptions extends AppCompatActivity {
 
 
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_LANGUAGE, mChainCharacterLang);
-        editor.putInt(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_MAX_TIME, mChainCharacterMaxTime);
-        editor.putInt(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_EXAMPLE_TIME, mChainCharacterExampleTime);
+        editor.putString(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE, mMissingSymbolLang);
+        editor.putInt(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME, mMissingSymbolMaxTime);
+        editor.putInt(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME, mMissingSymbolExampleTime);
 
         editor.apply();
+
+
         this.finish();
     }
 
@@ -58,20 +60,20 @@ public class ChainCharacterActivityOptions extends AppCompatActivity {
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME)) {
-            mChainCharacterMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_MAX_TIME, 60);
+            mMissingSymbolMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME, 60);
         } else {
-            mChainCharacterMaxTime = 60;
+            mMissingSymbolMaxTime = 60;
         }
 
         //время тестирования
-        int maxtimeID = getResources().getIdentifier("rbChainCharacterMaxTime" + mChainCharacterMaxTime, "id", getPackageName());
+        int maxtimeID = getResources().getIdentifier("rbMissingSymbolMaxTime" + mMissingSymbolMaxTime, "id", getPackageName());
         RadioButton butTime = (RadioButton) findViewById(maxtimeID);
         if (butTime != null) {
             butTime.setChecked(true);
         }
 
         //
-        RadioGroup rgMaxTime = (RadioGroup) findViewById(R.id.rgChainCharacterMaxTime);
+        RadioGroup rgMaxTime = (RadioGroup) findViewById(R.id.rgMissingSymbolMaxTime);
 
         if (rgMaxTime != null) {
             rgMaxTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -81,11 +83,11 @@ public class ChainCharacterActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.rbChainCharacterMaxTime60:
-                            mChainCharacterMaxTime = 60;
+                        case R.id.rbMissingSymbolMaxTime60:
+                            mMissingSymbolMaxTime = 60;
                             break;
-                        case R.id.rbChainCharacterMaxTime120:
-                            mChainCharacterMaxTime = 120;
+                        case R.id.rbMissingSymbolMaxTime120:
+                            mMissingSymbolMaxTime = 120;
                             break;
                         default:
                             break;
@@ -94,19 +96,19 @@ public class ChainCharacterActivityOptions extends AppCompatActivity {
             });
         }
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_EXAMPLE_TIME)) {
-            mChainCharacterExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_EXAMPLE_TIME, 0);
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME)) {
+            mMissingSymbolExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME, 0);
         } else {
-            mChainCharacterExampleTime = 0;
+            mMissingSymbolExampleTime = 0;
         }
 
-        int extimeID = getResources().getIdentifier("rbChainCharacterExTime" + mChainCharacterExampleTime, "id", getPackageName());
+        int extimeID = getResources().getIdentifier("rbMissingSymbolExTime" + mMissingSymbolExampleTime, "id", getPackageName());
         RadioButton exTime = (RadioButton) findViewById(extimeID);
         if (exTime != null) {
             exTime.setChecked(true);
         }
         //
-        RadioGroup rgExTime = (RadioGroup) findViewById(R.id.rgChainCharacterExTime);
+        RadioGroup rgExTime = (RadioGroup) findViewById(R.id.rgMissingSymbolExTime);
 
         if (rgExTime != null) {
             rgExTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -117,14 +119,14 @@ public class ChainCharacterActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.rbChainCharacterExTime0:
-                            mChainCharacterExampleTime = 0;
+                        case R.id.rbMissingSymbolExTime0:
+                            mMissingSymbolExampleTime = 0;
                             break;
-                        case R.id.rbChainCharacterExTime5:
-                            mChainCharacterExampleTime = 5;
+                        case R.id.rbMissingSymbolExTime5:
+                            mMissingSymbolExampleTime = 5;
                             break;
-                        case R.id.rbChainCharacterExTime10:
-                            mChainCharacterExampleTime = 10;
+                        case R.id.rbMissingSymbolExTime10:
+                            mMissingSymbolExampleTime = 10;
                             break;
                         default:
                             break;
@@ -133,21 +135,21 @@ public class ChainCharacterActivityOptions extends AppCompatActivity {
             });
         }
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_LANGUAGE)) {
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE)) {
             // Получаем язык из настроек
-            mChainCharacterLang = mSettings.getString(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_LANGUAGE, "Digit");
+            mMissingSymbolLang = mSettings.getString(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE, "Digit");
         } else {
-            mChainCharacterLang = "Digit";
+            mMissingSymbolLang = "Digit";
         }
         //Установим настройки в зависимости от сохраненного языка
-        int langID = getResources().getIdentifier("rbChainCharacterLang" + mChainCharacterLang, "id", getPackageName());
+        int langID = getResources().getIdentifier("rbMissingSymbolLang" + mMissingSymbolLang, "id", getPackageName());
         RadioButton butLang = (RadioButton) findViewById(langID);
         if (butLang != null) {
             butLang.setChecked(true);
         }
 
         //
-        RadioGroup rgLang = (RadioGroup) findViewById(R.id.rgChainCharacterLang);
+        RadioGroup rgLang = (RadioGroup) findViewById(R.id.rgMissingSymbolLang);
 
         if (rgLang != null) {
             rgLang.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -157,14 +159,14 @@ public class ChainCharacterActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.rbChainCharacterLangDigit:
-                            mChainCharacterLang = "Digit";
+                        case R.id.rbMissingSymbolLangDigit:
+                            mMissingSymbolLang = "Digit";
                             break;
-                        case R.id.rbChainCharacterLangRu:
-                            mChainCharacterLang = "Ru";
+                        case R.id.rbMissingSymbolLangRu:
+                            mMissingSymbolLang = "Ru";
                             break;
-                        case R.id.rbChainCharacterLangEn:
-                            mChainCharacterLang = "En";
+                        case R.id.rbMissingSymbolLangEn:
+                            mMissingSymbolLang = "En";
                             break;
                         default:
                             break;

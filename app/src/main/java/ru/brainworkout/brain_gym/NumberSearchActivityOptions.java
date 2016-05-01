@@ -1,4 +1,4 @@
-package ru.whydt.brain_gym;
+package ru.brainworkout.brain_gym;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class NumberSearchActivityOptions extends AppCompatActivity {

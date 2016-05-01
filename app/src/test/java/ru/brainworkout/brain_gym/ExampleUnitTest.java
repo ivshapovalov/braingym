@@ -1,4 +1,4 @@
-package ru.whydt.brain_gym;
+package ru.brainworkout.brain_gym;
 
 import org.junit.Test;
 

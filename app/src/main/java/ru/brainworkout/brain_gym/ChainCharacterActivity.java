@@ -1,4 +1,4 @@
-package ru.whydt.brain_gym;
+package ru.brainworkout.brain_gym;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 

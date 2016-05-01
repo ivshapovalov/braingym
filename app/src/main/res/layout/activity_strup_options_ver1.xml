@@ -5,7 +5,7 @@
     android:id="@+id/ground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.whydt.brain_gym.StrupActivityOptions_ver1">
+    tools:context="ru.brainworkout.brain_gym.StrupActivityOptions_ver1">
 
     <LinearLayout
         android:id="@+id/line1"

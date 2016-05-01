@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="ru.whydt.brain_gym.MatrixActivity"
+        tools:context="ru.brainworkout.brain_gym.MatrixActivity"
         android:id="@+id/groundMatrix">
 
         <TableRow

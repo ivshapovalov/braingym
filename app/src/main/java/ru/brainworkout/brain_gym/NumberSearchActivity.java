@@ -1,4 +1,4 @@
-package ru.whydt.brain_gym;
+package ru.brainworkout.brain_gym;
 
 
 import android.content.Context;
@@ -15,13 +15,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 
