@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_MATRIX_LANGUAGE="matrix_language";
     public static final String APP_PREFERENCES_MATRIX_SIZE="matrix_size";
     public static final String APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE="matrix_font_size_change";
+    public static final String APP_PREFERENCES_MATRIX_CLICKABLE="matrix_clickable";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE="number_search_language";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_SIZE="number_search_size";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE="number_search_font_size_change";

@@ -11,8 +11,8 @@
     <string name="strup_name1">Тест Струпа (сложный)</string>
     <string name="missing_symbol_name">Пропущенный символ</string>
     <string name="chain_char_name">Цепочка символов</string>
-    <string name="number_search_name">Поиск числа</string>
-    <string name="number_search_name_options">Настройки "Поиск числа"</string>
+    <string name="number_search_name">Поиск набора символов</string>
+    <string name="number_search_name_options">Настройки "Поиск символа"</string>
     <string name="missing_symbol_name_options">Настройки "Пропущенный символ"</string>
     <string name="strup_name_options">Настройки Тест Струпа</string>
     <string name="math_name_options">Настройки Арифметики</string>

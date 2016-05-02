@@ -19,6 +19,7 @@ public class MatrixActivityOptions extends AppCompatActivity {
     private String mMatrixLang;
     private int mMatrixSize;
     private int mMatrixFontSizeChange;
+    private boolean mMatrixIsClickable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class MatrixActivityOptions extends AppCompatActivity {
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putString(MainActivity.APP_PREFERENCES_MATRIX_LANGUAGE, mMatrixLang);
             editor.putInt(MainActivity.APP_PREFERENCES_MATRIX_SIZE, mMatrixSize);
+            editor.putBoolean(MainActivity.APP_PREFERENCES_MATRIX_CLICKABLE, mMatrixIsClickable);
 
             int sizeID = getResources().getIdentifier("evMatrixOptionsFontSizeChange", "id", getPackageName());
             EditText txtSize = (EditText) findViewById(sizeID);
@@ -91,14 +93,32 @@ public class MatrixActivityOptions extends AppCompatActivity {
             } catch (Exception e) {
                 mMatrixLang = "Digit";
             }
+        } else {
+            mMatrixLang = "Digit";
+        }
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_SIZE)) {
             try {
                 mMatrixSize = mSettings.getInt(MainActivity.APP_PREFERENCES_MATRIX_SIZE, 5);
             } catch (Exception e) {
                 mMatrixSize=5;
             }
         } else {
-            mMatrixLang = "Digit";
+
             mMatrixSize=5;
+        }
+
+        mMatrixIsClickable = false;
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_CLICKABLE)) {
+            // Получаем язык из настроек
+            try {
+                mMatrixIsClickable = mSettings.getBoolean(MainActivity.APP_PREFERENCES_MATRIX_CLICKABLE, false);
+            } catch (Exception e) {
+                mMatrixIsClickable = false;
+            }
+
+        } else {
+            mMatrixIsClickable = false;
         }
     }
 
@@ -162,7 +182,7 @@ public class MatrixActivityOptions extends AppCompatActivity {
             but.setChecked(true);
         }
 
-        //
+        //Размер
         radiogroup = (RadioGroup) findViewById(R.id.rgMatrixSize);
 
         if (radiogroup != null) {
@@ -184,6 +204,31 @@ public class MatrixActivityOptions extends AppCompatActivity {
                             break;
                         default:
                             mMatrixSize= 5;
+                            break;
+                    }
+                }
+            });
+        }
+
+        //матрица кликабельна
+        radiogroup = (RadioGroup) findViewById(R.id.rgMatrixClickable);
+
+        if (radiogroup != null) {
+            radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case -1:
+                            break;
+                        case R.id.radioButtonMatrixClickableYes:
+                            mMatrixIsClickable= true;
+                            break;
+                        case  R.id.radioButtonMatrixClickableNo:
+                            mMatrixIsClickable= false;
+                            break;
+                        default:
+                            mMatrixIsClickable= false;
                             break;
                     }
                 }

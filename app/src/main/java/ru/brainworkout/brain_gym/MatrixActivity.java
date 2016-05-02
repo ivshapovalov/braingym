@@ -35,6 +35,7 @@ public class MatrixActivity extends AppCompatActivity {
     private int mMatrixSize;
     private int mMatrixTextSize;
     private int mMatrixFontSizeChange;
+    private boolean mMatrixIsClickable;
     //алфавиты
     private String[] AlphabetRu;
     private String[] AlphabetEn;
@@ -274,16 +275,29 @@ public class MatrixActivity extends AppCompatActivity {
             try {
                 mMatrixLang = mSettings.getString(MainActivity.APP_PREFERENCES_MATRIX_LANGUAGE, "Digit");
             } catch (Exception e) {
-                mMatrixLang="Digit";
+                mMatrixLang = "Digit";
             }
+        } else {            mMatrixLang="Digit";}
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_SIZE)) {
             try {
                 mMatrixSize = mSettings.getInt(MainActivity.APP_PREFERENCES_MATRIX_SIZE, 5);
             } catch (Exception e) {
                 mMatrixSize=5;
             }
         } else {
-            mMatrixLang="Digit";
+
             mMatrixSize=5;
+        }
+        mMatrixIsClickable = false;
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_CLICKABLE)) {
+            try {
+                mMatrixIsClickable = mSettings.getBoolean(MainActivity.APP_PREFERENCES_MATRIX_CLICKABLE, false);
+            } catch (Exception e) {
+                mMatrixIsClickable = false;
+            }
+
+        } else {
+            mMatrixIsClickable = false;
         }
     }
 

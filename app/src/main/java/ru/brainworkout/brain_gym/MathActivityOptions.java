@@ -100,12 +100,12 @@ public class MathActivityOptions extends AppCompatActivity {
 
 
 
-        mMathMaxDigit = 150;
+        mMathMaxDigit = 100;
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT)) {
             // Получаем язык из настроек
-            mMathMaxDigit = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, 150);
+            mMathMaxDigit = mSettings.getInt(MainActivity.APP_PREFERENCES_MATH_MAXIMUM_DIGIT, 100);
         } else {
-            mMathMaxDigit = 150;
+            mMathMaxDigit = 100;
         }
 
         //Установим настройки в зависимости от сохраненного языка
@@ -126,10 +126,10 @@ public class MathActivityOptions extends AppCompatActivity {
 
                     switch (checkedId) {
                         case -1:
-                            mMathMaxDigit = 150;
+                            mMathMaxDigit = 100;
                             break;
-                        case R.id.radioButton150:
-                            mMathMaxDigit = 150;
+                        case R.id.radioButton100:
+                            mMathMaxDigit = 100;
                             break;
                         case R.id.radioButton300:
                             mMathMaxDigit = 300;
@@ -138,7 +138,7 @@ public class MathActivityOptions extends AppCompatActivity {
                             mMathMaxDigit = 1000;
                             break;
                         default:
-                            mMathMaxDigit = 150;
+                            mMathMaxDigit = 100;
                             break;
                     }
                 }

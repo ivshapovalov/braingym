@@ -169,5 +169,46 @@
         </RadioGroup>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/line5"
+        android:layout_below="@+id/line3"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Символы кликабельны:"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/rgMatrixClickable" >
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Да"
+                android:id="@+id/radioButtonMatrixClickableYes"
+                android:checked="true"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Нет"
+                android:id="@+id/radioButtonMatrixClickableNo"
+                android:textSize="12sp" />
+
+        </RadioGroup>
+    </LinearLayout>
+
 </RelativeLayout>
 

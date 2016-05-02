@@ -262,7 +262,20 @@ public class NumberSearchActivity extends AppCompatActivity {
                     mWidth = 0;
                     mHeight = 0;
                 }
-                mTextSize = (int) (Math.min(mWidth, mHeight) / 20 / getApplicationContext().getResources().getDisplayMetrics().density);
+
+                int del=20;
+                switch (mNumberSearchLang) {
+                    case "Digit":
+                        del=20;
+                        break;
+                    case "Ru":
+                        del=23;
+                        break;
+                    case "En":
+                        del=23;
+                        break;
+                }
+                mTextSize = (int) (Math.min(mWidth, mHeight) / del / getApplicationContext().getResources().getDisplayMetrics().density);
 
                 numberSearchClear();
                 getPreferencesFromFile();
