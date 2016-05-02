@@ -29,6 +29,7 @@ public class MatrixActivity extends AppCompatActivity {
 
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
+    private ArrayList<Integer> matrix=new ArrayList<>();
 
     private SharedPreferences mSettings;
     private String mMatrixLang;
@@ -36,6 +37,7 @@ public class MatrixActivity extends AppCompatActivity {
     private int mMatrixTextSize;
     private int mMatrixFontSizeChange;
     private boolean mMatrixIsClickable;
+    private int mIndexNextSymbol;
     //алфавиты
     private String[] AlphabetRu;
     private String[] AlphabetEn;
@@ -54,7 +56,7 @@ public class MatrixActivity extends AppCompatActivity {
     }
 
 
-    private void drawMatrixTest(ArrayList<Integer> matrix) {
+    private void drawMatrixTest() {
         //для матриц тестов id начинается со 300
         TableLayout layout = (TableLayout) findViewById(R.id.table);
         layout.removeAllViews();
@@ -120,19 +122,18 @@ public class MatrixActivity extends AppCompatActivity {
                 switch (mMatrixLang) {
                     case "Digit":
                         txt.setText(String.valueOf(matrix.get((numString - 1) * mMatrixSize + numColumn - 1)));
+                        mIndexNextSymbol=matrix.indexOf(1);
                         break;
                     case "Ru":
                         String strRu=AlphabetRu[matrix.get((numString - 1) * mMatrixSize + numColumn - 1)-1];
                         txt.setText(strRu);
+                        mIndexNextSymbol=matrix.indexOf("А");
                         break;
                     case "En":
                         String strEn=AlphabetEn[matrix.get((numString - 1) * mMatrixSize + numColumn - 1)-1];
                         txt.setText(strEn);
+                        mIndexNextSymbol=matrix.indexOf("A");
                         break;
-                    default:
-                        txt.setText(String.valueOf(matrix.get((numString - 1) * mMatrixSize + numColumn - 1)));
-                        break;
-
                 }
 
                 //txt.setText(String.valueOf((numString-1)*5+numColumn));
@@ -150,6 +151,13 @@ public class MatrixActivity extends AppCompatActivity {
                 txt.setGravity(Gravity.CENTER);
                 txt.setBackgroundResource(R.drawable.textview_border);
                 txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                txt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       txt_onClick(v);
+                    }
+                });
                 //row.addView(txt);
             }
             layout.addView(row);
@@ -157,6 +165,54 @@ public class MatrixActivity extends AppCompatActivity {
         //setContentView(layout);
         //int r=0;
 
+    }
+
+    public void txt_onClick(View view) {
+
+        if (mChronometerIsWorking) {
+            //int a = Integer.valueOf(String.valueOf(((AppCompatTextView) view).getText().charAt(0)));
+
+            int a = view.getId() % 100;
+            if (a - 1 == mIndexNextSymbol) {
+
+                switch (mMatrixLang) {
+                    case "Digit":
+                        mIndexNextSymbol=matrix.indexOf(matrix.indexOf(mIndexNextSymbol)+1);
+                        break;
+                    case "Ru":
+                        mIndexNextSymbol=AlphabetRu.matrix.indexOf(mIndexNextSymbol);
+                        break;
+                    case "En":
+                        String strEn=AlphabetEn[matrix.get((numString - 1) * mMatrixSize + numColumn - 1)-1];
+                        txt.setText(strEn);
+                        mIndexNextSymbol=matrix.indexOf("A");
+                        break;
+                }
+                //угадал. вычисляем индекс следующего символа
+                mIndexNextSymbol=matrix.indexOf("А");
+                mCountRightAnswers++;
+            }
+            mCountAllAnswers++;
+            mNumberSearchExBeginTime = elapsedMillis;
+            int timerExID = getResources().getIdentifier("tvNumberSearchTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+            if (mNumberSearchExampleTime != 0) {
+                if (txtTimerExTime != null) {
+                    String txt = "Пример: " + String.valueOf(mNumberSearchExampleTime);
+                    txtTimerExTime.setText(txt);
+                    txtTimerExTime.setTextSize(mTextSize);
+                }
+            }
+            int answerID = getResources().getIdentifier("tvNumberSearchAnswers", "id", getPackageName());
+            TextView txtAnswer = (TextView) findViewById(answerID);
+            if (txtAnswer != null) {
+                String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
+                txtAnswer.setText(txt);
+                txtAnswer.setTextSize(mTextSize);
+            }
+
+            createExample();
+        }
     }
 
     public void matrixClear_onClick(View view) {
@@ -189,8 +245,7 @@ public class MatrixActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<Integer> createMatrix() {
-        ArrayList<Integer> matrix = new ArrayList<>();
+    private void createMatrix() {
         int num;
 
         int mMaxDigits = mMatrixSize * mMatrixSize;
@@ -202,7 +257,6 @@ public class MatrixActivity extends AppCompatActivity {
                matrix.add(indPlace, num);
             }
         }
-        return matrix;
     }
 
 
@@ -214,8 +268,8 @@ public class MatrixActivity extends AppCompatActivity {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
 
                 getPreferencesFromFile();
-                ArrayList<Integer> matrix = createMatrix();
-                drawMatrixTest(matrix);
+                createMatrix();
+                drawMatrixTest();
 
             } else {
                 mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
