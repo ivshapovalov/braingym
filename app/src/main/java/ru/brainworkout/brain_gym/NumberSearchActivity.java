@@ -50,8 +50,8 @@ public class NumberSearchActivity extends AppCompatActivity {
     private long mNumberSearchExBeginTime = 0;
     private long elapsedMillis;
     //алфавиты
-    private String[] AlphabetRu;
-    private String[] AlphabetEn;
+    private ArrayList<String> AlphabetRu;
+    private ArrayList<String> AlphabetEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +61,8 @@ public class NumberSearchActivity extends AppCompatActivity {
         //matrixClear();
         mChronometer = (Chronometer) findViewById(R.id.chronometer_number_search);
 
-        AlphabetRu = MainActivity.AlphabetRu();
-        AlphabetEn = MainActivity.AlphabetEn();
+        AlphabetRu= MainActivity.AlphabetRu();
+        AlphabetEn=MainActivity.AlphabetEn();
 
     }
 
@@ -346,12 +346,12 @@ public class NumberSearchActivity extends AppCompatActivity {
                         txtNum += String.valueOf(num);
                         break;
                     case "Ru":
-                        num = random.nextInt(AlphabetRu.length);
-                        txtNum += AlphabetRu[num];
+                        num = random.nextInt(AlphabetRu.size());
+                        txtNum += AlphabetRu.get(num);
                         break;
                     case "En":
-                        num = random.nextInt(AlphabetEn.length);
-                        txtNum += AlphabetEn[num];
+                        num = random.nextInt(AlphabetEn.size());
+                        txtNum += AlphabetEn.get(num);
                         break;
                 }
 

@@ -44,8 +44,8 @@ public class MissingSymbolActivity extends AppCompatActivity {
     private long elapsedMillis;
 
 
-    private String[] AlphabetRu;
-    private String[] AlphabetEn;
+    private ArrayList<String> AlphabetRu;
+    private ArrayList<String> AlphabetEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class MissingSymbolActivity extends AppCompatActivity {
         mChronometer = (Chronometer) findViewById(R.id.chronometer_missing_symbol);
 
 
-       AlphabetRu = MainActivity.AlphabetRu();
-       AlphabetEn = MainActivity.AlphabetEn();
+        AlphabetRu= MainActivity.AlphabetRu();
+        AlphabetEn=MainActivity.AlphabetEn();
     }
 
 
@@ -308,9 +308,9 @@ public class MissingSymbolActivity extends AppCompatActivity {
         if ("Digit".equals(mMissingSymbolLang)) {
             mBeginDigit = Math.abs(random.nextInt(100));
         } else if ("Ru".equals(mMissingSymbolLang)) {
-            mBeginDigit = Math.abs(random.nextInt() % (AlphabetRu.length - mMissingSymbolCountAnswers));
+            mBeginDigit = Math.abs(random.nextInt() % (AlphabetRu.size() - mMissingSymbolCountAnswers));
         } else if ("En".equals(mMissingSymbolLang)) {
-            mBeginDigit = Math.abs(random.nextInt() % (AlphabetEn.length - mMissingSymbolCountAnswers));
+            mBeginDigit = Math.abs(random.nextInt() % (AlphabetEn.size() - mMissingSymbolCountAnswers));
         }
 
         int answer = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers-2)) + mBeginDigit+1;
@@ -382,9 +382,9 @@ public class MissingSymbolActivity extends AppCompatActivity {
                 if ("Digit".equals(mMissingSymbolLang)) {
                     txt.setText(String.valueOf(arrAnswers.get(i - 1)));
                 } else if ("Ru".equals(mMissingSymbolLang)) {
-                    txt.setText(String.valueOf(AlphabetRu[arrAnswers.get(i - 1)]));
+                    txt.setText(String.valueOf(AlphabetRu.get(arrAnswers.get(i - 1))));
                 } else if ("En".equals(mMissingSymbolLang)) {
-                    txt.setText(String.valueOf(AlphabetEn[arrAnswers.get(i - 1)]));
+                    txt.setText(String.valueOf(AlphabetEn.get(arrAnswers.get(i - 1))));
                 }
                 txt.setPadding(0,mTextSize,0,mTextSize);
 
@@ -400,9 +400,9 @@ public class MissingSymbolActivity extends AppCompatActivity {
                 if ("Digit".equals(mMissingSymbolLang)) {
                     txt.setText(String.valueOf(arrExamples.get(i - 1)));
                 } else if ("Ru".equals(mMissingSymbolLang)) {
-                    txt.setText(String.valueOf(AlphabetRu[arrExamples.get(i - 1)]));
+                    txt.setText(String.valueOf(AlphabetRu.get(arrExamples.get(i - 1))));
                 } else if ("En".equals(mMissingSymbolLang)) {
-                    txt.setText(String.valueOf(AlphabetEn[arrExamples.get(i - 1)]));
+                    txt.setText(String.valueOf(AlphabetEn.get(arrExamples.get(i - 1))));
                 }
                 //txt.setPadding(0,15,0,15);
                 if (arrExamples.get(i-1).equals(mMaxExample) || arrExamples.get(i-1).equals(mMinExample)) {

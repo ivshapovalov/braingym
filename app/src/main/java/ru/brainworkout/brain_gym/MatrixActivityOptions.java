@@ -211,6 +211,12 @@ public class MatrixActivityOptions extends AppCompatActivity {
         }
 
         //матрица кликабельна
+
+        int clickID = getResources().getIdentifier("radioButtonMatrixClickable" + (mMatrixIsClickable?"Yes":"No"), "id", getPackageName());
+        but = (RadioButton) findViewById(clickID);
+        if (but != null) {
+            but.setChecked(true);
+        }
         radiogroup = (RadioGroup) findViewById(R.id.rgMatrixClickable);
 
         if (radiogroup != null) {

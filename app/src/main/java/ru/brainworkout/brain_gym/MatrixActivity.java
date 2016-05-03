@@ -29,8 +29,8 @@ public class MatrixActivity extends AppCompatActivity {
 
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
-    private ArrayList<Integer> matrix=new ArrayList<>();
-
+    private ArrayList<Integer> matrix = new ArrayList<>();
+    private int mMaxDigits;
     private SharedPreferences mSettings;
     private String mMatrixLang;
     private int mMatrixSize;
@@ -38,9 +38,10 @@ public class MatrixActivity extends AppCompatActivity {
     private int mMatrixFontSizeChange;
     private boolean mMatrixIsClickable;
     private int mIndexNextSymbol;
+    private int mCountAnswers = 0;
     //алфавиты
-    private String[] AlphabetRu;
-    private String[] AlphabetEn;
+    private ArrayList<String> AlphabetRu;
+    private ArrayList<String> AlphabetEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +51,21 @@ public class MatrixActivity extends AppCompatActivity {
         //matrixClear();
         mChronometer = (Chronometer) findViewById(R.id.chronometer_matrix);
 
-        AlphabetRu= MainActivity.AlphabetRu();
-        AlphabetEn=MainActivity.AlphabetEn();
+        AlphabetRu = MainActivity.AlphabetRu();
+        AlphabetEn = MainActivity.AlphabetEn();
 
     }
 
 
     private void drawMatrixTest() {
+        mCountAnswers = 0;
+        mIndexNextSymbol = 0;
         //для матриц тестов id начинается со 300
-        TableLayout layout = (TableLayout) findViewById(R.id.table);
+        TableLayout layout = (TableLayout) findViewById(R.id.tableMatrix);
         layout.removeAllViews();
 
         layout.setStretchAllColumns(true);
         layout.setShrinkAllColumns(true);
-
 
         layout.setBackgroundColor(Color.BLACK);
         int mHeight = layout.getHeight() / mMatrixSize;
@@ -122,17 +124,14 @@ public class MatrixActivity extends AppCompatActivity {
                 switch (mMatrixLang) {
                     case "Digit":
                         txt.setText(String.valueOf(matrix.get((numString - 1) * mMatrixSize + numColumn - 1)));
-                        mIndexNextSymbol=matrix.indexOf(1);
                         break;
                     case "Ru":
-                        String strRu=AlphabetRu[matrix.get((numString - 1) * mMatrixSize + numColumn - 1)-1];
+                        String strRu = AlphabetRu.get(matrix.get((numString - 1) * mMatrixSize + numColumn - 1) - 1);
                         txt.setText(strRu);
-                        mIndexNextSymbol=matrix.indexOf("А");
                         break;
                     case "En":
-                        String strEn=AlphabetEn[matrix.get((numString - 1) * mMatrixSize + numColumn - 1)-1];
+                        String strEn = AlphabetEn.get(matrix.get((numString - 1) * mMatrixSize + numColumn - 1) - 1);
                         txt.setText(strEn);
-                        mIndexNextSymbol=matrix.indexOf("A");
                         break;
                 }
 
@@ -145,19 +144,21 @@ public class MatrixActivity extends AppCompatActivity {
                 //txt.setPadding(left, top, right, bottom);
                 //findViewById(R.id.tablerow1).setBackgroundResource(R.drawable.textview_border);
                 //txt.setTextSize(Math.min(mWidth,mHeight)/9);
-                mMatrixTextSize=(int)(Math.min(mWidth, mHeight) / 3/getApplicationContext().getResources().getDisplayMetrics().density)+mMatrixFontSizeChange;
+                mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
                 txt.setTextSize(mMatrixTextSize);
                 //txt.setTypeface(null, Typeface.BOLD);
                 txt.setGravity(Gravity.CENTER);
                 txt.setBackgroundResource(R.drawable.textview_border);
                 txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
-                txt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                       txt_onClick(v);
-                    }
-                });
+                if (mMatrixIsClickable) {
+                    txt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            txt_onClick((TextView) v);
+                        }
+                    });
+                }
                 //row.addView(txt);
             }
             layout.addView(row);
@@ -165,54 +166,52 @@ public class MatrixActivity extends AppCompatActivity {
         //setContentView(layout);
         //int r=0;
 
+        mIndexNextSymbol = matrix.indexOf(1);
     }
 
-    public void txt_onClick(View view) {
+    public void txt_onClick(TextView view) {
 
         if (mChronometerIsWorking) {
             //int a = Integer.valueOf(String.valueOf(((AppCompatTextView) view).getText().charAt(0)));
 
             int a = view.getId() % 100;
             if (a - 1 == mIndexNextSymbol) {
+                mCountAnswers++;
+                if (mCountAnswers == mMaxDigits) {
+                    mChronometer.setBase(SystemClock.elapsedRealtime());
+                    mChronometer.stop();
+                    mChronometerCount = 0;
+                    mChronometerIsWorking = false;
+                } else {
 
-                switch (mMatrixLang) {
-                    case "Digit":
-                        mIndexNextSymbol=matrix.indexOf(matrix.indexOf(mIndexNextSymbol)+1);
-                        break;
-                    case "Ru":
-                        mIndexNextSymbol=AlphabetRu.matrix.indexOf(mIndexNextSymbol);
-                        break;
-                    case "En":
-                        String strEn=AlphabetEn[matrix.get((numString - 1) * mMatrixSize + numColumn - 1)-1];
-                        txt.setText(strEn);
-                        mIndexNextSymbol=matrix.indexOf("A");
-                        break;
+                    System.out.println("Угадали. Формируем новый номер");
+//                    switch (mMatrixLang) {
+//                        case "Digit":
+                    mIndexNextSymbol = matrix.indexOf(matrix.get(mIndexNextSymbol) + 1);
+                    System.out.println("Новый номер: " + mIndexNextSymbol);
+//                            break;
+//                        case "Ru":
+//                            mIndexNextSymbol = matrix.indexOf(AlphabetRu.get(AlphabetRu.indexOf(matrix.get(mIndexNextSymbol)) + 1));
+//                            break;
+//                        case "En":
+//                            mIndexNextSymbol = matrix.indexOf(AlphabetEn.get(AlphabetEn.indexOf(matrix.get(mIndexNextSymbol)) + 1));
+//                            break;
+//                    }
+
                 }
-                //угадал. вычисляем индекс следующего символа
-                mIndexNextSymbol=matrix.indexOf("А");
-                mCountRightAnswers++;
-            }
-            mCountAllAnswers++;
-            mNumberSearchExBeginTime = elapsedMillis;
-            int timerExID = getResources().getIdentifier("tvNumberSearchTimerExTime", "id", getPackageName());
-            TextView txtTimerExTime = (TextView) findViewById(timerExID);
-            if (mNumberSearchExampleTime != 0) {
-                if (txtTimerExTime != null) {
-                    String txt = "Пример: " + String.valueOf(mNumberSearchExampleTime);
-                    txtTimerExTime.setText(txt);
-                    txtTimerExTime.setTextSize(mTextSize);
+            } else {
+                view.setTextColor(Color.RED);
+                System.out.println("Выбрали: " + (a - 1) + ". Надо: " + mIndexNextSymbol);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }
-            int answerID = getResources().getIdentifier("tvNumberSearchAnswers", "id", getPackageName());
-            TextView txtAnswer = (TextView) findViewById(answerID);
-            if (txtAnswer != null) {
-                String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
-                txtAnswer.setText(txt);
-                txtAnswer.setTextSize(mTextSize);
+                view.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
             }
 
-            createExample();
         }
+
     }
 
     public void matrixClear_onClick(View view) {
@@ -220,17 +219,17 @@ public class MatrixActivity extends AppCompatActivity {
         //matrixClear();
         mChronometer.setBase(SystemClock.elapsedRealtime());
         mChronometer.stop();
-        mChronometerCount=0;
+        mChronometerCount = 0;
         mChronometerIsWorking = false;
+        matrix.clear();
 
-        ChangeButtonText("buttonMatrixStartPause","Старт");
+        ChangeButtonText("buttonMatrixStartPause", "Старт");
 
     }
 
     private void matrixClear() {
 
-        int mCountMatrix = mMatrixSize * mMatrixSize;
-        for (int i = 1; i <= mCountMatrix; i++) {
+        for (int i = 1; i <= mMaxDigits; i++) {
             //int resID=getResources().getIdentifier("txt"+String.valueOf(300+i), "id", getPackageName());
             //TextView txt = (TextView) findViewById(resID);
             TextView txt = (TextView) findViewById(300 + i);
@@ -248,18 +247,65 @@ public class MatrixActivity extends AppCompatActivity {
     private void createMatrix() {
         int num;
 
-        int mMaxDigits = mMatrixSize * mMatrixSize;
         while (matrix.size() != mMaxDigits) {
             Random random = new Random();
             num = random.nextInt(mMaxDigits) + 1;
             int indPlace = (matrix.size() == 0 ? 0 : random.nextInt(matrix.size()));
             if (!matrix.contains(num)) {
-               matrix.add(indPlace, num);
+                matrix.add(indPlace, num);
             }
         }
     }
 
 
+    private void timerStop(boolean auto) {
+//        mChronometer.setBase(SystemClock.elapsedRealtime());
+//        mChronometer.stop();
+//        mChronometerCount = 0;
+//        mChronometerIsWorking = false;
+//
+//        ChangeButtonText("buttonMatrixStartPause", "Старт");
+//
+//        int timerMaxID = getResources().getIdentifier("tvMatrixTimerMaxTime", "id", getPackageName());
+//        TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
+//
+//        if (txtTimerMaxTime != null) {
+//            txtTimerMaxTime.setTextSize(mTextSize);
+//            String txt;
+//            if (!auto) {
+//                txt = "Тест: " + String.valueOf(mNumberSearchMaxTime);
+//            } else {
+//                txt = "Тест окончен";
+//            }
+//            txtTimerMaxTime.setText(txt);
+//        }
+//
+//        int answerID = getResources().getIdentifier("tvNumberSearchAnswers", "id", getPackageName());
+//        TextView txtAnswer = (TextView) findViewById(answerID);
+//        if (txtAnswer != null) {
+//            txtAnswer.setTextSize(mTextSize);
+//            if (!auto) {
+//                txtAnswer.setText("");
+//            }
+//        }
+//
+//        if (mNumberSearchExampleTime != 0) {
+//            int timerExID = getResources().getIdentifier("tvNumberSearchTimerExTime", "id", getPackageName());
+//            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+//
+//            if (txtTimerExTime != null) {
+//                String txt;
+//                if (!auto) {
+//                    txt = "Пример: " + String.valueOf(mNumberSearchExampleTime);
+//                } else {
+//                    txt = "";
+//                }
+//
+//                txtTimerExTime.setText(txt);
+//                txtTimerExTime.setTextSize(mTextSize);
+//            }
+//        }
+    }
 
     public void startPause_onClick(View view) {
 
@@ -293,7 +339,7 @@ public class MatrixActivity extends AppCompatActivity {
     public void matrixOptions_onClick(View view) {
 
         Intent intent = new Intent(MatrixActivity.this, MatrixActivityOptions.class);
-        intent.putExtra("mMatrixTextSize",mMatrixTextSize-mMatrixFontSizeChange);
+        intent.putExtra("mMatrixTextSize", mMatrixTextSize - mMatrixFontSizeChange);
         startActivity(intent);
 
     }
@@ -331,17 +377,20 @@ public class MatrixActivity extends AppCompatActivity {
             } catch (Exception e) {
                 mMatrixLang = "Digit";
             }
-        } else {            mMatrixLang="Digit";}
+        } else {
+            mMatrixLang = "Digit";
+        }
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_SIZE)) {
             try {
                 mMatrixSize = mSettings.getInt(MainActivity.APP_PREFERENCES_MATRIX_SIZE, 5);
             } catch (Exception e) {
-                mMatrixSize=5;
+                mMatrixSize = 5;
             }
         } else {
 
-            mMatrixSize=5;
+            mMatrixSize = 5;
         }
+        mMaxDigits = mMatrixSize * mMatrixSize;
         mMatrixIsClickable = false;
         if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_CLICKABLE)) {
             try {
@@ -354,7 +403,6 @@ public class MatrixActivity extends AppCompatActivity {
             mMatrixIsClickable = false;
         }
     }
-
 
 
 }

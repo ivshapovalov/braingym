@@ -44,8 +44,8 @@ public class ChainCharacterActivity extends AppCompatActivity {
     private long elapsedMillis;
 
 
-    private String[] AlphabetRu;
-    private String[] AlphabetEn;
+    private ArrayList<String> AlphabetRu;
+    private ArrayList<String> AlphabetEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class ChainCharacterActivity extends AppCompatActivity {
         mChronometer = (Chronometer) findViewById(R.id.chronometer_chain_character);
 
 
-        AlphabetRu = MainActivity.AlphabetRu();
-        AlphabetEn = MainActivity.AlphabetEn();
+        AlphabetRu= MainActivity.AlphabetRu();
+        AlphabetEn=MainActivity.AlphabetEn();
     }
 
 
@@ -311,9 +311,9 @@ public class ChainCharacterActivity extends AppCompatActivity {
         if ("Digit".equals(mChainCharacterLang)) {
             symbol = Math.abs(random.nextInt(10));
         } else if ("Ru".equals(mChainCharacterLang)) {
-            symbol = Math.abs(random.nextInt() % (AlphabetRu.length));
+            symbol = Math.abs(random.nextInt() % (AlphabetRu.size()));
         } else if ("En".equals(mChainCharacterLang)) {
-            symbol = Math.abs(random.nextInt() % (AlphabetEn.length));
+            symbol = Math.abs(random.nextInt() % (AlphabetEn.size()));
         }
         //System.out.println("symbol:"+symbol);
         arrAnswers.clear();
@@ -348,18 +348,18 @@ public class ChainCharacterActivity extends AppCompatActivity {
                 mChainCharacterLang)) {
             Question = String.valueOf(symbol) + ": ";
         } else if ("Ru".equals(mChainCharacterLang)) {
-            Question = Question + AlphabetRu[symbol] + ": ";
+            Question = Question + AlphabetRu.get(symbol) + ": ";
         } else if ("En".equals(mChainCharacterLang)) {
-            Question = Question + AlphabetEn[symbol] + ": ";
+            Question = Question + AlphabetEn.get(symbol) + ": ";
         }
         for (int i = 0; i < arrExamples.size(); i++) {
             if ("Digit".equals(
                     mChainCharacterLang)) {
                 Question = Question + String.valueOf(arrExamples.get(i)) + "";
             } else if ("Ru".equals(mChainCharacterLang)) {
-                Question = Question + AlphabetRu[arrExamples.get(i)] + "";
+                Question = Question + AlphabetRu.get(arrExamples.get(i)) + "";
             } else if ("En".equals(mChainCharacterLang)) {
-                Question = Question + AlphabetEn[arrExamples.get(i)] + "";
+                Question = Question + AlphabetEn.get(arrExamples.get(i)) + "";
             }
         }
 

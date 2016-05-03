@@ -1,97 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/groundMatrix"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*"
+    tools:context="ru.brainworkout.brain_gym.MatrixActivity">
+
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="ru.brainworkout.brain_gym.MatrixActivity"
-        android:id="@+id/groundMatrix">
+        android:layout_weight="0">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0">
+        <Button
+            android:id="@+id/buttonHome"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:background="@drawable/ic_house"
+            android:onClick="buttonHome_onClick"
+            android:textSize="12sp" />
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button10"
-                android:onClick="buttonHome_onClick"
-                android:background="@drawable/ic_house"
-                android:layout_column="1"
-                android:layout_weight="25"
-                android:textSize="10dp" />
+        <Button
+            android:id="@+id/buttonMatrixStartPause"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:background="@drawable/textview_border"
+            android:onClick="startPause_onClick"
+            android:text="@string/button_nameStartPause"
+            android:textSize="12sp" />
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_nameStartPause"
-                android:id="@+id/buttonMatrixStartPause"
-                android:textSize="10dp"
-                android:onClick="startPause_onClick"
-                android:layout_weight="25"
-                android:layout_gravity="center"
-                android:layout_column="2" />
-           <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_nameStop"
-                android:id="@+id/buttonMatrixClear"
-                android:onClick="matrixClear_onClick"
-             android:textSize="10dp"
-                android:layout_weight="25"
-                android:layout_column="3"
-               android:layout_gravity="center" />
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_nameOptions"
-                android:id="@+id/buttonMatrixOptions"
-                android:onClick="matrixOptions_onClick"
-                android:layout_weight="25"
-                android:textSize="10dp"
-                android:layout_column="4"
-                android:layout_gravity="center" />
 
-        </TableRow>
+        <Button
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0">
+            android:id="@+id/buttonMatrixClear"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:background="@drawable/textview_border"
+            android:onClick="matrixClear_onClick"
+            android:text="@string/button_nameStop"
+            android:textSize="12sp" />
 
-            <Chronometer
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/chronometer_matrix"
-                android:onClick="startPause_onClick"
-                android:clickable="true"
-                android:textColor="#e71f1f"
-                android:textSize="25dp"
-                android:gravity="center"
-                android:format="Time: %s"
-                android:layout_weight="100"
-                android:layout_gravity="center_vertical"
-                android:layout_span="4" />
+        <Button
+            android:id="@+id/buttonMatrixOptions"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:background="@drawable/textview_border"
+            android:onClick="matrixOptions_onClick"
 
-        </TableRow>
+            android:text="@string/button_nameOptions"
+            android:textSize="12sp" />
 
-        <TableRow
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:visibility="visible">
+
+        <Chronometer
+            android:id="@+id/chronometer_matrix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="100">
+            android:layout_gravity="center_vertical"
+            android:layout_span="8"
+            android:clickable="true"
+            android:format="Time: %s"
+            android:gravity="center"
+            android:onClick="startPause_onClick"
+            android:textColor="#e71f1f"
+            android:textSize="25dp" />
 
-            <TableLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/table"
-                android:layout_weight="100"
-                android:layout_span="4">
+    </TableRow>
 
-            </TableLayout>
-        </TableRow>
-    </TableLayout>
+    <TableRow
+        android:id="@+id/trowMatrix"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10sp"
+        android:layout_weight="0"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvMatrixTimerMaxTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
+            android:layout_span="3"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#bb1e1e" />
+
+        <TextView
+            android:id="@+id/tvMatrixTimerExTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
+            android:layout_span="3"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#bb1e1e" />
+
+        <TextView
+            android:id="@+id/tvMatrixAnswers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
+            android:layout_span="2"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#bb1e1e" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100">
+
+        <TableLayout
+            android:id="@+id/tableMatrix"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_span="8">
+
+        </TableLayout>
+
+    </TableRow>
+
+</TableLayout>
