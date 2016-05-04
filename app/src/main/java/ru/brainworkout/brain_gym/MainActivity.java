@@ -23,8 +23,11 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_MATRIX_SIZE="matrix_size";
     public static final String APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE="matrix_font_size_change";
     public static final String APP_PREFERENCES_MATRIX_CLICKABLE="matrix_clickable";
+    public static final String APP_PREFERENCES_MATRIX_TEST_TIME="matrix_max_test_time";
+    public static final String APP_PREFERENCES_MATRIX_EXAMPLE_TIME="matrix_max_example_time";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE="number_search_language";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_SIZE="number_search_size";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_NUMBER_SYMBOLS="number_search_number_symbols";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE="number_search_font_size_change";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME="number_search_max_test_time";
     public static final String APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME="number_search_max_example_time";

@@ -33,10 +33,14 @@ public class NumberSearchActivity extends AppCompatActivity {
     private String mNumberSearchLang;
     private int mTextSize = 0;
     private int mNumberSearchSize;
+    private int mNumberSearchNumberSymbols;
     private int mNumberSearchFontSizeChange;
     private int mNumberSearchMaxTime;
     private int mNumberSearchExampleTime;
     private int mTextSizeDirection;
+
+    private int mHeight = 0;
+    private int mWidth = 0;
 
     private ArrayList<Integer> alphabetColors = new ArrayList<>();
 
@@ -143,12 +147,65 @@ public class NumberSearchActivity extends AppCompatActivity {
         }
 
 
+        TableLayout frame = (TableLayout) findViewById(R.id.tableNumberSearch);
+        if (frame != null) {
+            frame.removeAllViews();
+            frame.setStretchAllColumns(true);
+        }
+
         int resID = getResources().getIdentifier("tvNumberSearchExample", "id", getPackageName());
         TextView txt = (TextView) findViewById(resID);
 
         if (txt != null) {
+
+
+                if (frame != null) {
+                    mHeight = (frame.getHeight()+txt.getHeight()) / (mNumberSearchSize+1);
+                    mWidth = frame.getWidth() / (mNumberSearchSize);
+
+                    int divider=16;
+                    switch (mNumberSearchLang) {
+                        case "Digit":
+                            divider=divider;
+                            break;
+                        case "Ru":
+                            divider+=3;
+                            break;
+                        case "En":
+                            divider+=3;
+                            break;
+                    }
+
+                    switch (mNumberSearchNumberSymbols) {
+                        case 3:
+                            divider+=1;
+                            break;
+                        case 4:
+                            divider+=3;
+                            break;
+                        case 5:
+                            divider+=7;
+                            break;
+                    }
+
+                    switch (mNumberSearchSize) {
+                        case 5:
+                            divider+=1;
+                            break;
+                        case 6:
+                            divider+=3;
+                            break;
+                        case 7:
+                            divider+=5;
+                            break;
+                    }
+
+                    mTextSize = (int) (Math.min(mWidth, mHeight)*(mNumberSearchSize) / divider / getApplicationContext().getResources().getDisplayMetrics().density);
+
+                }
             txt.setText(" ");
-            txt.setTextSize(mTextSize+2);
+            txt.setTextSize(mTextSize);
+            txt.setHeight(mHeight);
             txt.setTextColor(Color.parseColor("#FF6D6464"));
 
         }
@@ -251,34 +308,10 @@ public class NumberSearchActivity extends AppCompatActivity {
         if (!mChronometerIsWorking) {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
-
-                TableLayout frame = (TableLayout) findViewById(R.id.tableNumberSearch);
-                int mWidth;
-                int mHeight;
-                if (frame != null) {
-                    mWidth = frame.getWidth();
-                    mHeight = frame.getHeight();
-                } else {
-                    mWidth = 0;
-                    mHeight = 0;
-                }
-
-                int del=20;
-                switch (mNumberSearchLang) {
-                    case "Digit":
-                        del=20;
-                        break;
-                    case "Ru":
-                        del=23;
-                        break;
-                    case "En":
-                        del=23;
-                        break;
-                }
-                mTextSize = (int) (Math.min(mWidth, mHeight) / del / getApplicationContext().getResources().getDisplayMetrics().density);
+                getPreferencesFromFile();
 
                 numberSearchClear();
-                getPreferencesFromFile();
+
 
                 int timerID = getResources().getIdentifier("tvNumberSearchTimerMaxTime", "id", getPackageName());
                 TextView txtTimerMaxTime = (TextView) findViewById(timerID);
@@ -338,7 +371,7 @@ public class NumberSearchActivity extends AppCompatActivity {
 
         while (matrix.size() != mCountAnswers) {
             txtNum = "";
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < mNumberSearchNumberSymbols; i++) {
 
                 switch (mNumberSearchLang) {
                     case "Digit":
@@ -364,7 +397,7 @@ public class NumberSearchActivity extends AppCompatActivity {
             //тип 1 - мигающая кнопка
             //тип 2 - увеличивающаяся кнопка
 
-            int indType = Math.abs(random.nextInt() % 3);
+            int indType = Math.abs(random.nextInt() % (mNumberSearchNumberSymbols-1));
 
             NumberSearchExample Ex = new NumberSearchExample(txtNum, indColor1, indColor2,indColor3, indType);
             matrix.add(Ex);
@@ -393,14 +426,13 @@ public class NumberSearchActivity extends AppCompatActivity {
 
         Random random = new Random();
         TableLayout layout = (TableLayout) findViewById(R.id.tableNumberSearch);
-        layout.removeAllViews();
+        //layout.removeAllViews();
 
         layout.setStretchAllColumns(true);
         layout.setShrinkAllColumns(true);
 
         //layout.setBackgroundColor(Color.BLACK);
-        int mHeight = layout.getHeight() / mNumberSearchSize;
-        int mWidth = layout.getWidth() / mNumberSearchSize;
+
 
         for (Integer numString = 1; numString <= mNumberSearchSize; numString++) {
             System.out.println("numString:" + String.valueOf(numString));
@@ -417,6 +449,7 @@ public class NumberSearchActivity extends AppCompatActivity {
                     but = new Button(this);
                     but.setId(600 + (numString - 1) * mNumberSearchSize + numColumn);
                     but.setMinimumHeight(mHeight);
+                    but.setWidth(mWidth);
                     but.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1f));
                     //but.setPadding(5,5,5,5);
                     row.addView(but);
@@ -547,7 +580,6 @@ public class NumberSearchActivity extends AppCompatActivity {
     }
 
     private void getPreferencesFromFile() {
-        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -581,6 +613,19 @@ public class NumberSearchActivity extends AppCompatActivity {
 
         } else {
             mNumberSearchSize = 5;
+
+        }
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_NUMBER_SYMBOLS)) {
+            // Получаем язык из настроек
+            try {
+                mNumberSearchNumberSymbols = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_NUMBER_SYMBOLS, 4);
+            } catch (Exception e) {
+                mNumberSearchNumberSymbols = 4;
+            }
+
+        } else {
+            mNumberSearchNumberSymbols = 4;
 
         }
 

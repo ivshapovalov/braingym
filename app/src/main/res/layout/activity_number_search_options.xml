@@ -15,7 +15,7 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
       android:layout_weight="20"
             android:background="@drawable/ic_house"
@@ -26,7 +26,7 @@
 
             android:id="@+id/buttonSave"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:onClick="buttonSave_onClick"
             android:text="Сохранить"
@@ -37,12 +37,12 @@
 
             android:id="@+id/buttonCancel"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:onClick="buttonCancel_onClick"
             android:text="Отмена"
             android:textSize="12sp"
-            android:layout_weight="40" />
+            android:layout_weight="30" />
     </LinearLayout>
 
 
@@ -62,7 +62,7 @@
             android:text="Изменение шрифта (+/-sp):"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_weight="80" />
+            android:layout_weight="40" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
             android:inputType="numberSigned"
             android:ems="10"
             android:id="@+id/evNumberSearchOptionsFontSizeChange"
-            android:layout_weight="20" />
+            android:layout_weight="60" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,24 +84,26 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Элементы матрицы"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_weight="40" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:id="@+id/rgNumberSearchLanguage">
+            android:id="@+id/rgNumberSearchLanguage"
+            android:layout_weight="60">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0-9"
-                android:id="@+id/radioButtonNumberSearchLangDigit"
+                android:id="@+id/rbNumberSearchLangDigit"
                 android:checked="true"
                 android:textSize="12sp" />
 
@@ -109,14 +111,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="A-Z"
-                android:id="@+id/radioButtonNumberSearchLangEn"
+                android:id="@+id/rbNumberSearchLangEn"
                 android:textSize="12sp" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="А-Я"
-                android:id="@+id/radioButtonNumberSearchLangRu"
+                android:id="@+id/rbNumberSearchLangRu"
                 android:textSize="12sp" />
 
         </RadioGroup>
@@ -134,32 +136,109 @@
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Размер матрицы"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_weight="40" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:id="@+id/rgNumberSearchSize" >
+            android:id="@+id/rgNumberSearchSize"
+            android:layout_weight="60">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4"
-                android:id="@+id/radioButtonNumberSearchSize4"
+                android:id="@+id/rbNumberSearchSize4"
                 android:textSize="12sp" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
-                android:id="@+id/radioButtonNumberSearchSize5"
+                android:id="@+id/rbNumberSearchSize5"
                 android:checked="true"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:id="@+id/rbNumberSearchSize6"
+                android:checked="false"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:id="@+id/rbNumberSearchSize7"
+                android:checked="false"
+                android:textSize="12sp" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/line7"
+        android:layout_below="@+id/line3"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/textview_border">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Разрядность символа:"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="40" />
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/rgNumberSearchNumberSymbols"
+            android:layout_weight="60">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:id="@+id/rbNumberSearchNumberSymbols2"
+                android:checked="false"
+                android:textSize="12sp" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:id="@+id/rbNumberSearchNumberSymbols3"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:id="@+id/rbNumberSearchNumberSymbols4"
+                android:checked="true"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:id="@+id/rbNumberSearchNumberSymbols5"
+                android:checked="false"
                 android:textSize="12sp" />
 
         </RadioGroup>
@@ -169,27 +248,27 @@
         android:id="@+id/line6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line3"
+        android:layout_below="@+id/line7"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/textview_border">
 
         <TextView
             android:id="@+id/textView8"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Время теста (сек)"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_weight="50" />
+            android:layout_weight="40" />
 
         <RadioGroup
             android:id="@+id/rgNumberSearchMaxTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="50" >
+            android:layout_weight="60" >
 
             <RadioButton
                 android:id="@+id/rbNumberSearchMaxTime60"
@@ -207,6 +286,14 @@
                 android:text="120"
                 android:layout_weight="50"
                 android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbNumberSearchMaxTime180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="180"
+                android:layout_weight="50"
+                android:textSize="12sp" />
         </RadioGroup>
 
     </LinearLayout>
@@ -217,25 +304,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line6"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/textview_border">
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Время на пример (сек)"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_weight="30" />
+            android:layout_weight="40" />
 
         <RadioGroup
             android:id="@+id/rgNumberSearchExTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="70" >
+            android:layout_weight="60" >
 
             <RadioButton
                 android:id="@+id/rbNumberSearchExTime0"

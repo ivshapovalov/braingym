@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ public class MatrixActivityOptions extends AppCompatActivity {
     private int mMatrixSize;
     private int mMatrixFontSizeChange;
     private boolean mMatrixIsClickable;
+    private int mMatrixMaxTime;
+    private int mMatrixExampleTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class MatrixActivityOptions extends AppCompatActivity {
     public void buttonSave_onClick(View view) {
 
 
-        if ((!mMatrixLang.equals("Digit")) && (mMatrixSize>5)) {
+        if ((!mMatrixLang.equals("Digit")) && (mMatrixSize > 5)) {
             Toast toast = Toast.makeText(getApplicationContext(),
                     "В выбранных языках нет столько букв. Выберите цифры или измените размерность!", Toast.LENGTH_SHORT);
             toast.show();
@@ -52,13 +55,15 @@ public class MatrixActivityOptions extends AppCompatActivity {
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putString(MainActivity.APP_PREFERENCES_MATRIX_LANGUAGE, mMatrixLang);
             editor.putInt(MainActivity.APP_PREFERENCES_MATRIX_SIZE, mMatrixSize);
+            editor.putInt(MainActivity.APP_PREFERENCES_MATRIX_TEST_TIME, mMatrixMaxTime);
+            editor.putInt(MainActivity.APP_PREFERENCES_MATRIX_EXAMPLE_TIME, mMatrixExampleTime);
             editor.putBoolean(MainActivity.APP_PREFERENCES_MATRIX_CLICKABLE, mMatrixIsClickable);
 
             int sizeID = getResources().getIdentifier("evMatrixOptionsFontSizeChange", "id", getPackageName());
             EditText txtSize = (EditText) findViewById(sizeID);
 
             if (txtSize != null) {
-                mMatrixFontSizeChange= Integer.parseInt((txtSize.getText().toString().equals("")?"0":txtSize.getText().toString()));
+                mMatrixFontSizeChange = Integer.parseInt((txtSize.getText().toString().equals("") ? "0" : txtSize.getText().toString()));
             }
 
             editor.putInt(MainActivity.APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE, mMatrixFontSizeChange);
@@ -101,11 +106,11 @@ public class MatrixActivityOptions extends AppCompatActivity {
             try {
                 mMatrixSize = mSettings.getInt(MainActivity.APP_PREFERENCES_MATRIX_SIZE, 5);
             } catch (Exception e) {
-                mMatrixSize=5;
+                mMatrixSize = 5;
             }
         } else {
 
-            mMatrixSize=5;
+            mMatrixSize = 5;
         }
 
         mMatrixIsClickable = false;
@@ -120,6 +125,19 @@ public class MatrixActivityOptions extends AppCompatActivity {
         } else {
             mMatrixIsClickable = false;
         }
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_TEST_TIME)) {
+            mMatrixMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_MATRIX_TEST_TIME, 0);
+        } else {
+            mMatrixMaxTime = 0;
+        }
+
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MATRIX_EXAMPLE_TIME)) {
+            mMatrixExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_MATRIX_EXAMPLE_TIME, 0);
+        } else {
+            mMatrixExampleTime = 0;
+        }
     }
 
     private void setPreferencesOnScreen() {
@@ -132,24 +150,24 @@ public class MatrixActivityOptions extends AppCompatActivity {
             txtSize.setText(String.valueOf(mMatrixFontSizeChange));
         }
 
-        int sizeLabelID = getResources().getIdentifier("tvMatrixFontSizeLabel", "id", getPackageName());
+        int sizeLabelID = getResources().getIdentifier("tvMatrixOptionsFontSizeLabel", "id", getPackageName());
         TextView tvSizeLabel = (TextView) findViewById(sizeLabelID);
 
         int mMatrixTextSize = getIntent().getIntExtra("mMatrixTextSize", 0);
 
         if (tvSizeLabel != null) {
-            tvSizeLabel.setText("Изменение шрифта ("+String.valueOf(mMatrixTextSize)+"+/-sp):");
+            tvSizeLabel.setText("Изменение шрифта (" + String.valueOf(mMatrixTextSize) + "+/-sp):");
         }
 
         //Установим настройки в зависимости от сохраненного языка
-        int langID = getResources().getIdentifier("radioButtonLang" + mMatrixLang, "id", getPackageName());
+        int langID = getResources().getIdentifier("rbMatrixOptionsLang" + mMatrixLang, "id", getPackageName());
         RadioButton but = (RadioButton) findViewById(langID);
         if (but != null) {
             but.setChecked(true);
         }
 
         //
-        RadioGroup radiogroup = (RadioGroup) findViewById(R.id.rgMatrixLanguage);
+        RadioGroup radiogroup = (RadioGroup) findViewById(R.id.rgMatrixOptionsLanguage);
 
         if (radiogroup != null) {
             radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -159,13 +177,13 @@ public class MatrixActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonLangDigit:
+                        case R.id.rbMatrixOptionsLangDigit:
                             mMatrixLang = "Digit";
                             break;
-                        case R.id.radioButtonLangRu:
+                        case R.id.rbMatrixOptionsLangRu:
                             mMatrixLang = "Ru";
                             break;
-                        case R.id.radioButtonLangEn:
+                        case R.id.rbMatrixOptionsLangEn:
                             mMatrixLang = "En";
                             break;
                         default:
@@ -176,14 +194,14 @@ public class MatrixActivityOptions extends AppCompatActivity {
         }
 
         //Установим настройки в зависимости от сохраненного размера
-        int size1ID = getResources().getIdentifier("radioButtonSize" + String.valueOf(mMatrixSize), "id", getPackageName());
+        int size1ID = getResources().getIdentifier("rbMatrixOptionsSize" + String.valueOf(mMatrixSize), "id", getPackageName());
         but = (RadioButton) findViewById(size1ID);
         if (but != null) {
             but.setChecked(true);
         }
 
         //Размер
-        radiogroup = (RadioGroup) findViewById(R.id.rgMatrixSize);
+        radiogroup = (RadioGroup) findViewById(R.id.rgMatrixOptionsSize);
 
         if (radiogroup != null) {
             radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -193,17 +211,17 @@ public class MatrixActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonSize5:
-                            mMatrixSize= 5;
+                        case R.id.rbMatrixOptionsSize5:
+                            mMatrixSize = 5;
                             break;
-                        case  R.id.radioButtonSize6:
-                            mMatrixSize= 6;
+                        case R.id.rbMatrixOptionsSize6:
+                            mMatrixSize = 6;
                             break;
-                        case  R.id.radioButtonSize7:
-                            mMatrixSize= 7;
+                        case R.id.rbMatrixOptionsSize7:
+                            mMatrixSize = 7;
                             break;
                         default:
-                            mMatrixSize= 5;
+                            mMatrixSize = 5;
                             break;
                     }
                 }
@@ -212,12 +230,12 @@ public class MatrixActivityOptions extends AppCompatActivity {
 
         //матрица кликабельна
 
-        int clickID = getResources().getIdentifier("radioButtonMatrixClickable" + (mMatrixIsClickable?"Yes":"No"), "id", getPackageName());
+        int clickID = getResources().getIdentifier("rbMatrixOptionsIsClickable" + (mMatrixIsClickable ? "Yes" : "No"), "id", getPackageName());
         but = (RadioButton) findViewById(clickID);
         if (but != null) {
             but.setChecked(true);
         }
-        radiogroup = (RadioGroup) findViewById(R.id.rgMatrixClickable);
+        radiogroup = (RadioGroup) findViewById(R.id.rgMatrixOptionsIsClickable);
 
         if (radiogroup != null) {
             radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -227,19 +245,118 @@ public class MatrixActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonMatrixClickableYes:
-                            mMatrixIsClickable= true;
+                        case R.id.rbMatrixOptionsIsClickableYes:
+                            mMatrixIsClickable = true;
                             break;
-                        case  R.id.radioButtonMatrixClickableNo:
-                            mMatrixIsClickable= false;
+                        case R.id.rbMatrixOptionsIsClickableNo:
+                            mMatrixIsClickable = false;
                             break;
                         default:
-                            mMatrixIsClickable= false;
+                            mMatrixIsClickable = false;
+                            break;
+                    }
+                    hideSomeOptions();
+                }
+            });
+        }
+        //время тестирования
+        int maxtimeID = getResources().getIdentifier("rbMatrixOptionsMaxTime" + mMatrixMaxTime, "id", getPackageName());
+        RadioButton butTime = (RadioButton) findViewById(maxtimeID);
+        if (butTime != null) {
+            butTime.setChecked(true);
+        }
+
+        //
+        RadioGroup rgMaxTime = (RadioGroup) findViewById(R.id.rgMatrixOptionsMaxTime);
+
+        if (rgMaxTime != null) {
+            rgMaxTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case -1:
+                            break;
+                        case R.id.rbMatrixOptionsMaxTime9999:
+                            mMatrixMaxTime = 9999;
+                            break;
+                        case R.id.rbMatrixOptionsMaxTime60:
+                            mMatrixMaxTime = 60;
+                            break;
+                        case R.id.rbMatrixOptionsMaxTime120:
+                            mMatrixMaxTime = 120;
+                            break;
+                        case R.id.rbMatrixOptionsMaxTime180:
+                            mMatrixMaxTime = 180;
+                            break;
+                        default:
                             break;
                     }
                 }
             });
         }
+
+        int extimeID = getResources().getIdentifier("rbMatrixOptionsExampleTime" + mMatrixExampleTime, "id", getPackageName());
+        RadioButton exTime = (RadioButton) findViewById(extimeID);
+        if (exTime != null) {
+            exTime.setChecked(true);
+        }
+        //
+        RadioGroup rgExTime = (RadioGroup) findViewById(R.id.rgMatrixOptionsExampleTime);
+
+        if (rgExTime != null) {
+            rgExTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    switch (checkedId) {
+                        case -1:
+                            break;
+                        case R.id.rbMatrixOptionsExampleTime0:
+                            mMatrixExampleTime = 0;
+                            break;
+                        case R.id.rbMatrixOptionsExampleTime5:
+                            mMatrixExampleTime = 5;
+                            break;
+                        case R.id.rbMatrixOptionsExampleTime10:
+                            mMatrixExampleTime = 10;
+                            break;
+                        case R.id.rbMatrixOptionsExampleTime20:
+                            mMatrixExampleTime = 20;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+        //скроем настройки если матрица не кликабельна
+        hideSomeOptions();
+
+    }
+
+    private void hideSomeOptions() {
+
+        int lineMaxTimeID = getResources().getIdentifier("lineMatrixOptionsMaxTime", "id", getPackageName());
+        LinearLayout lmaxTime = (LinearLayout) findViewById(lineMaxTimeID);
+        if (lmaxTime != null) {
+            if (!mMatrixIsClickable) {
+                lmaxTime.setVisibility(View.GONE);
+            } else {
+                lmaxTime.setVisibility(View.VISIBLE);
+            }
+        }
+        int lineExampleTimeID = getResources().getIdentifier("lineMatrixOptionsExampleTime", "id", getPackageName());
+        LinearLayout lExTime = (LinearLayout) findViewById(lineExampleTimeID);
+        if (lExTime != null) {
+            if (!mMatrixIsClickable) {
+                lExTime.setVisibility(View.GONE);
+            }else{
+                lExTime.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
 }

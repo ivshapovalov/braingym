@@ -20,6 +20,7 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
     private int mNumberSearchFontSizeChange;
     private int mNumberSearchMaxTime;
     private int mNumberSearchExampleTime;
+    private int mNumberSearchNumberSymbols;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
         editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_SIZE, mNumberSearchSize);
         editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME, mNumberSearchMaxTime);
         editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME, mNumberSearchExampleTime);
+        editor.putInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_NUMBER_SYMBOLS, mNumberSearchNumberSymbols);
 
         int sizeID = getResources().getIdentifier("evNumberSearchOptionsFontSizeChange", "id", getPackageName());
         EditText txtSize = (EditText) findViewById(sizeID);
@@ -114,6 +116,19 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
 
         }
 
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_NUMBER_SYMBOLS)) {
+            // Получаем язык из настроек
+            try {
+                mNumberSearchNumberSymbols = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_NUMBER_SYMBOLS, 4);
+            } catch (Exception e) {
+                mNumberSearchNumberSymbols = 4;
+            }
+
+        } else {
+            mNumberSearchNumberSymbols = 4;
+
+        }
+
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME)) {
             mNumberSearchMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME, 60);
@@ -169,13 +184,13 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonNumberSearchLangDigit:
+                        case R.id.rbNumberSearchLangDigit:
                             mNumberSearchLang = "Digit";
                             break;
-                        case R.id.radioButtonNumberSearchLangRu:
+                        case R.id.rbNumberSearchLangRu:
                             mNumberSearchLang = "Ru";
                             break;
-                        case R.id.radioButtonNumberSearchLangEn:
+                        case R.id.rbNumberSearchLangEn:
                             mNumberSearchLang = "En";
                             break;
                         default:
@@ -186,7 +201,7 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
         }
 
         //Установим настройки в зависимости от сохраненного размера
-        int size1ID = getResources().getIdentifier("radioButtonNumberSearchSize" + String.valueOf(mNumberSearchSize), "id", getPackageName());
+        int size1ID = getResources().getIdentifier("rbNumberSearchSize" + String.valueOf(mNumberSearchSize), "id", getPackageName());
         but = (RadioButton) findViewById(size1ID);
         if (but != null) {
             but.setChecked(true);
@@ -203,15 +218,59 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonNumberSearchSize5:
+                        case R.id.rbNumberSearchSize5:
                             mNumberSearchSize = 5;
                             break;
 
-                        case R.id.radioButtonNumberSearchSize4:
+                        case R.id.rbNumberSearchSize4:
                             mNumberSearchSize = 4;
+                            break;
+                        case R.id.rbNumberSearchSize6:
+                            mNumberSearchSize = 6;
+                            break;
+                        case R.id.rbNumberSearchSize7:
+                            mNumberSearchSize = 7;
                             break;
                         default:
                             mNumberSearchSize = 5;
+                            break;
+                    }
+                }
+            });
+        }
+
+        int numsymID = getResources().getIdentifier("rbNumberSearchNumberSymbols" + String.valueOf(mNumberSearchNumberSymbols), "id", getPackageName());
+        but = (RadioButton) findViewById(numsymID);
+        if (but != null) {
+            but.setChecked(true);
+        }
+
+        //
+        radiogroup = (RadioGroup) findViewById(R.id.rgNumberSearchNumberSymbols);
+
+        if (radiogroup != null) {
+            radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case -1:
+                            break;
+                        case R.id.rbNumberSearchNumberSymbols2:
+                            mNumberSearchNumberSymbols = 2;
+                            break;
+                        case R.id.rbNumberSearchNumberSymbols3:
+                            mNumberSearchNumberSymbols = 3;
+                            break;
+                        case R.id.rbNumberSearchNumberSymbols4:
+                            mNumberSearchNumberSymbols = 4;
+                            break;
+                        case R.id.rbNumberSearchNumberSymbols5:
+                            mNumberSearchNumberSymbols = 5;
+                            break;
+
+                        default:
+                            mNumberSearchNumberSymbols = 4;
                             break;
                     }
                 }
@@ -241,6 +300,9 @@ public class NumberSearchActivityOptions extends AppCompatActivity {
                             break;
                         case R.id.rbNumberSearchMaxTime120:
                             mNumberSearchMaxTime = 120;
+                            break;
+                        case R.id.rbNumberSearchMaxTime180:
+                            mNumberSearchMaxTime = 180;
                             break;
                         default:
                             break;
