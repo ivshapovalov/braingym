@@ -23,6 +23,25 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="20" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Будильник"
+                    android:id="@+id/button9"
+                    android:onClick="Alarm_onClick"
+                    android:visibility="visible"
+                    android:focusableInTouchMode="false"
+                    android:singleLine="false"
+                    android:background="@drawable/separator"
+                    android:textColor="#ffffff"
+                    android:clickable="true" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="20">
 
                 <Button

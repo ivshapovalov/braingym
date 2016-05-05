@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.brainworkout.brain_gym">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="ru.brainworkout.brain_gym.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_nameBIG"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -19,65 +24,69 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ru.brainworkout.brain_gym.MathActivity"
+            android:name=".MathActivity"
             android:label="@string/math_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.StrupActivity"
+            android:name=".StrupActivity"
             android:label="@string/strup_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.AboutActivity"
+            android:name=".AboutActivity"
             android:label="@string/about_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.StrupActivity_ver1"
+            android:name=".StrupActivity_ver1"
             android:label="@string/strup_name1"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.StrupActivityOptions_ver1"
+            android:name=".StrupActivityOptions_ver1"
             android:label="@string/strup_name_options"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.MatrixActivity"
+            android:name=".MatrixActivity"
             android:label="@string/matrix_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.StrupActivityOptions"
+            android:name=".StrupActivityOptions"
             android:label="@string/strup_name_options"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.MatrixActivityOptions"
+            android:name=".MatrixActivityOptions"
             android:label="@string/matrix_name_options"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.MathActivityOptions"
+            android:name=".MathActivityOptions"
             android:label="@string/math_name_options"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.MissingSymbolActivityOptions"
+            android:name=".MissingSymbolActivityOptions"
             android:label="@string/missing_symbol_name_options"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.MissingSymbolActivity"
+            android:name=".MissingSymbolActivity"
             android:label="@string/missing_symbol_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.ChainCharacterActivity"
+            android:name=".ChainCharacterActivity"
             android:label="@string/chain_char_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.ChainCharacterActivityOptions"
+            android:name=".ChainCharacterActivityOptions"
             android:label="@string/chain_char_name_options"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.NumberSearchActivity"
+            android:name=".NumberSearchActivity"
             android:label="@string/number_search_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="ru.brainworkout.brain_gym.NumberSearchActivityOptions"
+            android:name=".NumberSearchActivityOptions"
             android:label="@string/number_search_name_options"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AlarmActivity"
+            android:label="Будильник    "
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

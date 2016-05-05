@@ -1,44 +1,57 @@
 package ru.brainworkout.brain_gym;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+
+
 import java.util.ArrayList;
+
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private SharedPreferences mSettings;
+    private int mAlarmTimeHour;
+    private int mAlarmTimeMinute;
+
     public static final String APP_PREFERENCES = "mysettings";
-    public static final String APP_PREFERENCES_STRUP_LANGUAGE="strup_language";
-    public static final String APP_PREFERENCES_STRUP_FONT_SIZE_CHANGE="strup_font_size_change";
-    public static final String APP_PREFERENCES_STRUP_VER1_FONT_SIZE_CHANGE="strup_font_size_change";
-    public static final String APP_PREFERENCES_STRUP_VER1_TEST_TIME="strup_ver1_max_test_time";
-    public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME="strup_ver1_max_example_time";
-    public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TYPE="strup_ver1_max_example_type";
-    public static final String APP_PREFERENCES_MATRIX_LANGUAGE="matrix_language";
-    public static final String APP_PREFERENCES_MATRIX_SIZE="matrix_size";
-    public static final String APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE="matrix_font_size_change";
-    public static final String APP_PREFERENCES_MATRIX_CLICKABLE="matrix_clickable";
-    public static final String APP_PREFERENCES_MATRIX_TEST_TIME="matrix_max_test_time";
-    public static final String APP_PREFERENCES_MATRIX_EXAMPLE_TIME="matrix_max_example_time";
-    public static final String APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE="number_search_language";
-    public static final String APP_PREFERENCES_NUMBER_SEARCH_SIZE="number_search_size";
-    public static final String APP_PREFERENCES_NUMBER_SEARCH_NUMBER_SYMBOLS="number_search_number_symbols";
-    public static final String APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE="number_search_font_size_change";
-    public static final String APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME="number_search_max_test_time";
-    public static final String APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME="number_search_max_example_time";
-    public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT="math_maximum_digit";
-    public static final String APP_PREFERENCES_MATH_FONT_SIZE_CHANGE="math_font_size_change";
-    public static final String APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE="missing_symbol_language";
-    public static final String APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME="missing_symbol_max_test_time";
-    public static final String APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME="missing_symbol_max_example_time";
-    public static final String APP_PREFERENCES_CHAIN_CHARACTER_LANGUAGE="chain_character_language";
-    public static final String APP_PREFERENCES_CHAIN_CHARACTER_MAX_TIME="chain_character_max_test_time";
-    public static final String APP_PREFERENCES_CHAIN_CHARACTER_EXAMPLE_TIME="chain_character_max_example_time";
+    public static final String APP_PREFERENCES_ALARM_IS_ACTIVE = "alarm_is_active";
+    public static final String APP_PREFERENCES_ALARM_TIME_HOUR = "alarm_time_hour";
+    public static final String APP_PREFERENCES_ALARM_TIME_MINUTE = "alarm_time_minute";
+    public static final String APP_PREFERENCES_STRUP_LANGUAGE = "strup_language";
+    public static final String APP_PREFERENCES_STRUP_FONT_SIZE_CHANGE = "strup_font_size_change";
+    public static final String APP_PREFERENCES_STRUP_VER1_FONT_SIZE_CHANGE = "strup_font_size_change";
+    public static final String APP_PREFERENCES_STRUP_VER1_TEST_TIME = "strup_ver1_max_test_time";
+    public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME = "strup_ver1_max_example_time";
+    public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TYPE = "strup_ver1_max_example_type";
+    public static final String APP_PREFERENCES_MATRIX_LANGUAGE = "matrix_language";
+    public static final String APP_PREFERENCES_MATRIX_SIZE = "matrix_size";
+    public static final String APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE = "matrix_font_size_change";
+    public static final String APP_PREFERENCES_MATRIX_CLICKABLE = "matrix_clickable";
+    public static final String APP_PREFERENCES_MATRIX_TEST_TIME = "matrix_max_test_time";
+    public static final String APP_PREFERENCES_MATRIX_EXAMPLE_TIME = "matrix_max_example_time";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_LANGUAGE = "number_search_language";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_SIZE = "number_search_size";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_NUMBER_SYMBOLS = "number_search_number_symbols";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_FONT_SIZE_CHANGE = "number_search_font_size_change";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_TEST_TIME = "number_search_max_test_time";
+    public static final String APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME = "number_search_max_example_time";
+    public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT = "math_maximum_digit";
+    public static final String APP_PREFERENCES_MATH_FONT_SIZE_CHANGE = "math_font_size_change";
+    public static final String APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE = "missing_symbol_language";
+    public static final String APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME = "missing_symbol_max_test_time";
+    public static final String APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME = "missing_symbol_max_example_time";
+    public static final String APP_PREFERENCES_CHAIN_CHARACTER_LANGUAGE = "chain_character_language";
+    public static final String APP_PREFERENCES_CHAIN_CHARACTER_MAX_TIME = "chain_character_max_test_time";
+    public static final String APP_PREFERENCES_CHAIN_CHARACTER_EXAMPLE_TIME = "chain_character_max_example_time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,55 +59,87 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        ArrayList<String> AlphabetRu= MainActivity.AlphabetRu();
+        ArrayList<String> AlphabetRu = MainActivity.AlphabetRu();
 
-      }
+       getPreferencesFromFile();
 
+        //runAlarm();
+
+    }
+
+    private void runAlarm() {
+
+
+
+    }
+    private void getPreferencesFromFile() {
+
+        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_ALARM_TIME_HOUR)) {
+            // Получаем язык из настроек
+            mAlarmTimeHour = mSettings.getInt(MainActivity.APP_PREFERENCES_ALARM_TIME_HOUR, 6);
+        } else {
+            mAlarmTimeHour = 6;
+        }
+
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_ALARM_TIME_MINUTE)) {
+            // Получаем язык из настроек
+            mAlarmTimeMinute = mSettings.getInt(MainActivity.APP_PREFERENCES_ALARM_TIME_MINUTE, 0);
+        } else {
+            mAlarmTimeMinute = 0;
+        }
+
+
+    }
     public void mathActivity_onClick(View view) {
         Intent intent = new Intent(MainActivity.this, MathActivity.class);
         startActivity(intent);
 
     }
+
     public void StrupTestActivity_onClick(View view) {
 
-        Intent intent = new Intent(MainActivity.this,StrupActivity.class);
+        Intent intent = new Intent(MainActivity.this, StrupActivity.class);
         startActivity(intent);
 
     }
 
     public void StrupTestActivity_ver1_onClick(View view) {
 
-        Intent intent = new Intent(MainActivity.this,StrupActivity_ver1.class);
+        Intent intent = new Intent(MainActivity.this, StrupActivity_ver1.class);
         startActivity(intent);
 
     }
 
     public void AboutActivity_onClick(View view) {
-        Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
         startActivity(intent);
 
     }
+
     public void MatrixActivity_onClick(View view) {
-        Intent intent = new Intent(MainActivity.this,MatrixActivity.class);
+        Intent intent = new Intent(MainActivity.this, MatrixActivity.class);
         startActivity(intent);
 
     }
 
     public void MissingSymbolActivity_onClick(View view) {
 
-        Intent intent = new Intent(MainActivity.this,MissingSymbolActivity.class);
+        Intent intent = new Intent(MainActivity.this, MissingSymbolActivity.class);
         startActivity(intent);
     }
 
     public void ChainCharacterActivity_onClick(View view) {
 
-        Intent intent = new Intent(MainActivity.this,ChainCharacterActivity.class);
+        Intent intent = new Intent(MainActivity.this, ChainCharacterActivity.class);
         startActivity(intent);
     }
 
     public void NumberSearchActivity_onClick(View view) {
 
-        Intent intent = new Intent(MainActivity.this,NumberSearchActivity.class);
+        Intent intent = new Intent(MainActivity.this, NumberSearchActivity.class);
         startActivity(intent);
     }
 
@@ -115,9 +160,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void Alarm_onClick(View view) {
+
+
+        Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
+        startActivity(intent);
+    }
+
     static ArrayList<String> AlphabetRu() {
 
-        ArrayList<String> AlphabetRu=new ArrayList<>();
+        ArrayList<String> AlphabetRu = new ArrayList<>();
         AlphabetRu.add("А");
         AlphabetRu.add("Б");
         AlphabetRu.add("В");
@@ -155,9 +207,9 @@ public class MainActivity extends AppCompatActivity {
         return AlphabetRu;
     }
 
-    static ArrayList<String> AlphabetEn(){
+    static ArrayList<String> AlphabetEn() {
 
-        ArrayList<String> AlphabetEn=new ArrayList<>();
+        ArrayList<String> AlphabetEn = new ArrayList<>();
         AlphabetEn.add("A");
         AlphabetEn.add("B");
         AlphabetEn.add("C");
