@@ -80,17 +80,6 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/tvPairsTimerExTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12sp"
-            android:layout_marginStart="12sp"
-            android:layout_span="3"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#bb1e1e"
-            android:textSize="25sp" />
-
-        <TextView
             android:id="@+id/tvPairsAnswers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,7 +98,7 @@
         android:layout_gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/tvPairsExample"
+            android:id="@+id/tvPairsAttemptCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
