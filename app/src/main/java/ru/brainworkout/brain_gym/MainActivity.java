@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_STRUP_VER1_TEST_TIME = "strup_ver1_max_test_time";
     public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TIME = "strup_ver1_max_example_time";
     public static final String APP_PREFERENCES_STRUP_VER1_EXAMPLE_TYPE = "strup_ver1_max_example_type";
+    public static final String APP_PREFERENCES_PAIRS_LANGUAGE = "pairs_language";
+    public static final String APP_PREFERENCES_PAIRS_SIZE_HEIGHT = "pairs_size_height";
+    public static final String APP_PREFERENCES_PAIRS_SIZE_WIDTH = "pairs_size_width";
     public static final String APP_PREFERENCES_MATRIX_LANGUAGE = "matrix_language";
     public static final String APP_PREFERENCES_MATRIX_SIZE = "matrix_size";
     public static final String APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE = "matrix_font_size_change";
@@ -62,10 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void runAlarm() {
-
-
-
+    public void pairsActivity_onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, PairsActivity.class);
+        startActivity(intent);
     }
 
     public void mathActivity_onClick(View view) {
@@ -208,5 +210,6 @@ public class MainActivity extends AppCompatActivity {
 
         return AlphabetEn;
     }
+
 
 }
