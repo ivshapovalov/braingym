@@ -23,11 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private int mAlarmTimeMinute;
 
     public static final String APP_PREFERENCES = "mysettings";
-    public static final String APP_PREFERENCES_ALARM_IS_ACTIVE = "alarm_is_active";
-    public static final String APP_PREFERENCES_ALARM_LOCAL_PATH = "alarm_local_path";
-    public static final String APP_PREFERENCES_ALARM_IS_PATH_LOCAL = "alarm_is_path_local";
-    public static final String APP_PREFERENCES_ALARM_TIME_HOUR = "alarm_time_hour";
-    public static final String APP_PREFERENCES_ALARM_TIME_MINUTE = "alarm_time_minute";
     public static final String APP_PREFERENCES_STRUP_LANGUAGE = "strup_language";
     public static final String APP_PREFERENCES_STRUP_FONT_SIZE_CHANGE = "strup_font_size_change";
     public static final String APP_PREFERENCES_STRUP_VER1_FONT_SIZE_CHANGE = "strup_font_size_change";
@@ -63,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> AlphabetRu = MainActivity.AlphabetRu();
 
-       getPreferencesFromFile();
-
         //runAlarm();
 
     }
@@ -74,27 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void getPreferencesFromFile() {
 
-        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
-
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_ALARM_TIME_HOUR)) {
-            // Получаем язык из настроек
-            mAlarmTimeHour = mSettings.getInt(MainActivity.APP_PREFERENCES_ALARM_TIME_HOUR, 6);
-        } else {
-            mAlarmTimeHour = 6;
-        }
-
-
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_ALARM_TIME_MINUTE)) {
-            // Получаем язык из настроек
-            mAlarmTimeMinute = mSettings.getInt(MainActivity.APP_PREFERENCES_ALARM_TIME_MINUTE, 0);
-        } else {
-            mAlarmTimeMinute = 0;
-        }
-
-
-    }
     public void mathActivity_onClick(View view) {
         Intent intent = new Intent(MainActivity.this, MathActivity.class);
         startActivity(intent);
@@ -162,12 +135,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void Alarm_onClick(View view) {
-
-
-        Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
-        startActivity(intent);
-    }
 
     static ArrayList<String> AlphabetRu() {
 

@@ -106,8 +106,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center">
+        android:layout_gravity="center_horizontal">
 
         <TextView
             android:id="@+id/tvMatrixExample"
@@ -150,7 +149,6 @@
             android:clickable="true"
             android:format="Time: %s"
             android:gravity="center"
-            android:onClick="startPause_onClick"
             android:textColor="#e71f1f"
             android:textSize="25dp" />
 

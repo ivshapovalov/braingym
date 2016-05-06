@@ -83,14 +83,6 @@
             android:name=".NumberSearchActivityOptions"
             android:label="@string/number_search_name_options"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".AlarmActivity"
-            android:label="Будильник    "
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".OpenDirActivity"
-            android:label="Выбор папки"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
