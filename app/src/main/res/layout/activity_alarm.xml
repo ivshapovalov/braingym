@@ -16,12 +16,71 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Расположение треков"
+                android:id="@+id/textView12"
+                android:textSize="12sp" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/rgAlarmIsPathLocal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Папка"
+                    android:id="@+id/rbAlarmIsPathLocal"
+                    android:checked="true"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сервер"
+                    android:id="@+id/rbAlarmIsPathExternal"
+                    android:textSize="12sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lineLocalPath">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Локальный путь:"
+                android:id="@+id/textView13"
+                android:textSize="12sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/etLocalPath"
+                android:inputType="text"
+                android:onClick="etLocalPath_onClick"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/tvMessages"
                 android:layout_gravity="center"
                 android:textSize="12sp" />
@@ -38,37 +97,24 @@
                 android:text="Save"
                 android:id="@+id/butAlarmSave"
                 android:layout_gravity="center_horizontal"
-                android:onClick="alarmSave_onClick" />
+                android:onClick="alarmSave_onClick"
+                android:textSize="12sp" />
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Будильник включен"
                 android:id="@+id/cbAlarmIsActive"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp" />
 
 
         </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <TimePicker
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/timePicker1"
-            android:timePickerMode="spinner"
-            android:clickable="true" />
-
-    </LinearLayout>
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
             <Button
@@ -76,7 +122,16 @@
                 android:layout_height="wrap_content"
                 android:text="Play"
                 android:id="@+id/butAlarmPlay"
-                android:onClick="playAlarm_onClick" />
+                android:onClick="playAlarm_onClick"
+                android:textSize="12sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pause"
+                android:id="@+id/butAlarmPause"
+                android:onClick="alarmPause_onClick"
+                android:textSize="12sp" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -84,8 +139,23 @@
                 android:text="Stop"
                 android:id="@+id/butAlarmStop"
                 android:layout_gravity="center_horizontal"
-                android:onClick="alarmStop_onClick" />
+                android:onClick="alarmStop_onClick"
+                android:textSize="12sp" />
         </LinearLayout>
+
+        <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/timePicker1"
+            android:clickable="true" />
+
+    </LinearLayout>
 
     </LinearLayout>
 
