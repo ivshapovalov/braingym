@@ -43,7 +43,8 @@ public class PairsActivity extends AppCompatActivity {
     private int mCountAllAnswers = 0;
     private long elapsedMillis;
 
-    private int mFirstSymbolIndex = 0;
+    private int mFirstSymbolIndex = -1;
+    private boolean mTxtIsBlocked = false;
 
     //алфавиты
     private ArrayList<String> AlphabetRu;
@@ -77,7 +78,7 @@ public class PairsActivity extends AppCompatActivity {
             mHeight = (layout.getHeight() + txt.getHeight()) / (mPairsSizeHeight + 1);
             mWidth = layout.getWidth() / (mPairsSizeWidth);
 
-            mPairsTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density);
+            mPairsTextSize = (int) (Math.min(mWidth, mHeight) / 2 / getApplicationContext().getResources().getDisplayMetrics().density);
 
             txt.setHeight(mHeight);
             txt.setText(" ");
@@ -117,6 +118,7 @@ public class PairsActivity extends AppCompatActivity {
         mChronometer.stop();
         mChronometerCount = 0;
         mChronometerIsWorking = false;
+        mFirstSymbolIndex = -1;
 
 
         ChangeButtonText("btPairsStartPause", "Старт");
@@ -230,70 +232,90 @@ public class PairsActivity extends AppCompatActivity {
         }
     }
 
-    public void txt_onClick(TextView view) {
+    public void txt_onClick(final TextView view) {
 
-        if (mChronometerIsWorking) {
-            int ind = view.getId() % 100 - 1;
-            PairsElement m1 = matrix.get(ind);
-            if (m1.isOpened()) {
-                //ничего не делаем. ячейка уже открыта
-            } else {
-                switch (mPairsLang) {
-                    case "Digit":
-                        view.setText(String.valueOf(matrix.get(ind - 1).getNum()));
-                        break;
-                    case "Ru":
-                        String strRu = AlphabetRu.get(matrix.get(ind - 1).getNum());
-                        view.setText(strRu);
-                        break;
-                    case "En":
-                        String strEn = AlphabetEn.get(matrix.get(ind - 1).getNum());
-                        view.setText(strEn);
-                        break;
-                }
-                if (mFirstSymbolIndex == 0) {
-                    mFirstSymbolIndex = ind;
+        if (!mTxtIsBlocked) {
+
+            if (mChronometerIsWorking) {
+                int ind = view.getId() % 100 - 1;
+                PairsElement m1 = matrix.get(ind);
+                if (m1.isOpened()) {
+                    //ничего не делаем. ячейка уже открыта
                 } else {
-
-                    int num1 = matrix.get(mFirstSymbolIndex).getNum();
-                    int num2 = matrix.get(ind).getNum();
-                    if (num1 == num2) {
-                        //угадали
-                        matrix.get(mFirstSymbolIndex).setOpened(true);
-                        matrix.get(ind).setOpened(true);
-                        mFirstSymbolIndex = 0;
-                        mCountRightAnswers++;
-                    } else {
-                        //не угадали
-                        view.setText("");
-                        TextView txt = (TextView) findViewById(700 + ind + 1);
-                        if (txt != null) {
-                            txt.setText("");
-                        }
-
+                    switch (mPairsLang) {
+                        case "Digit":
+                            view.setText(String.valueOf(matrix.get(ind).getNum()));
+                            break;
+                        case "Ru":
+                            String strRu = AlphabetRu.get(matrix.get(ind).getNum());
+                            view.setText(strRu);
+                            break;
+                        case "En":
+                            String strEn = AlphabetEn.get(matrix.get(ind).getNum());
+                            view.setText(strEn);
+                            break;
                     }
-
-                    if (mCountRightAnswers == mCountAllAnswers) {
-                        timerStop(true);
+                    if (mFirstSymbolIndex == -1) {
+                        mFirstSymbolIndex = ind;
                     } else {
 
-                        Animation anim = new AlphaAnimation(0.0f, 1.0f);
-                        anim.setDuration(50); //You can manage the blinking time with this parameter
-                        anim.setStartOffset(0);
-                        anim.setRepeatMode(Animation.REVERSE);
-                        //anim.setRepeatCount(Animation.INFINITE);
-                        anim.setRepeatCount(1);
-                        view.startAnimation(anim);
 
-                        TextView txt = (TextView) findViewById(700 + ind + 1);
-                        if (txt != null) {
-                            txt.startAnimation(anim);
+                        int num1 = matrix.get(mFirstSymbolIndex).getNum();
+                        int num2 = matrix.get(ind).getNum();
+                        final TextView txt = (TextView) findViewById(700 + mFirstSymbolIndex + 1);
+
+                        if (num1 == num2 && ind != mFirstSymbolIndex) {
+                            //угадали
+
+                            matrix.get(mFirstSymbolIndex).setOpened(true);
+                            matrix.get(ind).setOpened(true);
+
+                            mCountRightAnswers++;
+
+                            Animation anim = new AlphaAnimation(0.0f, 0.0f);
+                            anim.setDuration(100); //You can manage the blinking time with this parameter
+                            anim.setStartOffset(0);
+                            anim.setRepeatMode(0);
+                            //anim.setRepeatCount(Animation.INFINITE);
+                            anim.setRepeatCount(2);
+                            view.startAnimation(anim);
+
+//                        view.setText("");
+//                        TextView txt = (TextView) findViewById(700 + mFirstSymbolIndex);
+                            if (txt != null) {
+                                txt.startAnimation(anim);
+                                //txt.setText("");
+                            }
+
+                        } else {
+                            mTxtIsBlocked=true;
+                            view.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    view.setText("");
+                                    mTxtIsBlocked=false;
+
+                                }
+                            }, 2000);
+
+
+                            if (txt != null) {
+                                txt.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        txt.setText("");
+                                        mTxtIsBlocked=false;
+                                    }
+                                }, 2000);
+                            }
                         }
+                        mFirstSymbolIndex = -1;
 
-
+                        if (mCountRightAnswers == mCountAllAnswers) {
+                            timerStop(true);
+                        } else {
+                        }
                     }
-
-
                 }
             }
         }
@@ -302,19 +324,21 @@ public class PairsActivity extends AppCompatActivity {
     private void createPairs() {
         int num;
         matrix.clear();
+        ArrayList<Integer> digits = new ArrayList<>();
 
         Random random = new Random();
         int mMaxDigits = mPairsSizeHeight * mPairsSizeWidth;
         while (matrix.size() != mMaxDigits) {
 
-            num = random.nextInt() % (mMaxDigits / 2);
-            if (!matrix.contains(num)) {
+            num = Math.abs(random.nextInt() % (mMaxDigits / 2));
+            if (!digits.contains(num)) {
                 int indPlace1 = (matrix.size() == 0 ? 0 : random.nextInt(matrix.size()));
                 int indPlace2 = (matrix.size() == 0 ? 0 : random.nextInt(matrix.size()));
 
                 PairsElement m = new PairsElement(num);
                 matrix.add(indPlace1, m);
                 matrix.add(indPlace2, m);
+                digits.add(num);
             }
         }
     }
@@ -448,6 +472,13 @@ public class PairsActivity extends AppCompatActivity {
 
         public void setOpened(boolean opened) {
             IsOpened = opened;
+        }
+    }
+
+    private void pause(long sleeptime) {
+        long expectedtime = System.currentTimeMillis() + sleeptime;
+        while (System.currentTimeMillis() < expectedtime) {
+            //Empty Loop
         }
     }
 

@@ -290,6 +290,7 @@ public class MatrixActivityOptions extends AppCompatActivity {
                             mMatrixMaxTime = 180;
                             break;
                         default:
+                            mMatrixMaxTime = 9999;
                             break;
                     }
                 }
@@ -326,6 +327,7 @@ public class MatrixActivityOptions extends AppCompatActivity {
                             mMatrixExampleTime = 20;
                             break;
                         default:
+                            mMatrixExampleTime = 0;
                             break;
                     }
                 }

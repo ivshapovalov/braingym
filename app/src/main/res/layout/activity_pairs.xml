@@ -74,10 +74,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12sp"
             android:layout_marginStart="12sp"
-            android:layout_span="4"
+            android:layout_span="5"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#bb1e1e"
-            android:textSize="25sp" />
+            android:textColor="#bb1e1e" />
 
         <TextView
             android:id="@+id/tvPairsAnswers"
@@ -85,10 +84,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12sp"
             android:layout_marginStart="12sp"
-            android:layout_span="3"
+            android:layout_span="5"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#bb1e1e"
-            android:textSize="25sp" />
+            android:textColor="#bb1e1e" />
 
     </TableRow>
 

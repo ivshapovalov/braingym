@@ -472,6 +472,7 @@ public class MatrixActivity extends AppCompatActivity {
                 mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
             }
 
+
             mChronometer.start();
             mChronometerIsWorking = true;
             ChangeButtonText("buttonMatrixStartPause", "Пауза");

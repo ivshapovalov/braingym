@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class PairsActivityOptions extends AppCompatActivity {
@@ -44,16 +45,23 @@ public class PairsActivityOptions extends AppCompatActivity {
 
     public void buttonSave_onClick(View view) {
 
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(MainActivity.APP_PREFERENCES_PAIRS_LANGUAGE, mPairsLang);
-        editor.putInt(MainActivity.APP_PREFERENCES_PAIRS_SIZE_HEIGHT, mPairsSizeHeight);
-        editor.putInt(MainActivity.APP_PREFERENCES_PAIRS_SIZE_WIDTH, mPairsSizeWidth);
+        if ((mPairsSizeHeight*mPairsSizeWidth)%2==1) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Количество ячеек при выбранной размерности не четно. Выберите другой размер!", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
 
-        editor.apply();
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putString(MainActivity.APP_PREFERENCES_PAIRS_LANGUAGE, mPairsLang);
+            editor.putInt(MainActivity.APP_PREFERENCES_PAIRS_SIZE_HEIGHT, mPairsSizeHeight);
+            editor.putInt(MainActivity.APP_PREFERENCES_PAIRS_SIZE_WIDTH, mPairsSizeWidth);
+
+            editor.apply();
 
 //        Intent intent = new Intent(MathActivityOptions.this, MathActivity.class);
 //        startActivity(intent);
-        this.finish();
+            this.finish();
+        }
 
     }
 
@@ -159,7 +167,7 @@ public class PairsActivityOptions extends AppCompatActivity {
             });
         }
 
-        int widthID = getResources().getIdentifier("rbPairsSizeWidth" + String.valueOf(mPairsSizeHeight), "id", getPackageName());
+        int widthID = getResources().getIdentifier("rbPairsSizeWidth" + String.valueOf(mPairsSizeWidth), "id", getPackageName());
         RadioButton butWidth = (RadioButton) findViewById(widthID);
 
         if (butWidth != null) {
