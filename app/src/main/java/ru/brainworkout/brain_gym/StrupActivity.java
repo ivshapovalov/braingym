@@ -106,10 +106,11 @@ public class StrupActivity extends AppCompatActivity {
 
         Random random = new Random();
 
+
         while (strupExamples.size() != mStrupExamples) {
 
-            int indexColor = random.nextInt();
-            switch (Math.abs(indexColor % 4)) {
+            int indexColor = Math.abs(random.nextInt()%4);
+            switch (indexColor % 4) {
                 case 0:
                     newColor = Color.parseColor("#FFD8CD02");
                     break;//коричневый

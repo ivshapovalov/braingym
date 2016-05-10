@@ -28,7 +28,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
-    compile files('src/commons-net-3.4/commons-net-3.4.jar')
-    compile files('src/ftp4j-1.7.2/ftp4j-1.7.2.jar')
 }
 

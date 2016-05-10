@@ -131,8 +131,8 @@ public class PairsActivityOptions extends AppCompatActivity {
                         case R.id.rbPairsLangEn:
                             mPairsLang = "En";
                             break;
-                        case R.id.rbPairsLangPicture:
-                            mPairsLang = "Picture";
+                        case R.id.rbPairsLangColor:
+                            mPairsLang = "Color";
                             break;
                         default:
                             mPairsLang = "Digit";

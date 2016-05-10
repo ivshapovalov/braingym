@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:checked="true"
-                android:text="1-25"
+                android:text="1-9"
                 android:textSize="12sp" />
 
             <RadioButton

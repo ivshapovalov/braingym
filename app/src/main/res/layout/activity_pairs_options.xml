@@ -98,11 +98,11 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/rbPairsLangPicture"
+                android:id="@+id/rbPairsLangColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="25"
-                android:text="Картинки"
+                android:text="Цвета"
                 android:textSize="12sp" />
 
         </RadioGroup>

@@ -5,6 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +20,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,13 +41,13 @@ public class PairsActivity extends AppCompatActivity {
     private String mPairsLang;
     private int mPairsSizeHeight;
     private int mPairsSizeWidth;
-    private int mTextSize;
     private int mHeight = 0;
     private int mWidth = 0;
     private int mPairsTextSize = 12;
 
     private int mCountRightAnswers = 0;
     private int mCountAllAnswers = 0;
+    private int mAttemptCount = 0;
     private long elapsedMillis;
 
     private int mFirstSymbolIndex = -1;
@@ -49,6 +56,33 @@ public class PairsActivity extends AppCompatActivity {
     //алфавиты
     private ArrayList<String> AlphabetRu;
     private ArrayList<String> AlphabetEn;
+    private static ArrayList<Integer> mColors = new ArrayList<>();
+
+    static {
+
+        mColors.add(Color.parseColor("#FFDEAD"));//
+        mColors.add(Color.parseColor("#006400"));//
+        mColors.add(Color.parseColor("#000080"));//
+        mColors.add(Color.parseColor("#CD5C5C"));//
+        mColors.add(Color.parseColor("#2F4F4F"));//
+        mColors.add(Color.parseColor("#FF1493"));//
+        mColors.add(Color.parseColor("#7CFC00"));//
+        mColors.add(Color.parseColor("#DAA520"));//
+        mColors.add(Color.parseColor("#6A5ACD"));//
+        mColors.add(Color.parseColor("#836FFF"));//
+        mColors.add(Color.parseColor("#FFE4E1"));//
+        mColors.add(Color.parseColor("#AFEEEE"));//
+        mColors.add(Color.parseColor("#6495ED"));//
+        mColors.add(Color.parseColor("#FFFF00"));//
+        mColors.add(Color.parseColor("#20B2AA"));//
+        mColors.add(Color.parseColor("#000000"));//
+        mColors.add(Color.parseColor("#6B8E23"));//
+        mColors.add(Color.parseColor("#00BFFF"));//
+        mColors.add(Color.parseColor("#F0FFF0"));//
+        mColors.add(Color.parseColor("#A52A2A"));//
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,23 +103,11 @@ public class PairsActivity extends AppCompatActivity {
         //mTextSize = (int) (Math.min(mWidth, mHeight) / 5 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
 
 
-        int resID = getResources().getIdentifier("tvPairsAttemptCount", "id", getPackageName());
-        TextView txt = (TextView) findViewById(resID);
+        //txt.setHeight(mHeight);
+        mHeight = (layout.getHeight()) / (mPairsSizeHeight);
+        mWidth = layout.getWidth() / (mPairsSizeWidth);
 
-        if (txt != null) {
-
-            //txt.setHeight(mHeight);
-            mHeight = (layout.getHeight() + txt.getHeight()) / (mPairsSizeHeight + 1);
-            mWidth = layout.getWidth() / (mPairsSizeWidth);
-
-            mPairsTextSize = (int) (Math.min(mWidth, mHeight) / 2 / getApplicationContext().getResources().getDisplayMetrics().density);
-
-            txt.setHeight(mHeight);
-            txt.setText(" ");
-            txt.setTextSize(mPairsTextSize);
-            txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-
-        }
+        mPairsTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density);
 
         int trowID = getResources().getIdentifier("trowPairs", "id", getPackageName());
         TableRow trow1 = (TableRow) findViewById(trowID);
@@ -101,10 +123,8 @@ public class PairsActivity extends AppCompatActivity {
                 txt1.setText("");
                 txt1.setTextSize(mPairsTextSize);
                 txt1.setTextColor(Color.WHITE);
-
             }
         }
-
     }
 
     public void btPairsСlear_onClick(View view) {
@@ -119,7 +139,7 @@ public class PairsActivity extends AppCompatActivity {
         mChronometerCount = 0;
         mChronometerIsWorking = false;
         mFirstSymbolIndex = -1;
-
+        mAttemptCount = 0;
 
         ChangeButtonText("btPairsStartPause", "Старт");
 
@@ -149,12 +169,17 @@ public class PairsActivity extends AppCompatActivity {
 
         }
 
-        int exID = getResources().getIdentifier("tvPairsExample", "id", getPackageName());
-        TextView txtEx = (TextView) findViewById(exID);
-        if (txtEx != null) {
-            txtEx.setTextSize(mPairsTextSize);
-            txtEx.setText(" ");
-            txtEx.setTextColor(Color.WHITE);
+        if (!auto) {
+            int mMax = mPairsSizeWidth * mPairsSizeHeight;
+            for (int i = 1; i <= mMax; i++) {
+                TextView txt1 = (TextView) findViewById(700 + i);
+                if (txt1 != null) {
+                    txt1.setText("");
+                    txt1.setTextSize(mPairsTextSize);
+                    txt1.setTextColor(Color.WHITE);
+                    txt1.setBackgroundResource(R.drawable.textview_border);
+                }
+            }
         }
 
     }
@@ -164,17 +189,22 @@ public class PairsActivity extends AppCompatActivity {
         int timerMaxID = getResources().getIdentifier("tvPairsTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
 
-
         int time = (int) (elapsedMillis / 1000);
         String txt = "Тест: " + String.valueOf(time);
-        txtTimerMaxTime.setText(txt);
+        if (txtTimerMaxTime != null) {
+            txtTimerMaxTime.setText(txt);
+        }
         //txtTimerMaxTime.setTextSize(mTextSize);
-
-
     }
 
 
     private void drawPairsTest() {
+
+
+//        ShapeDrawable line = new ShapeDrawable(new RectShape());
+//        line.setIntrinsicHeight(1);
+//        line.setIntrinsicWidth(1);
+//        line.getPaint().setColor(Color.MAGENTA);
 
         mCountRightAnswers = 0;
         //для матриц тестов id начинается со 700
@@ -196,28 +226,16 @@ public class PairsActivity extends AppCompatActivity {
                     txt = new TextView(this);
                     txt.setId(700 + (numString - 1) * mPairsSizeWidth + numColumn);
                     txt.setMinimumHeight(mHeight);
+                    txt.setMaxWidth(mWidth);
                     row.addView(txt);
                 }
-//                switch (mPairsLang) {
-//                    case "Digit":
-//                        txt.setText(String.valueOf(matrix.get((numString - 1) * mPairsSizeWidth + numColumn - 1)));
-//                        break;
-//                    case "Ru":
-//                        String strRu = AlphabetRu.get(matrix.get((numString - 1) * mPairsSizeWidth + numColumn - 1) - 1);
-//                        txt.setText(strRu);
-//                        break;
-//                    case "En":
-//                        String strEn = AlphabetEn.get(matrix.get((numString - 1) * mPairsSizeWidth + numColumn - 1) - 1);
-//                        txt.setText(strEn);
-//                        break;
-//                }
 
                 txt.setTextSize(mPairsTextSize);
 
                 txt.setGravity(Gravity.CENTER);
                 txt.setBackgroundResource(R.drawable.textview_border);
+                //txt.setBackgroundDrawable(line);
                 txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-
 
                 txt.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -243,6 +261,17 @@ public class PairsActivity extends AppCompatActivity {
                     //ничего не делаем. ячейка уже открыта
                 } else {
                     switch (mPairsLang) {
+                        case "Color":
+//                            Drawable dr = getResources().getDrawable(R.drawable.textview_black_with_white_borders);
+//                            //Drawable dr = view.getBackground();
+//                            ColorFilter filter = new LightingColorFilter(Color.BLACK, mColors.get(matrix.get(ind).getNum()));
+//                            dr.setColorFilter(filter);
+//                            view.setBackgroundDrawable(dr);
+
+//                            view.getBackground().setColorFilter(mColors.get(matrix.get(ind).getNum()), PorterDuff.Mode.SRC_ATOP);
+
+                            view.setBackgroundColor(mColors.get(matrix.get(ind).getNum()));
+                            break;
                         case "Digit":
                             view.setText(String.valueOf(matrix.get(ind).getNum()));
                             break;
@@ -258,7 +287,13 @@ public class PairsActivity extends AppCompatActivity {
                     if (mFirstSymbolIndex == -1) {
                         mFirstSymbolIndex = ind;
                     } else {
+                        mAttemptCount++;
 
+                        int ansID = getResources().getIdentifier("tvPairsAnswers", "id", getPackageName());
+                        TextView txtAnswers = (TextView) findViewById(ansID);
+                        if (txtAnswers != null) {
+                            txtAnswers.setText("Попыток: " + mAttemptCount);
+                        }
 
                         int num1 = matrix.get(mFirstSymbolIndex).getNum();
                         int num2 = matrix.get(ind).getNum();
@@ -288,25 +323,43 @@ public class PairsActivity extends AppCompatActivity {
                             }
 
                         } else {
-                            mTxtIsBlocked=true;
+                            mTxtIsBlocked = true;
                             view.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    view.setText("");
-                                    mTxtIsBlocked=false;
+                                    switch (mPairsLang) {
+                                        case "Color":
+                                            //view.getBackground().clearColorFilter();
+                                            view.setBackgroundResource(R.drawable.textview_border);
+                                            break;
+                                        default:
+                                            view.setText("");
+                                            break;
+                                    }
+
+                                    mTxtIsBlocked = false;
 
                                 }
-                            }, 2000);
+                            }, 1500);
 
 
                             if (txt != null) {
                                 txt.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        txt.setText("");
-                                        mTxtIsBlocked=false;
+                                        switch (mPairsLang) {
+                                            case "Color":
+                                                //view.getBackground().clearColorFilter();
+                                                txt.setBackgroundResource(R.drawable.textview_border);
+                                                break;
+                                            default:
+                                                txt.setText("");
+                                                break;
+                                        }
+
+                                        mTxtIsBlocked = false;
                                     }
-                                }, 2000);
+                                }, 1500);
                             }
                         }
                         mFirstSymbolIndex = -1;
@@ -446,7 +499,7 @@ public class PairsActivity extends AppCompatActivity {
             mPairsSizeHeight = 4;
         }
 
-        mCountAllAnswers = mPairsSizeHeight * mPairsSizeWidth;
+        mCountAllAnswers = mPairsSizeHeight * mPairsSizeWidth / 2;
 
     }
 

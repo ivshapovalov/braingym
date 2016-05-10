@@ -47,6 +47,8 @@ public class StrupActivity_ver1 extends AppCompatActivity {
     private String mStrupExampleType;
     private int mTextSize = 0;
     private int mStrupVer1FontSizeChange;
+    private int indexLastColor;
+    private int indexLastWord;
 
     private long mStrupExBeginTime = 0;
 
@@ -419,10 +421,13 @@ public class StrupActivity_ver1 extends AppCompatActivity {
         while (doIt) {
             indexColor = Math.abs(random.nextInt() % 8);
             indexWord = Math.abs(random.nextInt() % 8);
-            if (indexColor != indexWord) {
+            //цвет не равен прошлом, слово не равно прошлому, и цвет не равен слову сейчас
+            if (indexColor!=indexLastColor && indexWord!=indexLastWord && indexColor != indexWord) {
                 doIt = false;
             }
         }
+        indexLastColor=indexColor;
+        indexLastWord=indexWord;
         int exampleID = getResources().getIdentifier("tvStrupVer1Example", "id", getPackageName());
         TextView txtExample = (TextView) findViewById(exampleID);
         if (txtExample != null) {
