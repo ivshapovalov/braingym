@@ -32,10 +32,12 @@ public class StrupActivity extends AppCompatActivity {
     private int mStrupFontSizeChange;
     private int mStrupTextSize;
 
+    private int mCountStrings = 15;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strup);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer_strup);
@@ -43,11 +45,10 @@ public class StrupActivity extends AppCompatActivity {
 
     private void drawStrupTest(ArrayList<StrupExample> strupExamples) {
 
-        int mCountStrings = 15;
 
         StrupExample currentEx;
         FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
-        int mHeight = frame.getHeight()*98/100  / mCountStrings;
+        int mHeight = frame.getHeight() * 98 / 100 / mCountStrings;
         int mWidth = frame.getWidth() * 90 / 100 / (mStrupExamples / mCountStrings);
         int numColumn = 0;
         int numString = 0;
@@ -59,7 +60,7 @@ public class StrupActivity extends AppCompatActivity {
                 numColumn = (i - 1) / mCountStrings;
                 numString = (i - 1) % mCountStrings;
                 //txt.setPadding((numColumn) * mWidth , numString * mHeight, 0, 0);
-                txt.setPadding((numColumn) * mWidth + frame.getWidth() / 100 *10,frame.getHeight()*2/100+ numString * mHeight, 0, 0);
+                txt.setPadding((numColumn) * mWidth + frame.getWidth() / 100 * 10, frame.getHeight() * 2 / 100 + numString * mHeight, 0, 0);
                 //txt.setPadding((i-(i-1)%mCountStrings)/(mCountStrings/2)*72+25,150+(i-1)%mCountStrings*30,0,0);
                 frame.addView(txt);
             } else {
@@ -71,7 +72,7 @@ public class StrupActivity extends AppCompatActivity {
             txt.setTextColor(currentEx.getColor());
 
             //txt.setTextSize(Math.min(mWidth,mHeight)/6);
-            mStrupTextSize=(int)(Math.min(mWidth, mHeight) / 2/getApplicationContext().getResources().getDisplayMetrics().density)+mStrupFontSizeChange;
+            mStrupTextSize = (int) (Math.min(mWidth, mHeight) / 2 / getApplicationContext().getResources().getDisplayMetrics().density) + mStrupFontSizeChange;
             txt.setTextSize(mStrupTextSize);
         }
     }
@@ -81,10 +82,10 @@ public class StrupActivity extends AppCompatActivity {
 
         mChronometer.setBase(SystemClock.elapsedRealtime());
         mChronometer.stop();
-        mChronometerCount=0;
+        mChronometerCount = 0;
         mChronometerIsWorking = false;
 
-        ChangeButtonText("buttonStrupStartPause","Старт");
+        ChangeButtonText("buttonStrupStartPause", "Старт");
 
     }
 
@@ -109,7 +110,7 @@ public class StrupActivity extends AppCompatActivity {
 
         while (strupExamples.size() != mStrupExamples) {
 
-            int indexColor = Math.abs(random.nextInt()%4);
+            int indexColor = Math.abs(random.nextInt() % 4);
             switch (indexColor % 4) {
                 case 0:
                     newColor = Color.parseColor("#FFD8CD02");
@@ -128,9 +129,26 @@ public class StrupActivity extends AppCompatActivity {
                     break;//коричневый
             }
             int indWord = Math.abs(random.nextInt() % 4);
-            int indPlace = (strupExamples.size() == 0 ? random.nextInt() : random.nextInt(strupExamples.size()));
+
+            if (strupExamples.size() != 0 && mWordColors[indWord].equals(strupExamples.get(strupExamples.size() - 1).getWord())
+                    ) {
+                continue;
+            }
+            if (strupExamples.size() >= mCountStrings && mWordColors[indWord].equals(strupExamples.get(strupExamples.size() - (mCountStrings)).getWord())
+                    ) {
+                continue;
+            }
+            if (strupExamples.size() != 0 && (newColor == strupExamples.get(strupExamples.size() - 1).getColor())
+                    ) {
+                continue;
+            }
+            if (strupExamples.size() >= mCountStrings && newColor == strupExamples.get(strupExamples.size() - (mCountStrings)).getColor()) {
+                continue;
+            }
+            //int indPlace = (strupExamples.size() == 0 ? random.nextInt() : random.nextInt(strupExamples.size()));
             StrupExample newEx = new StrupExample(mWordColors[indWord], newColor);
-            strupExamples.add((strupExamples.size() == 0 ? 0 : indPlace % strupExamples.size()), newEx);
+            //strupExamples.add((strupExamples.size() == 0 ? 0 : indPlace % strupExamples.size()), newEx);
+            strupExamples.add(newEx);
         }
 
         return strupExamples;
@@ -167,7 +185,7 @@ public class StrupActivity extends AppCompatActivity {
     public void strupOptions_onClick(View view) {
 
         Intent intent = new Intent(StrupActivity.this, StrupActivityOptions.class);
-        intent.putExtra("mStrupTextSize",mStrupTextSize-mStrupFontSizeChange);
+        intent.putExtra("mStrupTextSize", mStrupTextSize - mStrupFontSizeChange);
         startActivity(intent);
 
     }
@@ -203,7 +221,7 @@ public class StrupActivity extends AppCompatActivity {
             // Получаем язык из настроек
             mStrupLang = mSettings.getString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, "Ru");
         } else {
-            mStrupLang="Ru";
+            mStrupLang = "Ru";
         }
         switch (mStrupLang) {
             case "Ru":
