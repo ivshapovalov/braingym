@@ -37,103 +37,72 @@ public class RectanglesCountActivity extends AppCompatActivity {
     private int mRectanglesCountMaxTime;
     private int mRectanglesCountExampleTime;
     private int mRectanglesCountFilling;
-    private String mMatrixLang;
     private int mMatrixSize;
-    private int mTextSize;
     private int mHeight=0;
     private int mWidth=0;
-    private int mMatrixTextSize=12;
-    private int mMatrixFontSizeChange;
-    private int mMatrixMaxTime;
-    private int mMatrixExampleTime;
+    private int mMatrixTextSize;
 
-    private boolean mMatrixIsClickable;
     private int mCountRightAnswers = 0;
     private int mCountMissedAnswers = 0;
     private int mCountAllAnswers = 0;
-    private long mMatrixExBeginTime = 0;
+    private long mRectanglesCountExBeginTime = 0;
     private long elapsedMillis;
 
     private int mIndexNextSymbol;
-    //алфавиты
-    private ArrayList<String> AlphabetRu;
-    private ArrayList<String> AlphabetEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_matrix);
+        setContentView(R.layout.activity_rectangles_count);
 
-        mChronometer = (Chronometer) findViewById(R.id.chronometer_matrix);
-        AlphabetRu = MainActivity.AlphabetRu();
-        AlphabetEn = MainActivity.AlphabetEn();
+        mChronometer = (Chronometer) findViewById(R.id.chronometer_rectangles_count);
+
     }
 
 
     private void matrixClear() {
 
-        TableLayout layout = (TableLayout) findViewById(R.id.tableMatrix);
+        TableLayout layout = (TableLayout) findViewById(R.id.tableRectanglesCount);
         layout.removeAllViews();
         layout.setStretchAllColumns(true);
-                //mTextSize = (int) (Math.min(mWidth, mHeight) / 5 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
 
-
-        int resID = getResources().getIdentifier("tvMatrixExample", "id", getPackageName());
+        int resID = getResources().getIdentifier("tvRectanglesCountExample", "id", getPackageName());
         TextView txt = (TextView) findViewById(resID);
 
         if (txt != null) {
 
             //txt.setHeight(mHeight);
-            mHeight = (layout.getHeight()+txt.getHeight()) / (mMatrixSize+1);
-            mWidth = layout.getWidth() / (mMatrixSize);
+            mHeight = (layout.getHeight()+txt.getHeight()) / (mRectanglesCountSizeHeight+2);
+            mWidth = layout.getWidth() / (mRectanglesCountSizeWidth);
 
             mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
 
             txt.setHeight(mHeight);
-            txt.setText(" ");
-            txt.setTextSize(mMatrixTextSize);
+//            txt.setText(" ");
+//            txt.setTextSize(mMatrixTextSize);
             txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
         }
 
-        int trowID = getResources().getIdentifier("trowMatrix", "id", getPackageName());
+        int trowID = getResources().getIdentifier("trowRectanglesCount", "id", getPackageName());
         TableRow trow1 = (TableRow) findViewById(trowID);
 
         if (trow1 != null) {
             trow1.setBackgroundResource(R.drawable.rounded_corners1);
+            trow1.setMinimumHeight(mHeight);
 
         }
 
         for (int i = 1; i <= mMaxDigits; i++) {
             TextView txt1 = (TextView) findViewById(300 + i);
             if (txt1 != null) {
-                txt1.setText("");
-                txt1.setTextSize(mMatrixTextSize);
-                txt1.setTextColor(Color.WHITE);
+                //txt1.setText("");
+                //txt1.setTextSize(mMatrixTextSize);
+                //txt1.setTextColor(Color.WHITE);
+                txt1.setBackgroundResource(R.drawable.textview_border);
 
             }
         }
-
-//        mHeight = layout.getHeight() / mMatrixSize;
-//        mWidth = layout.getWidth() / mMatrixSize;
-//
-//        mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
-//        mTextSize = (int) (Math.min(mWidth, mHeight) / 5 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
-//
-//        for (int i = 1; i <= mMaxDigits; i++) {
-//            TextView txt1 = (TextView) findViewById(300 + i);
-//            if (txt1 != null) {
-//                txt1.setText(" ");
-//                txt1.setTextSize(mMatrixTextSize);
-//                txt1.setTextColor(Color.WHITE);
-//
-//            }
-//        }
-
-
-
-
-
     }
 
     public void MatrixСlear_onClick(View view) {
@@ -148,40 +117,37 @@ public class RectanglesCountActivity extends AppCompatActivity {
         mChronometerCount = 0;
         mChronometerIsWorking = false;
 
-        mMatrixExBeginTime = 0;
+        mRectanglesCountExBeginTime = 0;
         mCountMissedAnswers=0;
 
-        ChangeButtonText("buttonMatrixStartPause", "Старт");
+        ChangeButtonText("buttonRectanglesCountStartPause", "Старт");
 
-        int timerMaxID = getResources().getIdentifier("tvMatrixTimerMaxTime", "id", getPackageName());
+        int timerMaxID = getResources().getIdentifier("tvRectanglesCountTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
 
         if (txtTimerMaxTime != null) {
             //txtTimerMaxTime.setTextSize(mTextSize);
             String txt;
             if (!auto) {
-                if (mMatrixIsClickable) {
-                    txt = "Тест: " + String.valueOf(mMatrixMaxTime);
-                } else {
                     txt = "Тест: " + String.valueOf(0);
-                }
+
             } else {
                 txt = "Тест окончен";
             }
             txtTimerMaxTime.setText(txt);
         }
 
-        int answerID = getResources().getIdentifier("tvMatrixAnswers", "id", getPackageName());
+        int answerID = getResources().getIdentifier("tvRectanglesCountAnswers", "id", getPackageName());
         TextView txtAnswer = (TextView) findViewById(answerID);
         if (txtAnswer != null) {
             //txtAnswer.setTextSize(mTextSize);
             if (!auto) {
-                txtAnswer.setText("");
+                txtAnswer.setBackgroundColor(Color.WHITE);
             }
 
         }
 
-        int exID = getResources().getIdentifier("tvMatrixExample", "id", getPackageName());
+        int exID = getResources().getIdentifier("tvRectanglesCountExample", "id", getPackageName());
         TextView txtEx = (TextView) findViewById(exID);
         if (txtEx != null) {
             txtEx.setTextSize(mMatrixTextSize);
@@ -189,15 +155,15 @@ public class RectanglesCountActivity extends AppCompatActivity {
             txtEx.setTextColor(Color.WHITE);
         }
 
-        if (mMatrixIsClickable) {
-            if (mMatrixExampleTime != 0) {
-                int timerExID = getResources().getIdentifier("tvMatrixTimerExTime", "id", getPackageName());
+
+            if (mRectanglesCountExampleTime != 0) {
+                int timerExID = getResources().getIdentifier("tvRectanglesCountTimerExTime", "id", getPackageName());
                 TextView txtTimerExTime = (TextView) findViewById(timerExID);
 
                 if (txtTimerExTime != null) {
                     String txt;
                     if (!auto) {
-                        txt = "Символ: " + String.valueOf(mMatrixExampleTime);
+                        txt = "Символ: " + String.valueOf(mRectanglesCountExampleTime);
                     } else {
                         txt = "";
                     }
@@ -206,34 +172,28 @@ public class RectanglesCountActivity extends AppCompatActivity {
                     //txtTimerExTime.setTextSize(mTextSize);
                 }
             }
-        }
+
     }
 
     private void changeTimer(long elapsedMillis) {
 
-        int timerMaxID = getResources().getIdentifier("tvMatrixTimerMaxTime", "id", getPackageName());
+        int timerMaxID = getResources().getIdentifier("tvRectanglesCountTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
 
-        if (!mMatrixIsClickable) {
-            int time = (int) (elapsedMillis / 1000);
-            String txt = "Тест: " + String.valueOf(time);
-            txtTimerMaxTime.setText(txt);
-            //txtTimerMaxTime.setTextSize(mTextSize);
 
-        } else {
             if (txtTimerMaxTime != null) {
-                int time = (int) (mMatrixMaxTime - (elapsedMillis / 1000));
+                int time = (int) (mRectanglesCountMaxTime - (elapsedMillis / 1000));
                 String txt = "Тест: " + String.valueOf(time);
                 txtTimerMaxTime.setText(txt);
                 //txtTimerMaxTime.setTextSize(mTextSize);
             }
-            if (mMatrixExampleTime != 0) {
-                int timerExID = getResources().getIdentifier("tvMatrixTimerExTime", "id", getPackageName());
+            if (mRectanglesCountExampleTime != 0) {
+                int timerExID = getResources().getIdentifier("tvRectanglesCountTimerExTime", "id", getPackageName());
                 TextView txtTimerExTime = (TextView) findViewById(timerExID);
                 if (txtTimerExTime != null) {
-                    int time = (mMatrixExampleTime - ((int) (((elapsedMillis - mMatrixExBeginTime) / 1000)) % mMatrixExampleTime));
+                    int time = (mRectanglesCountExampleTime - ((int) (((elapsedMillis - mRectanglesCountExBeginTime) / 1000)) % mRectanglesCountExampleTime));
                     //System.out.println("mStrupeExampleTime=" + mStrupExampleTime + ", time=" + time + ", elapsed millis=" + elapsedMillis + ", mStrupExBeginTime=" + mStrupExBeginTime);
-                    if (time == mMatrixExampleTime) {
+                    if (time == mRectanglesCountExampleTime) {
                         //новый пример
                         String txt = "Символ: " + String.valueOf(time);
                         txtTimerExTime.setText(txt);
@@ -260,7 +220,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
                     //txtTimerExTime.setTextSize(mTextSize);
                 }
             }
-        }
+
     }
 
 
