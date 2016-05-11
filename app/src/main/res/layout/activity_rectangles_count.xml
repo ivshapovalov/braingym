@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/groundRectanglesCount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:stretchColumns="*"
+    tools:context="ru.brainworkout.brain_gym.RectanglesCountActivity">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0">
+
+        <Button
+            android:id="@+id/buttonHome"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:background="@drawable/ic_house"
+            android:onClick="buttonHome_onClick"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/buttonRectanglesCountStartPause"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="3"
+            android:background="@drawable/textview_border"
+            android:onClick="RectanglesCountStartPause_onClick"
+            android:text="@string/button_nameStartPause"
+            android:textSize="12sp" />
+
+
+        <Button
+            android:id="@+id/buttonRectanglesCountClear"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:background="@drawable/textview_border"
+            android:onClick="RectanglesCountСlear_onClick"
+            android:text="@string/button_nameStop"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/buttonRectanglesCountOptions"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="3"
+            android:background="@drawable/textview_border"
+            android:onClick="RectanglesCountOptions_onClick"
+            android:text="@string/button_nameOptions"
+            android:textSize="12sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/trowRectanglesCount"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10sp"
+        android:layout_weight="0">
+
+        <TextView
+            android:id="@+id/tvRectanglesCountTimerMaxTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
+            android:layout_span="4"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#bb1e1e" />
+
+        <TextView
+            android:id="@+id/tvRectanglesCountTimerExTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
+            android:layout_span="3"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#bb1e1e" />
+
+        <TextView
+            android:id="@+id/tvRectanglesCountAnswers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12sp"
+            android:layout_marginStart="12sp"
+            android:layout_span="3"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#bb1e1e" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tvRectanglesCountExample"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_span="10"
+            android:layout_weight="100"
+            android:gravity="center" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100">
+
+        <TableLayout
+            android:id="@+id/tableRectanglesCount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_span="10">
+
+        </TableLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:visibility="gone">
+
+        <Chronometer
+            android:id="@+id/chronometer_rectangles_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_span="4"
+            android:layout_weight="100"
+            android:clickable="true"
+            android:format="Time: %s"
+            android:gravity="center"
+            android:textColor="#e71f1f"
+            android:textSize="25dp" />
+
+    </TableRow>
+
+
+</TableLayout>

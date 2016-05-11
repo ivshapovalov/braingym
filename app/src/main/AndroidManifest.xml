@@ -86,6 +86,14 @@
             android:name=".PairsActivityOptions"
             android:label="@string/pairs_name_options"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".RectanglesCountActivityOptions"
+            android:label="@string/rectangles_count_name_options"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RectanglesCountActivity"
+            android:label="@string/rectangles_count_name"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

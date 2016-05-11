@@ -5,7 +5,8 @@
     android:id="@+id/ground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.brainworkout.brain_gym.PairsActivityOptions">
+    tools:context="ru.brainworkout.brain_gym.RectanglesCountActivityOptions">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,77 +46,73 @@
             android:layout_weight="40" />
     </LinearLayout>
 
-
     <LinearLayout
+        android:id="@+id/lineRectCountFilling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
-        android:id="@+id/linePairsLang"
-        android:layout_below="@+id/line1">
+        android:layout_below="@+id/line1" >
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textView16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_gravity="center"
-            android:text="Элементы"
+            android:layout_weight="25"
+            android:text="Заполненность"
             android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_weight="20" />
+            android:textStyle="bold" />
 
         <RadioGroup
-            android:id="@+id/rgPairsLang"
+            android:id="@+id/rgRectCountFilling"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="80"
-
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_weight="75"
+            android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/rbPairsLangRu"
+                android:id="@+id/rbRectCountFilling20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="25"
-                android:checked="true"
-                android:text="Ru"
+                android:layout_weight="20"
+                android:text="S"
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/rbPairsLangEn"
+                android:id="@+id/rbRectCountFilling40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="25"
-                android:text="En"
+                android:layout_weight="20"
+                android:text="M"
+                android:textSize="12sp"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/rbRectCountFilling50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:text="L"
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/rbPairsLangDigit"
+                android:id="@+id/rbRectCountFilling60"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="25"
-                android:text="1-100"
+                android:layout_weight="20"
+                android:text="XL"
                 android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/rbPairsLangColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="25"
-                android:text="Цвета"
-                android:textSize="12sp" />
-
         </RadioGroup>
-
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linPairsSizeHeight"
+        android:id="@+id/lineRectCountHeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linePairsLang"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_below="@+id/lineRectCountFilling">
 
         <TextView
             android:id="@+id/textView12"
@@ -128,31 +125,13 @@
             android:textStyle="bold" />
 
         <RadioGroup
-            android:id="@+id/rgPairsSizeHeight"
+            android:id="@+id/rgRectCountSizeHeight"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="80"
             android:orientation="horizontal" >
-
             <RadioButton
-                android:id="@+id/rbPairsSizeHeight3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:checked="true"
-                android:text="3"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/rbPairsSizeHeight4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:text="4"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/rbPairsSizeHeight5"
+                android:id="@+id/rbRectCountSizeHeight5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -160,29 +139,44 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/rbPairsSizeHeight6"
+                android:id="@+id/rbRectCountSizeHeight6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:text="6"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:checked="true" />
 
             <RadioButton
-                android:id="@+id/rbPairsSizeHeight7"
+                android:id="@+id/rbRectCountSizeHeight7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:text="7"
+                android:textSize="12sp" />
+            <RadioButton
+                android:id="@+id/rbRectCountSizeHeight8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:text="8"
+                android:textSize="12sp" />
+            <RadioButton
+                android:id="@+id/rbRectCountSizeHeight9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:text="9"
                 android:textSize="12sp" />
         </RadioGroup>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linePairsSizeWidth"
+        android:id="@+id/lineRectCountWidth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linPairsSizeHeight"
+        android:layout_below="@+id/lineRectCountHeight"
         android:layout_marginTop="15dp"
         android:orientation="horizontal" >
 
@@ -197,31 +191,14 @@
             android:textStyle="bold" />
 
         <RadioGroup
-            android:id="@+id/rgPairsSizeWidth"
+            android:id="@+id/rgRectCountSizeWidth"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="80"
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/rbPairsSizeWidth3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:checked="true"
-                android:text="3"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/rbPairsSizeWidth4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:text="4"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/rbPairsSizeWidth5"
+                android:id="@+id/rbRectCountSizeWidth5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -229,19 +206,146 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/rbPairsSizeWidth6"
+                android:id="@+id/rbRectCountSizeWidth6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:text="6"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:checked="true" />
 
             <RadioButton
-                android:id="@+id/rbPairsSizeWidth7"
+                android:id="@+id/rbRectCountSizeWidth7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:text="7"
+                android:textSize="12sp" />
+            <RadioButton
+                android:id="@+id/rbRectCountSizeWidth8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:text="8"
+                android:textSize="12sp" />
+            <RadioButton
+                android:id="@+id/rbRectCountSizeWidth9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:text="9"
+                android:textSize="12sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lineRectCountMaxTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lineRectCountWidth"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border" >
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Время теста (сек)"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="50" />
+
+        <RadioGroup
+            android:id="@+id/rgRectCountMaxTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="50" >
+
+            <RadioButton
+                android:id="@+id/rbRectCountMaxTime60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="60"
+                android:layout_weight="50"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbRectCountMaxTime120"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120"
+                android:layout_weight="50"
+                android:textSize="12sp" />
+            <RadioButton
+                android:id="@+id/rbRectCountMaxTime180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="180"
+                android:layout_weight="50"
+                android:textSize="12sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lineRectCountExampleTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lineRectCountMaxTime"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border" >
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Время на пример (сек)"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_weight="30" />
+
+        <RadioGroup
+            android:id="@+id/rgRectCountExampleTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="70" >
+
+            <RadioButton
+                android:id="@+id/rbRectCountExampleTime0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_weight="33"
+                android:text="@string/infinity"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbRectCountExampleTime5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbRectCountExampleTime10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:layout_weight="33"
+                android:textSize="12sp" />
+            <RadioButton
+                android:id="@+id/rbRectCountExampleTime20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:layout_weight="33"
                 android:textSize="12sp" />
         </RadioGroup>
     </LinearLayout>

@@ -15,6 +15,8 @@
     <string name="number_search_name_options">Настройки "Поиск символа"</string>
     <string name="pairs_name">Пары фигур</string>
     <string name="pairs_name_options">Настройки "Пары фигур"</string>
+    <string name="rectangles_count_name">Прямоугольники</string>
+    <string name="rectangles_count_name_options">Настройки "Прямоугольники"</string>
     <string name="missing_symbol_name_options">Настройки "Пропущенный символ"</string>
     <string name="strup_name_options">Настройки Тест Струпа</string>
     <string name="math_name_options">Настройки Арифметики</string>
@@ -27,6 +29,7 @@
     <string name="numberSearchTestExplanation">Поиск числа - ищем символ в матрице</string>
     <string name="chainCharTestExplanation">Цепочка символов - сколько раз символ встречается в цепочке</string>
     <string name="pairsTestExplanation">Поиск пар изображений</string>
+    <string name="rectanglexCountTestExplanation">Подсчет фигур</string>
     <string name="shulte_name">Матрицы Шульте</string>
     <string name="shulteTestExplanation">Матрицы Шульте - Тренировка по матрицам Шульте</string>
     <string name="about_name">О программе</string>

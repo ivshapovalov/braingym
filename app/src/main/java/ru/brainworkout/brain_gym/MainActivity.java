@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_PAIRS_LANGUAGE = "pairs_language";
     public static final String APP_PREFERENCES_PAIRS_SIZE_HEIGHT = "pairs_size_height";
     public static final String APP_PREFERENCES_PAIRS_SIZE_WIDTH = "pairs_size_width";
+    public static final String APP_PREFERENCES_RECTANGLES_COUNT_FILLING = "rectangles_count_filling";
+    public static final String APP_PREFERENCES_RECTANGLES_COUNT_SIZE_HEIGHT = "rectangles_count_size_height";
+    public static final String APP_PREFERENCES_RECTANGLES_COUNT_SIZE_WIDTH = "rectangles_count_size_width";
+    public static final String APP_PREFERENCES_RECTANGLES_COUNT_TEST_TIME = "rectangles_count_max_test_time";
+    public static final String APP_PREFERENCES_RECTANGLES_COUNT_EXAMPLE_TIME = "rectangles_count_max_example_time";
     public static final String APP_PREFERENCES_MATRIX_LANGUAGE = "matrix_language";
     public static final String APP_PREFERENCES_MATRIX_SIZE = "matrix_size";
     public static final String APP_PREFERENCES_MATRIX_FONT_SIZE_CHANGE = "matrix_font_size_change";
@@ -120,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void RectanglesCountActivity_onClick(View view) {
+
+        Intent intent = new Intent(MainActivity.this, RectanglesCountActivity.class);
+        startActivity(intent);
+    }
 
     public void exit_onClick(View view) {
         onBackPressed();
@@ -210,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
         return AlphabetEn;
     }
+
 
 
 }

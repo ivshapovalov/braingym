@@ -28,6 +28,23 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/rectanglexCountTestExplanation"
+                    android:id="@+id/button10"
+                    android:onClick="RectanglesCountActivity_onClick"
+                    android:singleLine="false"
+                    android:focusableInTouchMode="false"
+                    android:background="@drawable/separator"
+                    android:textColor="#ffffff" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="20" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/pairsTestExplanation"
                     android:id="@+id/button9"
                     android:onClick="pairsActivity_onClick"

@@ -14,15 +14,17 @@ import android.widget.Toast;
 public class RectanglesCountActivityOptions extends AppCompatActivity {
 
     private SharedPreferences mSettings;
-    private int mPairsSizeHeight;
-    private int mPairsSizeWidth;
-    private String mPairsLang;
+    private int mRectanglesCountSizeHeight;
+    private int mRectanglesCountSizeWidth;
+    private int mRectanglesCountMaxTime;
+    private int mRectanglesCountExampleTime;
+    private int mRectanglesCountFilling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pairs_options);
+        setContentView(R.layout.activity_rectangles_count_options);
 
         getPreferencesFromFile();
         setPreferencesOnScreen();
@@ -30,10 +32,6 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
 
 
     public void buttonHome_onClick(View view) {
-
-//        Intent intent = new Intent(MathActivityOptions.this, MainActivity.class);
-//        startActivity(intent);
-//        this.finish();
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -43,30 +41,23 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
 
     public void buttonSave_onClick(View view) {
 
-        if ((mPairsSizeHeight*mPairsSizeWidth)%2==1) {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Количество ячеек при выбранной размерности не четно. Выберите другой размер!", Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
 
-            SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString(MainActivity.APP_PREFERENCES_PAIRS_LANGUAGE, mPairsLang);
-            editor.putInt(MainActivity.APP_PREFERENCES_PAIRS_SIZE_HEIGHT, mPairsSizeHeight);
-            editor.putInt(MainActivity.APP_PREFERENCES_PAIRS_SIZE_WIDTH, mPairsSizeWidth);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_FILLING, mRectanglesCountFilling);
+        editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_HEIGHT, mRectanglesCountSizeHeight);
+        editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_WIDTH, mRectanglesCountSizeWidth);
+        editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_TEST_TIME, mRectanglesCountMaxTime);
+        editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_EXAMPLE_TIME, mRectanglesCountExampleTime);
 
-            editor.apply();
+        editor.apply();
 
-//        Intent intent = new Intent(MathActivityOptions.this, MathActivity.class);
-//        startActivity(intent);
-            this.finish();
-        }
+        this.finish();
+
 
     }
 
     public void buttonCancel_onClick(View view) {
 
-//        Intent intent = new Intent(MathActivityOptions.this, MathActivity.class);
-//        startActivity(intent);
         this.finish();
 
     }
@@ -74,80 +65,77 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
     private void getPreferencesFromFile() {
 
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
-        mPairsLang = "Ru";
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_PAIRS_LANGUAGE)) {
+
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_FILLING)) {
             // Получаем язык из настроек
-            mPairsLang = mSettings.getString(MainActivity.APP_PREFERENCES_PAIRS_LANGUAGE, "Ru");
+            mRectanglesCountFilling = mSettings.getInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_FILLING, 40);
         } else {
-            mPairsLang = "Ru";
+            mRectanglesCountFilling = 40;
         }
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_PAIRS_SIZE_WIDTH)) {
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_WIDTH)) {
             // Получаем язык из настроек
-            mPairsSizeWidth = mSettings.getInt(MainActivity.APP_PREFERENCES_PAIRS_SIZE_WIDTH, 3);
+            mRectanglesCountSizeWidth = mSettings.getInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_WIDTH, 6);
         } else {
-            mPairsSizeWidth = 3;
+            mRectanglesCountSizeWidth = 6;
         }
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_PAIRS_SIZE_HEIGHT)) {
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_HEIGHT)) {
             // Получаем язык из настроек
-            mPairsSizeHeight = mSettings.getInt(MainActivity.APP_PREFERENCES_PAIRS_SIZE_HEIGHT, 4);
+            mRectanglesCountSizeHeight = mSettings.getInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_HEIGHT, 6);
         } else {
-            mPairsSizeHeight = 4;
+            mRectanglesCountSizeHeight = 6;
         }
 
-
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_TEST_TIME)) {
+            // Получаем язык из настроек
+            mRectanglesCountMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_TEST_TIME, 60);
+        } else {
+            mRectanglesCountMaxTime = 60;
+        }
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_EXAMPLE_TIME)) {
+            // Получаем язык из настроек
+            mRectanglesCountExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_EXAMPLE_TIME, 0);
+        } else {
+            mRectanglesCountExampleTime = 0;
+        }
     }
 
     private void setPreferencesOnScreen() {
-        //Установим настройки в зависимости от сохраненного языка
-        int langID = getResources().getIdentifier("rbPairsLang" + String.valueOf(mPairsLang), "id", getPackageName());
-        RadioButton but = (RadioButton) findViewById(langID);
 
-        if (but != null) {
-            but.setChecked(true);
+        int mFillingID = getResources().getIdentifier("rbRectCountFilling" + String.valueOf(mRectanglesCountFilling), "id", getPackageName());
+        RadioButton btFilling = (RadioButton) findViewById(mFillingID);
+
+        if (btFilling != null) {
+            btFilling.setChecked(true);
         }
 
-        RadioGroup radiogroup = (RadioGroup) findViewById(R.id.rgPairsLang);
+        RadioGroup rgFilling = (RadioGroup) findViewById(R.id.rgRectCountFilling);
 //
-        if (radiogroup != null) {
-            radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        if (rgFilling != null) {
+            rgFilling.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-                    switch (checkedId) {
-                        case -1:
-                            mPairsLang = "Digit";
-                            break;
-                        case R.id.rbPairsLangDigit:
-                            mPairsLang = "Digit";
-                            break;
-                        case R.id.rbPairsLangRu:
-                            mPairsLang = "Ru";
-                            break;
-                        case R.id.rbPairsLangEn:
-                            mPairsLang = "En";
-                            break;
-                        case R.id.rbPairsLangColor:
-                            mPairsLang = "Color";
-                            break;
-                        default:
-                            mPairsLang = "Digit";
-                            break;
+                    String mResName = "";
+                    try {
+                        mResName = getResources().getResourceName(checkedId);
+                        mRectanglesCountFilling = Integer.valueOf(String.valueOf(mResName.charAt(mResName.length() - 2)) + String.valueOf(mResName.charAt(mResName.length() - 1)));
+                    } catch (Exception e) {
+                        //mPairsSizeHeight = 4;
                     }
                 }
             });
         }
 
-        int heightID = getResources().getIdentifier("rbPairsSizeHeight" + String.valueOf(mPairsSizeHeight), "id", getPackageName());
-        RadioButton butHeight = (RadioButton) findViewById(heightID);
+        int mHeightID = getResources().getIdentifier("rbRectCountSizeHeight" + String.valueOf(mRectanglesCountSizeHeight), "id", getPackageName());
+        RadioButton btHeight = (RadioButton) findViewById(mHeightID);
 
-        if (butHeight != null) {
-            butHeight.setChecked(true);
+        if (btHeight != null) {
+            btHeight.setChecked(true);
         }
 
-        RadioGroup rgHeight = (RadioGroup) findViewById(R.id.rgPairsSizeHeight);
+        RadioGroup rgHeight = (RadioGroup) findViewById(R.id.rgRectCountSizeHeight);
 //
         if (rgHeight != null) {
             rgHeight.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -157,7 +145,7 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
                     String mResName = "";
                     try {
                         mResName = getResources().getResourceName(checkedId);
-                        mPairsSizeHeight = Integer.valueOf(String.valueOf(mResName.charAt(mResName.length() - 1)));
+                        mRectanglesCountSizeHeight = Integer.valueOf(String.valueOf(mResName.charAt(mResName.length() - 1)));
                     } catch (Exception e) {
                         //mPairsSizeHeight = 4;
                     }
@@ -165,14 +153,14 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
             });
         }
 
-        int widthID = getResources().getIdentifier("rbPairsSizeWidth" + String.valueOf(mPairsSizeWidth), "id", getPackageName());
-        RadioButton butWidth = (RadioButton) findViewById(widthID);
+        int mWidthID = getResources().getIdentifier("rbRectCountSizeWidth" + String.valueOf(mRectanglesCountSizeWidth), "id", getPackageName());
+        RadioButton btWidth = (RadioButton) findViewById(mWidthID);
 
-        if (butWidth != null) {
-            butWidth.setChecked(true);
+        if (btWidth != null) {
+            btWidth.setChecked(true);
         }
 
-        RadioGroup rgWidth = (RadioGroup) findViewById(R.id.rgPairsSizeWidth);
+        RadioGroup rgWidth = (RadioGroup) findViewById(R.id.rgRectCountSizeWidth);
 //
         if (rgWidth != null) {
             rgWidth.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -182,7 +170,7 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
                     String mResName = "";
                     try {
                         mResName = getResources().getResourceName(checkedId);
-                        mPairsSizeWidth = Integer.valueOf(String.valueOf(mResName.charAt(mResName.length() - 1)));
+                        mRectanglesCountSizeWidth = Integer.valueOf(String.valueOf(mResName.charAt(mResName.length() - 1)));
                     } catch (Exception e) {
                         //mPairsSizeHeight = 4;
                     }
@@ -191,6 +179,77 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
             });
         }
 
-    }
+        int mMaxTimeID = getResources().getIdentifier("rgRectCountMaxTime" + String.valueOf(mRectanglesCountMaxTime), "id", getPackageName());
+        RadioButton btMaxTime = (RadioButton) findViewById(mMaxTimeID);
 
+        if (btMaxTime != null) {
+            btMaxTime.setChecked(true);
+        }
+
+        RadioGroup rgMaxTime = (RadioGroup) findViewById(R.id.rgRectCountMaxTime);
+//
+        if (rgMaxTime != null) {
+            rgMaxTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case R.id.rbRectCountMaxTime60:
+                            mRectanglesCountMaxTime = 60;
+                            break;
+                        case R.id.rbRectCountMaxTime120:
+                            mRectanglesCountMaxTime = 120;
+                            break;
+                        case R.id.rbRectCountMaxTime180:
+                            mRectanglesCountMaxTime = 180;
+                            break;
+                        default:
+                            mRectanglesCountMaxTime = 120;
+                            break;
+
+                    }
+
+                }
+            });
+
+            int mExTimeID = getResources().getIdentifier("rgRectCountExampleTime" + String.valueOf(mRectanglesCountExampleTime), "id", getPackageName());
+            RadioButton btExTime = (RadioButton) findViewById(mExTimeID);
+
+            if (btExTime != null) {
+                btExTime.setChecked(true);
+            }
+
+            RadioGroup rgExTime = (RadioGroup) findViewById(R.id.rgRectCountExampleTime);
+//
+            if (rgExTime != null) {
+                rgExTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch (checkedId) {
+                            case R.id.rbRectCountExampleTime0:
+                                mRectanglesCountExampleTime = 0;
+                                break;
+                            case R.id.rbRectCountExampleTime5:
+                                mRectanglesCountExampleTime = 5;
+                                break;
+                            case R.id.rbRectCountExampleTime10:
+                                mRectanglesCountExampleTime = 10;
+                                break;
+                            case R.id.rbRectCountExampleTime20:
+                                mRectanglesCountExampleTime = 20;
+                                break;
+                            default:
+                                mRectanglesCountExampleTime = 0;
+                                break;
+
+                        }
+
+                    }
+                });
+            }
+
+        }
+
+    }
 }
