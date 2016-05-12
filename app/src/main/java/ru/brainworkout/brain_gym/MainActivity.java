@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         AlphabetColors.add(Color.parseColor("#6495ED"));//
         AlphabetColors.add(Color.parseColor("#FFFF00"));//
         AlphabetColors.add(Color.parseColor("#20B2AA"));//
-        AlphabetColors.add(Color.parseColor("#000000"));//
+        AlphabetColors.add(Color.parseColor("#FF2020"));//
         AlphabetColors.add(Color.parseColor("#6B8E23"));//
         AlphabetColors.add(Color.parseColor("#00BFFF"));//
         AlphabetColors.add(Color.parseColor("#F0FFF0"));//

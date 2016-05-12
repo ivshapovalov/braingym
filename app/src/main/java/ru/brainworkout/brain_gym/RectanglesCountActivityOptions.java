@@ -179,7 +179,7 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
             });
         }
 
-        int mMaxTimeID = getResources().getIdentifier("rgRectCountMaxTime" + String.valueOf(mRectanglesCountMaxTime), "id", getPackageName());
+        int mMaxTimeID = getResources().getIdentifier("rbRectCountMaxTime" + String.valueOf(mRectanglesCountMaxTime), "id", getPackageName());
         RadioButton btMaxTime = (RadioButton) findViewById(mMaxTimeID);
 
         if (btMaxTime != null) {
@@ -212,7 +212,7 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
                 }
             });
 
-            int mExTimeID = getResources().getIdentifier("rgRectCountExampleTime" + String.valueOf(mRectanglesCountExampleTime), "id", getPackageName());
+            int mExTimeID = getResources().getIdentifier("rbRectCountExampleTime" + String.valueOf(mRectanglesCountExampleTime), "id", getPackageName());
             RadioButton btExTime = (RadioButton) findViewById(mExTimeID);
 
             if (btExTime != null) {
