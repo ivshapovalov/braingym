@@ -72,7 +72,7 @@
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/rbRectCountFilling20"
+                android:id="@+id/rbRectCountFillingA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -80,7 +80,7 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/rbRectCountFilling40"
+                android:id="@+id/rbRectCountFillingB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -89,7 +89,7 @@
                 android:checked="true" />
 
             <RadioButton
-                android:id="@+id/rbRectCountFilling50"
+                android:id="@+id/rbRectCountFillingC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -97,7 +97,7 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/rbRectCountFilling60"
+                android:id="@+id/rbRectCountFillingD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"

@@ -18,7 +18,7 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
     private int mRectanglesCountSizeWidth;
     private int mRectanglesCountMaxTime;
     private int mRectanglesCountExampleTime;
-    private int mRectanglesCountFilling;
+    private String mRectanglesCountFilling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
 
 
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_FILLING, mRectanglesCountFilling);
+        editor.putString(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_FILLING, mRectanglesCountFilling);
         editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_HEIGHT, mRectanglesCountSizeHeight);
         editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_WIDTH, mRectanglesCountSizeWidth);
         editor.putInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_TEST_TIME, mRectanglesCountMaxTime);
@@ -68,9 +68,9 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_FILLING)) {
             // Получаем язык из настроек
-            mRectanglesCountFilling = mSettings.getInt(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_FILLING, 40);
+            mRectanglesCountFilling = mSettings.getString(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_FILLING, "M");
         } else {
-            mRectanglesCountFilling = 40;
+            mRectanglesCountFilling = "M";
         }
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_RECTANGLES_COUNT_SIZE_WIDTH)) {
@@ -103,7 +103,7 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
 
     private void setPreferencesOnScreen() {
 
-        int mFillingID = getResources().getIdentifier("rbRectCountFilling" + String.valueOf(mRectanglesCountFilling), "id", getPackageName());
+        int mFillingID = getResources().getIdentifier("rbRectCountFilling" + mRectanglesCountFilling, "id", getPackageName());
         RadioButton btFilling = (RadioButton) findViewById(mFillingID);
 
         if (btFilling != null) {
@@ -120,7 +120,7 @@ public class RectanglesCountActivityOptions extends AppCompatActivity {
                     String mResName = "";
                     try {
                         mResName = getResources().getResourceName(checkedId);
-                        mRectanglesCountFilling = Integer.valueOf(String.valueOf(mResName.charAt(mResName.length() - 2)) + String.valueOf(mResName.charAt(mResName.length() - 1)));
+                        mRectanglesCountFilling = String.valueOf(mResName.charAt(mResName.length() - 1));
                     } catch (Exception e) {
                         //mPairsSizeHeight = 4;
                     }

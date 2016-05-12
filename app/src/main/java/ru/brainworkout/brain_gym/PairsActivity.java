@@ -48,33 +48,8 @@ public class PairsActivity extends AppCompatActivity {
     //алфавиты
     private ArrayList<String> AlphabetRu;
     private ArrayList<String> AlphabetEn;
-    private static ArrayList<Integer> mColors = new ArrayList<>();
+    private ArrayList<Integer> AlphabetColors;
 
-    static {
-
-        mColors.add(Color.parseColor("#FFDEAD"));//
-        mColors.add(Color.parseColor("#006400"));//
-        mColors.add(Color.parseColor("#000080"));//
-        mColors.add(Color.parseColor("#CD5C5C"));//
-        mColors.add(Color.parseColor("#2F4F4F"));//
-        mColors.add(Color.parseColor("#FF1493"));//
-        mColors.add(Color.parseColor("#7CFC00"));//
-        mColors.add(Color.parseColor("#DAA520"));//
-        mColors.add(Color.parseColor("#6A5ACD"));//
-        mColors.add(Color.parseColor("#836FFF"));//
-        mColors.add(Color.parseColor("#FFE4E1"));//
-        mColors.add(Color.parseColor("#AFEEEE"));//
-        mColors.add(Color.parseColor("#6495ED"));//
-        mColors.add(Color.parseColor("#FFFF00"));//
-        mColors.add(Color.parseColor("#20B2AA"));//
-        mColors.add(Color.parseColor("#000000"));//
-        mColors.add(Color.parseColor("#6B8E23"));//
-        mColors.add(Color.parseColor("#00BFFF"));//
-        mColors.add(Color.parseColor("#F0FFF0"));//
-        mColors.add(Color.parseColor("#A52A2A"));//
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +59,7 @@ public class PairsActivity extends AppCompatActivity {
         mChronometer = (Chronometer) findViewById(R.id.chronometer_pairs);
         AlphabetRu = MainActivity.AlphabetRu();
         AlphabetEn = MainActivity.AlphabetEn();
+        AlphabetColors=MainActivity.AlphabetColors();
     }
 
 
@@ -116,6 +92,13 @@ public class PairsActivity extends AppCompatActivity {
                 txt1.setTextSize(mPairsTextSize);
                 txt1.setTextColor(Color.WHITE);
             }
+        }
+
+        int answerID = getResources().getIdentifier("tvPairsAnswers", "id", getPackageName());
+        TextView txtAnswer = (TextView) findViewById(answerID);
+        if (txtAnswer != null) {
+            //txtAnswer.setTextSize(mTextSize);
+                txtAnswer.setText("");
         }
     }
 
@@ -262,7 +245,7 @@ public class PairsActivity extends AppCompatActivity {
 
 //                            view.getBackground().setColorFilter(mColors.get(matrix.get(ind).getNum()), PorterDuff.Mode.SRC_ATOP);
 
-                            view.setBackgroundColor(mColors.get(matrix.get(ind).getNum()));
+                            view.setBackgroundColor(AlphabetColors.get(matrix.get(ind).getNum()));
                             break;
                         case "Digit":
                             view.setText(String.valueOf(matrix.get(ind).getNum()));

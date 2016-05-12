@@ -6,10 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-
+import android.widget.Button;
 
 
 import java.util.ArrayList;
@@ -147,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     static ArrayList<String> AlphabetRu() {
 
         ArrayList<String> AlphabetRu = new ArrayList<>();
@@ -221,6 +221,32 @@ public class MainActivity extends AppCompatActivity {
         return AlphabetEn;
     }
 
+    static ArrayList<Integer> AlphabetColors() {
+        ArrayList<Integer> AlphabetColors = new ArrayList<>();
+
+        AlphabetColors.add(Color.parseColor("#FFDEAD"));//
+        AlphabetColors.add(Color.parseColor("#006400"));//
+        AlphabetColors.add(Color.parseColor("#000080"));//
+        AlphabetColors.add(Color.parseColor("#CD5C5C"));//
+        AlphabetColors.add(Color.parseColor("#2F4F4F"));//
+        AlphabetColors.add(Color.parseColor("#FF1493"));//
+        AlphabetColors.add(Color.parseColor("#7CFC00"));//
+        AlphabetColors.add(Color.parseColor("#DAA520"));//
+        AlphabetColors.add(Color.parseColor("#6A5ACD"));//
+        AlphabetColors.add(Color.parseColor("#836FFF"));//
+        AlphabetColors.add(Color.parseColor("#FFE4E1"));//
+        AlphabetColors.add(Color.parseColor("#AFEEEE"));//
+        AlphabetColors.add(Color.parseColor("#6495ED"));//
+        AlphabetColors.add(Color.parseColor("#FFFF00"));//
+        AlphabetColors.add(Color.parseColor("#20B2AA"));//
+        AlphabetColors.add(Color.parseColor("#000000"));//
+        AlphabetColors.add(Color.parseColor("#6B8E23"));//
+        AlphabetColors.add(Color.parseColor("#00BFFF"));//
+        AlphabetColors.add(Color.parseColor("#F0FFF0"));//
+        AlphabetColors.add(Color.parseColor("#A52A2A"));//
+
+        return AlphabetColors;
+    }
 
 
 }
