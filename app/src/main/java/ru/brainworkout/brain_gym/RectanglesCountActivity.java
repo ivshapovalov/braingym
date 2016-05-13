@@ -52,9 +52,10 @@ public class RectanglesCountActivity extends AppCompatActivity {
     private long mRectanglesCountExBeginTime = 0;
     private long elapsedMillis;
 
-    private int Answer;
+    private int indAnswer;
     private int indColorMain;
     private ArrayList<Integer> AlphabetColors;
+    ArrayList<Integer> arrAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,10 +185,10 @@ public class RectanglesCountActivity extends AppCompatActivity {
 
         }
 
-        //TODO изменить чтобы ИД от номера а не числа
+
         for (int i = 1; i <= mRectanglesCountSizeWidth; i++) {
 
-            TextView txt2 = (TextView) findViewById(800 + matrix.get(i-1));
+            TextView txt2 = (TextView) findViewById(800 + i);
             if (txt2 != null) {
                 Drawable dr = getResources().getDrawable(R.drawable.textview_border1);
                 txt2.setBackgroundDrawable(dr);
@@ -338,7 +339,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
                 }
                 break;
         }
-        Answer = maxCountMain;
+
 
         //формируем матрицу нулевую
         for (int i = 0; i < mMaxDigits; i++) {
@@ -385,6 +386,17 @@ public class RectanglesCountActivity extends AppCompatActivity {
             }
         }
 
+        arrAnswers = new ArrayList<>();
+        arrAnswers.add(maxCountMain);
+        while (arrAnswers.size() != mRectanglesCountSizeWidth) {
+            int mAns = Math.abs(random.nextInt() % (mRectanglesCountSizeWidth / 2+2)  + maxCountMain);
+            if (!arrAnswers.contains(mAns)) {
+                int indPlace = random.nextInt(arrAnswers.size());
+                arrAnswers.add(indPlace, mAns);
+            }
+
+        }
+        indAnswer=arrAnswers.indexOf(maxCountMain);
 
         //}
     }
@@ -444,18 +456,8 @@ public class RectanglesCountActivity extends AppCompatActivity {
         }
 
         //рисуем ответы
-        Random random = new Random();
 
-        ArrayList<Integer> arrAnswers = new ArrayList<>();
-        arrAnswers.add(Answer);
-        while (arrAnswers.size() != mRectanglesCountSizeWidth) {
-            int mAns = Math.abs(random.nextInt() % (mRectanglesCountSizeWidth / 2+2)  + Answer);
-            if (!arrAnswers.contains(mAns)) {
-                int indPlace = random.nextInt(arrAnswers.size());
-                arrAnswers.add(indPlace, mAns);
-            }
 
-        }
         TableLayout tableAnswers = (TableLayout) findViewById(R.id.tableRectanglesCountAnswers);
         TableRow mRowAnswers = new TableRow(this);
         tableAnswers.removeAllViews();
@@ -466,10 +468,10 @@ public class RectanglesCountActivity extends AppCompatActivity {
         mRowAnswers.setGravity(Gravity.CENTER);
 
         for (int numColumn = 1; numColumn <= mRectanglesCountSizeWidth; numColumn++) {
-            TextView txt = (TextView) findViewById(800 + arrAnswers.get(numColumn - 1));
+            TextView txt = (TextView) findViewById(800 + numColumn);
             if (txt == null) {
                 txt = new TextView(this);
-                txt.setId(800 + arrAnswers.get(numColumn - 1));
+                txt.setId(800 + numColumn);
                 txt.setMinimumHeight(mHeight);
                 //txt.setWidth(mWidth);
 
@@ -479,7 +481,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
                 ColorFilter filter = new LightingColorFilter(mColor, Color.BLACK);
                 dr.setColorFilter(filter);
                 txt.setBackgroundDrawable(dr);
-                txt.setText(String.valueOf(arrAnswers.get(numColumn - 1)));
+                txt.setText(String.valueOf(numColumn));
                 txt.setGravity(Gravity.CENTER);
                 txt.setTextColor(Color.BLACK);
                 mRowAnswers.addView(txt);
@@ -503,7 +505,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
             //int a = Integer.valueOf(String.valueOf(((AppCompatTextView) view).getText().charAt(0)));
 
             int a = view.getId() % 100;
-            if (a == Answer) {
+            if (a-1 == indAnswer) {
 
                 mCountRightAnswers++;
 
