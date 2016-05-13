@@ -53,6 +53,8 @@ public class PairsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //id - 700 + i
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pairs);
 

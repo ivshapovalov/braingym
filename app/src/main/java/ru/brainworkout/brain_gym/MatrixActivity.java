@@ -60,6 +60,8 @@ public class MatrixActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //id - 300+i
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matrix);
 
@@ -69,71 +71,7 @@ public class MatrixActivity extends AppCompatActivity {
     }
 
 
-    private void matrixClear() {
 
-        TableLayout layout = (TableLayout) findViewById(R.id.tableMatrix);
-        layout.removeAllViews();
-        layout.setStretchAllColumns(true);
-                //mTextSize = (int) (Math.min(mWidth, mHeight) / 5 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
-
-
-        int resID = getResources().getIdentifier("tvMatrixExample", "id", getPackageName());
-        TextView txt = (TextView) findViewById(resID);
-
-        if (txt != null) {
-
-            //txt.setHeight(mHeight);
-            mHeight = (layout.getHeight()+txt.getHeight()) / (mMatrixSize+1);
-            mWidth = layout.getWidth() / (mMatrixSize);
-
-            mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
-
-            txt.setHeight(mHeight);
-            txt.setText(" ");
-            txt.setTextSize(mMatrixTextSize);
-            txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-
-        }
-
-        int trowID = getResources().getIdentifier("trowMatrix", "id", getPackageName());
-        TableRow trow1 = (TableRow) findViewById(trowID);
-
-        if (trow1 != null) {
-            trow1.setBackgroundResource(R.drawable.rounded_corners1);
-
-        }
-
-        for (int i = 1; i <= mMaxDigits; i++) {
-            TextView txt1 = (TextView) findViewById(300 + i);
-            if (txt1 != null) {
-                txt1.setText("");
-                txt1.setTextSize(mMatrixTextSize);
-                txt1.setTextColor(Color.WHITE);
-
-            }
-        }
-
-//        mHeight = layout.getHeight() / mMatrixSize;
-//        mWidth = layout.getWidth() / mMatrixSize;
-//
-//        mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
-//        mTextSize = (int) (Math.min(mWidth, mHeight) / 5 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
-//
-//        for (int i = 1; i <= mMaxDigits; i++) {
-//            TextView txt1 = (TextView) findViewById(300 + i);
-//            if (txt1 != null) {
-//                txt1.setText(" ");
-//                txt1.setTextSize(mMatrixTextSize);
-//                txt1.setTextColor(Color.WHITE);
-//
-//            }
-//        }
-
-
-
-
-
-    }
 
     public void MatrixСlear_onClick(View view) {
 
@@ -180,12 +118,32 @@ public class MatrixActivity extends AppCompatActivity {
 
         }
 
+        for (int i = 1; i <= mMaxDigits; i++) {
+            TextView txt1 = (TextView) findViewById(300 + i);
+            if (txt1 != null) {
+                txt1.setText("");
+                //txt1.setTextSize(mMatrixTextSize);
+                //txt1.setTextColor(Color.WHITE);
+
+            }
+        }
+
         int exID = getResources().getIdentifier("tvMatrixExample", "id", getPackageName());
         TextView txtEx = (TextView) findViewById(exID);
         if (txtEx != null) {
             txtEx.setTextSize(mMatrixTextSize);
             txtEx.setText(" ");
             txtEx.setTextColor(Color.WHITE);
+        }
+
+        for (int i = 1; i <= mMaxDigits; i++) {
+            TextView txt1 = (TextView) findViewById(300 + i);
+            if (txt1 != null) {
+                txt1.setText("");
+                //txt1.setTextSize(mMatrixTextSize);
+                //txt1.setTextColor(Color.WHITE);
+
+            }
         }
 
         if (mMatrixIsClickable) {
@@ -207,6 +165,51 @@ public class MatrixActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void matrixClear() {
+
+        TableLayout layout = (TableLayout) findViewById(R.id.tableMatrix);
+        layout.removeAllViews();
+        layout.setStretchAllColumns(true);
+        //mTextSize = (int) (Math.min(mWidth, mHeight) / 5 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
+
+
+        int resID = getResources().getIdentifier("tvMatrixExample", "id", getPackageName());
+        TextView txt = (TextView) findViewById(resID);
+
+        if (txt != null) {
+
+            //txt.setHeight(mHeight);
+            mHeight = (layout.getHeight()+txt.getHeight()) / (mMatrixSize+1);
+            mWidth = layout.getWidth() / (mMatrixSize);
+
+            mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
+
+            txt.setHeight(mHeight);
+            txt.setText(" ");
+            txt.setTextSize(mMatrixTextSize);
+            txt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        }
+
+        int trowID = getResources().getIdentifier("trowMatrix", "id", getPackageName());
+        TableRow trow1 = (TableRow) findViewById(trowID);
+
+        if (trow1 != null) {
+            trow1.setBackgroundResource(R.drawable.rounded_corners1);
+
+        }
+
+        for (int i = 1; i <= mMaxDigits; i++) {
+            TextView txt1 = (TextView) findViewById(300 + i);
+            if (txt1 != null) {
+                txt1.setText("");
+                txt1.setTextSize(mMatrixTextSize);
+                txt1.setTextColor(Color.WHITE);
+
+            }
+        }
+  }
 
     private void changeTimer(long elapsedMillis) {
 

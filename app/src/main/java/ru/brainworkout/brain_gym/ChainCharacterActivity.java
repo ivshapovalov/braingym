@@ -107,6 +107,18 @@ public class ChainCharacterActivity extends AppCompatActivity {
                 txtExample.setText("");
             }
         }
+        for (int i = 1; i <= mChainCharacterCountAnswers; i++) {
+            int ansID = getResources().getIdentifier("tvChainCharacterAnswer" + String.valueOf(i), "id", getPackageName());
+            TextView txtAns = (TextView) findViewById(ansID);
+
+            if (txtAns != null) {
+                txtAns.setText("  ");
+//                txtAns.setBackgroundResource(R.drawable.rounded_corners1);
+//                txtAns.setTextSize(mTextSize);
+//                txtAns.setPadding(0,mTextSize/2,0,mTextSize/2);
+
+            }
+        }
 
         if (mChainCharacterExampleTime != 0) {
             int timerExID = getResources().getIdentifier("tvChainCharacterTimerExTime", "id", getPackageName());

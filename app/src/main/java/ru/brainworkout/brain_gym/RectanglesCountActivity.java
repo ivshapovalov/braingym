@@ -7,12 +7,15 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -68,26 +71,122 @@ public class RectanglesCountActivity extends AppCompatActivity {
     }
 
 
+
+
+    public void RectanglesCountСlear_onClick(View view) {
+
+        timerStop(false);
+
+    }
+
+    private void timerStop(boolean auto) {
+        mChronometer.setBase(SystemClock.elapsedRealtime());
+        mChronometer.stop();
+        mChronometerCount = 0;
+        mChronometerIsWorking = false;
+
+        mRectanglesCountExBeginTime = 0;
+        mCountMissedAnswers = 0;
+        mCountRightAnswers = 0;
+        mCountAllAnswers = 0;
+
+        ChangeButtonText("buttonRectanglesCountStartPause", "Старт");
+
+        int timerMaxID = getResources().getIdentifier("tvRectanglesCountTimerMaxTime", "id", getPackageName());
+        TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
+
+        if (txtTimerMaxTime != null) {
+            //txtTimerMaxTime.setTextSize(mTextSize);
+            String txt;
+            if (!auto) {
+                txt = "Тест: " + String.valueOf(0);
+
+            } else {
+                txt = "Тест окончен";
+            }
+            txtTimerMaxTime.setText(txt);
+            txtTimerMaxTime.setTextSize(mMatrixTextSize);
+        }
+
+        int answerID = getResources().getIdentifier("tvRectanglesCountAnswers", "id", getPackageName());
+        TextView txtAnswer = (TextView) findViewById(answerID);
+        if (txtAnswer != null) {
+            txtAnswer.setTextSize(mMatrixTextSize);
+            if (!auto) {
+                txtAnswer.setBackgroundColor(Color.WHITE);
+                txtAnswer.setText("  ");
+            }
+
+        }
+
+        for (int i = 1; i <= mMaxDigits; i++) {
+            TextView txt1 = (TextView) findViewById(400 + i);
+            if (txt1 != null) {
+                //txt1.setText("");
+                //txt1.setTextSize(mMatrixTextSize);
+                //txt1.setTextColor(Color.WHITE);
+                //txt1.setBackgroundResource(R.drawable.textview_border);
+                Drawable dr = getResources().getDrawable(R.drawable.textview_border1);
+                //Drawable dr = view.getBackground();
+//                ColorFilter filter = new LightingColorFilter(Color.WHITE, Color.WHITE);
+//                dr.setColorFilter(filter);
+                txt1.setBackgroundDrawable(dr);
+
+            }
+        }
+
+        for (int i = 1; i <= mRectanglesCountSizeWidth; i++) {
+
+            TextView txt2 = (TextView) findViewById(800 + i);
+            if (txt2 != null) {
+                Drawable dr = getResources().getDrawable(R.drawable.textview_border1);
+                txt2.setBackgroundDrawable(dr);
+                txt2.setTextSize(mMatrixTextSize);
+                txt2.setText("");
+            }
+        }
+
+
+        if (mRectanglesCountExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("tvRectanglesCountTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+
+            if (txtTimerExTime != null) {
+                String txt;
+                if (!auto) {
+                    txt = "Пример: " + String.valueOf(mRectanglesCountExampleTime);
+                } else {
+                    txt = "";
+                }
+
+                txtTimerExTime.setText(txt);
+                //txtTimerExTime.setTextSize(mTextSize);
+            }
+        }
+
+    }
+
     private void RectanglesCountClear() {
 
         TableLayout layout = (TableLayout) findViewById(R.id.tableRectanglesCount);
         layout.removeAllViews();
         layout.setStretchAllColumns(true);
 
-        int resID = getResources().getIdentifier("trowRectanglesCountAnswers", "id", getPackageName());
+        int resID = getResources().getIdentifier("trowRectanglesCount", "id", getPackageName());
         TableRow row = (TableRow) findViewById(resID);
 
         if (row != null) {
 
             //txt.setHeight(mHeight);
-            mHeight = (layout.getHeight() + row.getHeight()) / (mRectanglesCountSizeHeight + 2);
+            mHeight = (layout.getHeight() + row.getHeight() - 20) / (mRectanglesCountSizeHeight + 2);
             mWidth = layout.getWidth() / (mRectanglesCountSizeWidth);
 
-            mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density);
+            mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 10*4 / getApplicationContext().getResources().getDisplayMetrics().density);
 
             row.setMinimumHeight(mHeight);
+            row.setBackgroundResource(R.drawable.rounded_corners1);
 //            txt.setText(" ");
-//            txt.setTextSize(mMatrixTextSize);
+            // row.setTextSize(mMatrixTextSize);
 
         }
 
@@ -98,23 +197,38 @@ public class RectanglesCountActivity extends AppCompatActivity {
 
             txtEx.setHeight(mHeight);
 //            txt.setText(" ");
-//            txt.setTextSize(mMatrixTextSize);
-            txtEx.setText("");
+            txtEx.setTextSize(mMatrixTextSize);
+            //txtEx.setText("");
 
         }
 
+        int timerID = getResources().getIdentifier("tvRectanglesCountTimerMaxTime", "id", getPackageName());
+        TextView txtTimer = (TextView) findViewById(timerID);
 
-        int trowID = getResources().getIdentifier("trowRectanglesCount", "id", getPackageName());
-        TableRow trow1 = (TableRow) findViewById(trowID);
+        if (txtTimer != null) {
 
-        if (trow1 != null) {
-            trow1.setBackgroundResource(R.drawable.rounded_corners1);
-            trow1.setMinimumHeight(mHeight);
+            txtTimer.setHeight(mHeight);
+//            txt.setText(" ");
+            txtTimer.setTextSize(mMatrixTextSize);
+            //txtEx.setText("");
 
         }
+
+        int answerID = getResources().getIdentifier("tvRectanglesCountAnswers", "id", getPackageName());
+        TextView txtAnswers = (TextView) findViewById(answerID);
+
+        if (txtAnswers != null) {
+
+            txtAnswers.setHeight(mHeight);
+//            txt.setText(" ");
+            txtAnswers.setTextSize(mMatrixTextSize);
+            //txtEx.setText("");
+
+        }
+
 
         for (int i = 1; i <= mMaxDigits; i++) {
-            TextView txt1 = (TextView) findViewById(300 + i);
+            TextView txt1 = (TextView) findViewById(400 + i);
             if (txt1 != null) {
                 //txt1.setText("");
                 //txt1.setTextSize(mMatrixTextSize);
@@ -136,84 +250,9 @@ public class RectanglesCountActivity extends AppCompatActivity {
                 Drawable dr = getResources().getDrawable(R.drawable.textview_border1);
                 txt2.setBackgroundDrawable(dr);
                 txt2.setText("");
+                txt2.setTextSize(mMatrixTextSize);
             }
         }
-    }
-
-    public void RectanglesCountСlear_onClick(View view) {
-
-        timerStop(false);
-
-    }
-
-    private void timerStop(boolean auto) {
-        mChronometer.setBase(SystemClock.elapsedRealtime());
-        mChronometer.stop();
-        mChronometerCount = 0;
-        mChronometerIsWorking = false;
-
-        mRectanglesCountExBeginTime = 0;
-        mCountMissedAnswers = 0;
-        mCountRightAnswers=0;
-        mCountAllAnswers=0;
-
-        ChangeButtonText("buttonRectanglesCountStartPause", "Старт");
-
-        int timerMaxID = getResources().getIdentifier("tvRectanglesCountTimerMaxTime", "id", getPackageName());
-        TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
-
-        if (txtTimerMaxTime != null) {
-            //txtTimerMaxTime.setTextSize(mTextSize);
-            String txt;
-            if (!auto) {
-                txt = "Тест: " + String.valueOf(0);
-
-            } else {
-                txt = "Тест окончен";
-            }
-            txtTimerMaxTime.setText(txt);
-        }
-
-        int answerID = getResources().getIdentifier("tvRectanglesCountAnswers", "id", getPackageName());
-        TextView txtAnswer = (TextView) findViewById(answerID);
-        if (txtAnswer != null) {
-            //txtAnswer.setTextSize(mTextSize);
-            if (!auto) {
-                txtAnswer.setBackgroundColor(Color.WHITE);
-                txtAnswer.setText("  ");
-            }
-
-        }
-
-
-        for (int i = 1; i <= mRectanglesCountSizeWidth; i++) {
-
-            TextView txt2 = (TextView) findViewById(800 + i);
-            if (txt2 != null) {
-                Drawable dr = getResources().getDrawable(R.drawable.textview_border1);
-                txt2.setBackgroundDrawable(dr);
-                txt2.setText("");
-            }
-        }
-
-
-        if (mRectanglesCountExampleTime != 0) {
-            int timerExID = getResources().getIdentifier("tvRectanglesCountTimerExTime", "id", getPackageName());
-            TextView txtTimerExTime = (TextView) findViewById(timerExID);
-
-            if (txtTimerExTime != null) {
-                String txt;
-                if (!auto) {
-                    txt = "Символ: " + String.valueOf(mRectanglesCountExampleTime);
-                } else {
-                    txt = "";
-                }
-
-                txtTimerExTime.setText(txt);
-                //txtTimerExTime.setTextSize(mTextSize);
-            }
-        }
-
     }
 
     private void changeTimer(long elapsedMillis) {
@@ -247,7 +286,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
                         String txt1 = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
                         txtAnswer.setText(txt1);
                         //txtAnswer.setTextSize(mTextSize);
-                }
+                    }
                     drawNextTest();
 
                 } else {
@@ -277,7 +316,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
 
         //while (matrix.size() != mMaxDigits) {
 
-        indColorMain = Math.abs(random.nextInt() % (AlphabetColors.size() - 1)) + 1;
+        indColorMain = Math.abs(random.nextInt() % (AlphabetColors.size() - 1));
         int maxCountMain = 0;
         int indColor1 = 0;
         int indColor2 = 0;
@@ -343,13 +382,13 @@ public class RectanglesCountActivity extends AppCompatActivity {
 
         //формируем матрицу нулевую
         for (int i = 0; i < mMaxDigits; i++) {
-            matrix.add(0);
+            matrix.add(-1);
         }
         //заполняем главным цветом
         int count = 0;
         while (count < maxCountMain) {
             int indPlace = random.nextInt(mMaxDigits);
-            if (matrix.get(indPlace) == 0) {
+            if (matrix.get(indPlace) == -1) {
                 matrix.set(indPlace, indColorMain);
                 count++;
             }
@@ -359,7 +398,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
         if (indColor3 != 0) {
             while (count <= maxCountOtherColors) {
                 int indPlace = random.nextInt(mMaxDigits);
-                if (matrix.get(indPlace) == 0) {
+                if (matrix.get(indPlace) == -1) {
                     count++;
                     matrix.set(indPlace, indColor3);
                 }
@@ -369,7 +408,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
         if (indColor2 != 0) {
             while (count <= maxCountOtherColors) {
                 int indPlace = random.nextInt(mMaxDigits);
-                if (matrix.get(indPlace) == 0) {
+                if (matrix.get(indPlace) == -1) {
                     count++;
                     matrix.set(indPlace, indColor2);
                 }
@@ -379,7 +418,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
         if (indColor1 != 0) {
             while (count <= maxCountOtherColors) {
                 int indPlace = random.nextInt(mMaxDigits);
-                if (matrix.get(indPlace) == 0) {
+                if (matrix.get(indPlace) == -1) {
                     count++;
                     matrix.set(indPlace, indColor1);
                 }
@@ -387,25 +426,76 @@ public class RectanglesCountActivity extends AppCompatActivity {
         }
 
         arrAnswers = new ArrayList<>();
-        arrAnswers.add(maxCountMain);
-        while (arrAnswers.size() != mRectanglesCountSizeWidth) {
-            int mAns = Math.abs(random.nextInt() % (mRectanglesCountSizeWidth / 2+2)  + maxCountMain);
-            if (!arrAnswers.contains(mAns)) {
-                int indPlace = random.nextInt(arrAnswers.size());
+        while (arrAnswers.size() != mRectanglesCountSizeWidth - 1) {
+            int mAns = Math.abs(random.nextInt() % (mRectanglesCountSizeWidth / 2 + 2) + maxCountMain);
+            if (mAns != maxCountMain && !arrAnswers.contains(mAns)) {
+                int indPlace = arrAnswers.size() == 0 ? random.nextInt(1) : random.nextInt(arrAnswers.size());
                 arrAnswers.add(indPlace, mAns);
             }
 
         }
-        indAnswer=arrAnswers.indexOf(maxCountMain);
+        int indPlace = random.nextInt(arrAnswers.size());
+        arrAnswers.add(indPlace, maxCountMain);
+
+        indAnswer = arrAnswers.indexOf(maxCountMain);
 
         //}
     }
 
     private void drawRectanglesCountTest() {
         //mCountRightAnswers = 0;
-        //для матриц тестов id начинается со 300
+        //для матриц тестов id начинается со 400
         TableLayout layout = (TableLayout) findViewById(R.id.tableRectanglesCount);
-        //layout.removeAllViews();
+        layout.removeAllViews();
+        layout.setStretchAllColumns(true);
+        //layout.setShrinkAllColumns(true);
+        TableRow mRowAnswers = new TableRow(this);
+
+        mRowAnswers.setMinimumHeight(mHeight);
+        mRowAnswers.setMinimumWidth(mWidth);
+        mRowAnswers.setGravity(Gravity.CENTER);
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.MATCH_PARENT,
+                TableLayout.LayoutParams.MATCH_PARENT
+        );
+        float scale = getApplicationContext().getResources().getDisplayMetrics().density;
+        params.setMargins(0, 0, 0, (int) (10 * scale));
+        mRowAnswers.setLayoutParams(params);
+
+        for (int numColumn = 1; numColumn <= mRectanglesCountSizeWidth; numColumn++) {
+            TextView txt = (TextView) findViewById(800 + numColumn);
+            if (txt == null) {
+                txt = new TextView(this);
+                txt.setId(800 + numColumn);
+                txt.setMinimumHeight(mHeight);
+                //txt.setWidth(mWidth);
+
+                int mColor = AlphabetColors.get(indColorMain);
+                Drawable dr = getResources().getDrawable(R.drawable.textview_border1);
+                //Drawable dr = view.getBackground();
+                ColorFilter filter = new LightingColorFilter(mColor, Color.BLACK);
+                dr.setColorFilter(filter);
+                txt.setBackgroundDrawable(dr);
+                txt.setTextSize(mMatrixTextSize);
+                txt.setTypeface(null,Typeface.BOLD);
+                txt.setText(String.valueOf(arrAnswers.get(numColumn - 1)));
+                txt.setGravity(Gravity.CENTER);
+                if (Math.abs(Color.BLACK-AlphabetColors.get(indColorMain))<=255) {
+                    txt.setTextColor(Color.WHITE);
+                }else {
+                    txt.setTextColor(Color.BLACK);
+                }
+                mRowAnswers.addView(txt);
+                txt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        txt_onClick((TextView) v);
+                    }
+                });
+            }
+            //txt.setBackgroundResource(R.drawable.textview_border);
+        }
+        layout.addView(mRowAnswers);
 
 //        layout.setStretchAllColumns(true);
 //        layout.setShrinkAllColumns(true);
@@ -421,16 +511,19 @@ public class RectanglesCountActivity extends AppCompatActivity {
             row.setMinimumWidth(mWidth);
             row.setGravity(Gravity.CENTER);
 
-
             for (int numColumn = 1; numColumn <= mRectanglesCountSizeWidth; numColumn++) {
 
-                TextView txt = (TextView) findViewById(300 + (numString - 1) * mRectanglesCountSizeHeight + numColumn);
+                int id= (numString - 1) * (mRectanglesCountSizeWidth) + numColumn;
+                //System.out.println(id);
+                Log.e("Считаем",String.valueOf(id));
+                //System.out.println(id);
+                TextView txt = (TextView) findViewById(400+id);
                 if (txt == null) {
                     txt = new TextView(this);
-                    txt.setId(300 + (numString - 1) * mRectanglesCountSizeHeight + numColumn);
+                    txt.setId(400+id);
                     txt.setMinimumHeight(mHeight);
-                    int mIndColor = matrix.get((numString - 1) * mRectanglesCountSizeHeight + numColumn - 1);
-                    if (mIndColor != 0) {
+                    int mIndColor = matrix.get(id-1);
+                    if (mIndColor != -1) {
                         int mColor = AlphabetColors.get(mIndColor);
                         Drawable dr = getResources().getDrawable(R.drawable.textview_border1);
                         //Drawable dr = view.getBackground();
@@ -455,48 +548,6 @@ public class RectanglesCountActivity extends AppCompatActivity {
             layout.addView(row);
         }
 
-        //рисуем ответы
-
-
-        TableLayout tableAnswers = (TableLayout) findViewById(R.id.tableRectanglesCountAnswers);
-        TableRow mRowAnswers = new TableRow(this);
-        tableAnswers.removeAllViews();
-
-
-        mRowAnswers.setMinimumHeight(mHeight);
-        mRowAnswers.setMinimumWidth(mWidth);
-        mRowAnswers.setGravity(Gravity.CENTER);
-
-        for (int numColumn = 1; numColumn <= mRectanglesCountSizeWidth; numColumn++) {
-            TextView txt = (TextView) findViewById(800 + numColumn);
-            if (txt == null) {
-                txt = new TextView(this);
-                txt.setId(800 + numColumn);
-                txt.setMinimumHeight(mHeight);
-                //txt.setWidth(mWidth);
-
-                int mColor = AlphabetColors.get(indColorMain);
-                Drawable dr = getResources().getDrawable(R.drawable.textview_border1);
-                //Drawable dr = view.getBackground();
-                ColorFilter filter = new LightingColorFilter(mColor, Color.BLACK);
-                dr.setColorFilter(filter);
-                txt.setBackgroundDrawable(dr);
-                txt.setText(String.valueOf(numColumn));
-                txt.setGravity(Gravity.CENTER);
-                txt.setTextColor(Color.BLACK);
-                mRowAnswers.addView(txt);
-                txt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        txt_onClick((TextView) v);
-                    }
-                });
-            }
-            //txt.setBackgroundResource(R.drawable.textview_border);
-        }
-        tableAnswers.addView(mRowAnswers);
-
-
     }
 
     public void txt_onClick(TextView view) {
@@ -505,7 +556,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
             //int a = Integer.valueOf(String.valueOf(((AppCompatTextView) view).getText().charAt(0)));
 
             int a = view.getId() % 100;
-            if (a-1 == indAnswer) {
+            if (a - 1 == indAnswer) {
 
                 mCountRightAnswers++;
 
@@ -520,14 +571,26 @@ public class RectanglesCountActivity extends AppCompatActivity {
                 mRectanglesCountExBeginTime = elapsedMillis;
             }
             mCountAllAnswers++;
+            mRectanglesCountExBeginTime = elapsedMillis;
+            int timerExID = getResources().getIdentifier("tvRectanglesCountTimerExTime", "id", getPackageName());
+            TextView txtTimerExTime = (TextView) findViewById(timerExID);
+            if (mRectanglesCountExampleTime != 0) {
+                if (txtTimerExTime != null) {
+                    String txt = "Пример: " + String.valueOf(mRectanglesCountExampleTime);
+                    txtTimerExTime.setText(txt);
 
-            int answerID = getResources().getIdentifier("tvRectanglesCountAnswers", "id", getPackageName());
-            TextView txtAnswer = (TextView) findViewById(answerID);
-            if (txtAnswer != null) {
-                String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
-                txtAnswer.setText(txt);
-
+                }
             }
+                int answerID = getResources().getIdentifier("tvRectanglesCountAnswers", "id", getPackageName());
+                TextView txtAnswer = (TextView) findViewById(answerID);
+                if (txtAnswer != null) {
+                    String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
+                    txtAnswer.setText(txt);
+
+                }
+
+
+
             drawNextTest();
 
         }

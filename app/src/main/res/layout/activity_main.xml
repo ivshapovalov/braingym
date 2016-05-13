@@ -151,7 +151,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/chain_char_name"
+                    android:text="@string/chainCharTestExplanation"
                     android:id="@+id/button3"
                     android:onClick="ChainCharacterActivity_onClick"
                     android:singleLine="false"
@@ -168,7 +168,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/number_search_name"
+                    android:text="@string/numberSearchTestExplanation"
                     android:id="@+id/button8"
                     android:onClick="NumberSearchActivity_onClick"
                     android:singleLine="false"

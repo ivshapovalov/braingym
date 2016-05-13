@@ -25,6 +25,7 @@ import java.util.Random;
 
 public class NumberSearchActivity extends AppCompatActivity {
     private Chronometer mChronometer;
+    private final String TAG = this.getClass().getSimpleName();
 
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
@@ -59,6 +60,8 @@ public class NumberSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //id - 600 +i
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_search);
 
@@ -111,6 +114,29 @@ public class NumberSearchActivity extends AppCompatActivity {
             }
         }
 
+        int exID = getResources().getIdentifier("tvNumberSearchExample", "id", getPackageName());
+        TextView txtExample = (TextView) findViewById(exID);
+        if (txtExample != null) {
+            txtExample.setTextSize(mTextSize);
+            txtExample.setText("");
+        }
+
+
+        int mCountNumberSearch = mNumberSearchSize * mNumberSearchSize;
+        for (int i = 1; i <= mCountNumberSearch; i++) {
+            //int resID=getResources().getIdentifier("txt"+String.valueOf(300+i), "id", getPackageName());
+            //TextView txt = (TextView) findViewById(resID);
+            Button but = (Button) findViewById(600 + i);
+            //txt.setVisibility(View.INVISIBLE);
+            if (but != null) {
+                but.setText("");
+                but.setTextSize(mTextSize);
+                but.setBackgroundResource(R.drawable.textview_border);
+                //txt.setVisibility(View.GONE);
+                //
+            }
+        }
+
         if (mNumberSearchExampleTime != 0) {
             int timerExID = getResources().getIdentifier("tvNumberSearchTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
@@ -140,7 +166,7 @@ public class NumberSearchActivity extends AppCompatActivity {
             if (but != null) {
                 but.setText("");
                 but.setTextSize(mTextSize);
-                but.setBackgroundResource(R.drawable.rounded_corners1);
+                but.setBackgroundResource(R.drawable.textview_border);
                 //txt.setVisibility(View.GONE);
                 //
             }
@@ -649,6 +675,8 @@ public class NumberSearchActivity extends AppCompatActivity {
         alphabetColors.add(Color.BLUE);
         alphabetColors.add(Color.parseColor("#EE82EE"));
         alphabetColors.add(Color.parseColor("#8B4513"));
+
+        //MainActivity.MyLogger(TAG,"Тест");
     }
 
     private class NumberSearchExample {

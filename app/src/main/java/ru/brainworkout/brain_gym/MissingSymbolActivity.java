@@ -100,6 +100,33 @@ public class MissingSymbolActivity extends AppCompatActivity {
             }
         }
 
+        for (int i = 1; i <= 8; i++) {
+
+            int resID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+
+            if (txt != null) {
+                txt.setText(" ");
+               // txt.setTextSize(mTextSize);
+
+            }
+
+        }
+
+        for (int i = 1; i <= 8; i++) {
+
+            int resID = getResources().getIdentifier("tvMissingSymbolExample" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+
+            if (txt != null) {
+                txt.setText(" ");
+                //txt.setTextSize(mTextSize);
+                //txt.setTextColor(Color.parseColor("#FF6D6464"));
+
+            }
+
+        }
+
         if (mMissingSymbolExampleTime != 0) {
             int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
@@ -135,7 +162,7 @@ public class MissingSymbolActivity extends AppCompatActivity {
 
         for (int i = 1; i <= 8; i++) {
 
-            int resID = getResources().getIdentifier("  tvMissingSymbolExample" + String.valueOf(i), "id", getPackageName());
+            int resID = getResources().getIdentifier("tvMissingSymbolExample" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
 
             if (txt != null) {

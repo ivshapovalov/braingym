@@ -28,11 +28,13 @@
     <string name="missingSymbolTestExplanation">Пропущенный символ - Поиск пропущенного символа</string>
     <string name="numberSearchTestExplanation">Поиск числа - ищем символ в матрице</string>
     <string name="chainCharTestExplanation">Цепочка символов - сколько раз символ встречается в цепочке</string>
-    <string name="pairsTestExplanation">Поиск пар изображений</string>
-    <string name="rectanglexCountTestExplanation">Подсчет фигур</string>
+    <string name="pairsTestExplanation">Пары - поиск пар изображений</string>
+    <string name="rectanglexCountTestExplanation">Прямоугльники -считаем количество фигур</string>
     <string name="shulte_name">Матрицы Шульте</string>
     <string name="shulteTestExplanation">Матрицы Шульте - Тренировка по матрицам Шульте</string>
     <string name="about_name">О программе</string>
     <string name="infinity">∞</string>
     <string name="aboutExplanation">Эта программа была разработана в 2016 году для личных корыстных целей завоевания мира посредством отупливания пользователей, использующих данную программу!</string>
+
+    <string name="nums"> 100-Math,200-Strup,300-Matrix,400-RectCount,600-NumberSearch,700-Pairs,800-RectCount</string>
 </resources>

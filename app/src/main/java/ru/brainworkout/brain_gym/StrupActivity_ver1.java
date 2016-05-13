@@ -126,6 +126,30 @@ public class StrupActivity_ver1 extends AppCompatActivity {
                 txtAnswer.setText("");
             }
         }
+        int typeID = getResources().getIdentifier("tvStrupVer1Type", "id", getPackageName());
+        TextView txtType = (TextView) findViewById(typeID);
+        if (txtType != null) {
+            txtType.setText("");
+        }
+
+        int exID = getResources().getIdentifier("tvStrupVer1Example", "id", getPackageName());
+        TextView txtEx = (TextView) findViewById(exID);
+        if (txtEx != null) {
+            txtEx.setText("");
+        }
+
+        for (int i = 1; i <= 8; i++) {
+
+            int resID = getResources().getIdentifier("tvStrupVer1Color" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+
+            if (txt != null) {
+                txt.setText(" ");
+                txt.setTextSize(mTextSize);
+
+            }
+
+        }
 
         if (mStrupExampleTime != 0) {
             int timerExID = getResources().getIdentifier("tvStrupVer1TimerExTime", "id", getPackageName());
@@ -147,18 +171,7 @@ public class StrupActivity_ver1 extends AppCompatActivity {
 
     private void strupVer1Clear() {
 
-        for (int i = 1; i <= 8; i++) {
 
-            int resID = getResources().getIdentifier("tvStrupVer1Color" + String.valueOf(i), "id", getPackageName());
-            TextView txt = (TextView) findViewById(resID);
-
-            if (txt != null) {
-                txt.setText(" ");
-                txt.setTextSize(mTextSize);
-
-            }
-
-        }
 
 //        int exID = getResources().getIdentifier("tvStrupVer1Example", "id", getPackageName());
 //        TextView txt1 = (TextView) findViewById(exID);

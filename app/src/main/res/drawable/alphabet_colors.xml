@@ -10,7 +10,7 @@
     <solid android:color="#DAA520"/>
     <solid android:color="#6A5ACD"/>
     <solid android:color="#836FFF"/>
-    <solid android:color="#FFE4E1"/>
+    <solid android:color="#08bf57"/>
     <solid android:color="#AFEEEE"/>
     <solid android:color="#6495ED"/>
     <solid android:color="#FFFF00"/>
@@ -18,8 +18,9 @@
     <solid android:color="#FF2020"/>
     <solid android:color="#6B8E23"/>
     <solid android:color="#00BFFF"/>
-    <solid android:color="#F0FFF0"/>
+    <solid android:color="#dac612"/>
     <solid android:color="#A56A2A"/>
+    <solid android:color="#790a04"/>
 
 
 </shape>

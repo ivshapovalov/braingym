@@ -29,19 +29,14 @@ public class MathActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //id - 100+ i
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer_math);
 
-
-//        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-//
-//        setContentView(R.layout.activity_main);
-//
-//        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-
-        getPreferencesFromFile();
+       getPreferencesFromFile();
     }
 
 
@@ -132,6 +127,8 @@ public class MathActivity extends AppCompatActivity {
         mChronometerIsWorking = false;
 
         ChangeButtonText("buttonMathStartPause", "Старт");
+
+        mathClear();
 
     }
 

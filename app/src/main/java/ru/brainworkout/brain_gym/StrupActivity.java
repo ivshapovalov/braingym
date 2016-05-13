@@ -37,6 +37,8 @@ public class StrupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //id - 200+i
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strup);
 
@@ -86,6 +88,8 @@ public class StrupActivity extends AppCompatActivity {
         mChronometerIsWorking = false;
 
         ChangeButtonText("buttonStrupStartPause", "Старт");
+
+        strupClear();
 
     }
 
