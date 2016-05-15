@@ -413,7 +413,7 @@ public class PairsActivity extends AppCompatActivity {
 
             mChronometer.start();
             mChronometerIsWorking = true;
-            ChangeButtonText("byPairsStartPause", "Пауза");
+            ChangeButtonText("btPairsStartPause", "Пауза");
 
         } else {
 

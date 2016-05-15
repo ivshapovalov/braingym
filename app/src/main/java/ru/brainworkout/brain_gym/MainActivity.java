@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static final boolean isDebug = true;
     private SharedPreferences mSettings;
-    private int mAlarmTimeHour;
-    private int mAlarmTimeMinute;
 
     public static final String APP_PREFERENCES = "mysettings";
     public static final String APP_PREFERENCES_STRUP_LANGUAGE = "strup_language";
