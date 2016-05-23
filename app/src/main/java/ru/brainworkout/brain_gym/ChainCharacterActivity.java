@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TableLayout;
@@ -457,6 +459,15 @@ public class ChainCharacterActivity extends AppCompatActivity {
                 txtAnswer.setText(txt);
                 txtAnswer.setTextSize(mTextSize);
             }
+
+            Animation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(10); //You can manage the blinking time with this parameter
+            anim.setStartOffset(0);
+            anim.setRepeatMode(Animation.REVERSE);
+            //anim.setRepeatCount(Animation.INFINITE);
+            anim.setRepeatCount(5);
+            view.startAnimation(anim);
+
 
             createExample();
         }

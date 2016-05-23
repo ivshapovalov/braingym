@@ -495,7 +495,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
             }
             //txt.setBackgroundResource(R.drawable.textview_border);
         }
-        layout.addView(mRowAnswers);
+
 
 //        layout.setStretchAllColumns(true);
 //        layout.setShrinkAllColumns(true);
@@ -547,6 +547,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
             }
             layout.addView(row);
         }
+        layout.addView(mRowAnswers);
 
     }
 
@@ -589,10 +590,23 @@ public class RectanglesCountActivity extends AppCompatActivity {
 
                 }
 
+            Animation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(50); //You can manage the blinking time with this parameter
+            anim.setStartOffset(0);
+            anim.setRepeatMode(Animation.REVERSE);
+            //anim.setRepeatCount(Animation.INFINITE);
+            anim.setRepeatCount(10);
+            view.startAnimation(anim);
+
+            view.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    drawNextTest();
+                }
+            }, 300);
 
 
-            drawNextTest();
-
+            //drawNextTest();
         }
     }
 
