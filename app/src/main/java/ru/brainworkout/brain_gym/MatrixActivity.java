@@ -7,22 +7,19 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -39,9 +36,9 @@ public class MatrixActivity extends AppCompatActivity {
     private String mMatrixLang;
     private int mMatrixSize;
     private int mTextSize;
-    private int mHeight=0;
-    private int mWidth=0;
-    private int mMatrixTextSize=12;
+    private int mHeight = 0;
+    private int mWidth = 0;
+    private int mMatrixTextSize = 12;
     private int mMatrixFontSizeChange;
     private int mMatrixMaxTime;
     private int mMatrixExampleTime;
@@ -71,8 +68,6 @@ public class MatrixActivity extends AppCompatActivity {
     }
 
 
-
-
     public void MatrixСlear_onClick(View view) {
 
         timerStop(false);
@@ -86,7 +81,7 @@ public class MatrixActivity extends AppCompatActivity {
         mChronometerIsWorking = false;
 
         mMatrixExBeginTime = 0;
-        mCountMissedAnswers=0;
+        mCountMissedAnswers = 0;
 
         ChangeButtonText("buttonMatrixStartPause", "Старт");
 
@@ -180,7 +175,7 @@ public class MatrixActivity extends AppCompatActivity {
         if (txt != null) {
 
             //txt.setHeight(mHeight);
-            mHeight = (layout.getHeight()+txt.getHeight()) / (mMatrixSize+1);
+            mHeight = (layout.getHeight() + txt.getHeight()) / (mMatrixSize + 1);
             mWidth = layout.getWidth() / (mMatrixSize);
 
             mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 3 / getApplicationContext().getResources().getDisplayMetrics().density) + mMatrixFontSizeChange;
@@ -209,7 +204,7 @@ public class MatrixActivity extends AppCompatActivity {
 
             }
         }
-  }
+    }
 
     private void changeTimer(long elapsedMillis) {
 
@@ -394,6 +389,7 @@ public class MatrixActivity extends AppCompatActivity {
 
     private void createMatrix() {
         int num;
+
         matrix.clear();
 
         while (matrix.size() != mMaxDigits) {

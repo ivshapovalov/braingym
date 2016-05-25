@@ -34,7 +34,7 @@
     <string name="shulteTestExplanation">Матрицы Шульте - Тренировка по матрицам Шульте</string>
     <string name="about_name">О программе</string>
     <string name="infinity">∞</string>
-    <string name="aboutExplanation">Эта программа была разработана в 2016 году для личных корыстных целей завоевания мира посредством отупливания пользователей, использующих данную программу!</string>
+    <string name="aboutExplanation">Эта программа была разработана в 2016 году для личных корыстных целей завоевания мира с помощью пользователей, скачавших и использующих данную программу!</string>
 
     <string name="nums"> 100-Math,200-Strup,300-Matrix,400-RectCount,600-NumberSearch,700-Pairs,800-RectCount</string>
 </resources>
