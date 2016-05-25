@@ -177,7 +177,8 @@ public class RectanglesCountActivity extends AppCompatActivity {
         if (row != null) {
 
             //txt.setHeight(mHeight);
-            mHeight = (layout.getHeight() + row.getHeight() - 20) / (mRectanglesCountSizeHeight + 2);
+            //mHeight =(int) ((layout.getHeight() + row.getHeight() - 20) / ((double)(mRectanglesCountSizeHeight + 2)));
+            mHeight =((layout.getHeight() + row.getHeight() - 20) / (mRectanglesCountSizeHeight + 2));
             mWidth = layout.getWidth() / (mRectanglesCountSizeWidth);
 
             mMatrixTextSize = (int) (Math.min(mWidth, mHeight) / 10*4 / getApplicationContext().getResources().getDisplayMetrics().density);
@@ -426,7 +427,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
 
         arrAnswers = new ArrayList<>();
         while (arrAnswers.size() != mRectanglesCountSizeWidth - 1) {
-            int mAns = Math.abs(random.nextInt() % (mRectanglesCountSizeWidth / 2 + 2) + maxCountMain);
+            int mAns = Math.abs(random.nextInt() % (mRectanglesCountSizeWidth / 2 + 3) + maxCountMain);
             if (mAns != maxCountMain && !arrAnswers.contains(mAns)) {
                 int indPlace = arrAnswers.size() == 0 ? random.nextInt(1) : random.nextInt(arrAnswers.size());
                 arrAnswers.add(indPlace, mAns);
@@ -448,18 +449,26 @@ public class RectanglesCountActivity extends AppCompatActivity {
         layout.removeAllViews();
         layout.setStretchAllColumns(true);
         //layout.setShrinkAllColumns(true);
-        TableRow mRowAnswers = new TableRow(this);
-
-        mRowAnswers.setMinimumHeight(mHeight);
-        mRowAnswers.setMinimumWidth(mWidth);
-        mRowAnswers.setGravity(Gravity.CENTER);
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.MATCH_PARENT
         );
         float scale = getApplicationContext().getResources().getDisplayMetrics().density;
         params.setMargins(0, 0, 0, (int) (10 * scale));
-        mRowAnswers.setLayoutParams(params);
+
+        //прослойка
+        TableRow mRowTemp = new TableRow(this);
+        mRowTemp.setMinimumHeight(8);
+        mRowTemp.setMinimumWidth(mWidth);
+        mRowTemp.setGravity(Gravity.CENTER);
+       //mRowTemp.setLayoutParams(params);
+
+        //ответы
+        TableRow mRowAnswers = new TableRow(this);
+        mRowAnswers.setMinimumHeight(mHeight);
+        mRowAnswers.setMinimumWidth(mWidth);
+        mRowAnswers.setGravity(Gravity.CENTER);
+        //mRowAnswers.setLayoutParams(params);
 
         for (int numColumn = 1; numColumn <= mRectanglesCountSizeWidth; numColumn++) {
             TextView txt = (TextView) findViewById(800 + numColumn);
@@ -546,6 +555,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
             }
             layout.addView(row);
         }
+        layout.addView(mRowTemp);
         layout.addView(mRowAnswers);
 
     }
@@ -561,7 +571,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
                 mCountRightAnswers++;
 
                 Animation anim = new AlphaAnimation(0.0f, 1.0f);
-                anim.setDuration(50); //You can manage the blinking time with this parameter
+                anim.setDuration(40); //You can manage the blinking time with this parameter
                 anim.setStartOffset(0);
                 anim.setRepeatMode(Animation.REVERSE);
                 //anim.setRepeatCount(Animation.INFINITE);
