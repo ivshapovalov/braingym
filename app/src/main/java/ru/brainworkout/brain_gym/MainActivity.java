@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_NUMBER_SEARCH_EXAMPLE_TIME = "number_search_max_example_time";
     public static final String APP_PREFERENCES_MATH_MAXIMUM_DIGIT = "math_maximum_digit";
     public static final String APP_PREFERENCES_MATH_FONT_SIZE_CHANGE = "math_font_size_change";
+    public static final String APP_PREFERENCES_MATH2_MAXIMUM_DIGIT = "math2_maximum_digit";
+    public static final String APP_PREFERENCES_MATH2_MAX_TIME = "math2_max_test_time";
+    public static final String APP_PREFERENCES_MATH2_EXAMPLE_TIME = "math2_max_example_time";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE = "missing_symbol_language";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME = "missing_symbol_max_test_time";
     public static final String APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME = "missing_symbol_max_example_time";
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    }
+           }
 
     public void pairsActivity_onClick(View view) {
         Intent intent = new Intent(MainActivity.this, PairsActivity.class);
@@ -73,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, MathActivity.class);
         startActivity(intent);
 
+    }
+
+    public void mathActivity1_onClick(View view) {
+
+        Intent intent = new Intent(MainActivity.this, MathActivity2.class);
+        startActivity(intent);
     }
 
     public void StrupTestActivity_onClick(View view) {
@@ -247,4 +256,6 @@ public class MainActivity extends AppCompatActivity {
             Log.v(TAG, statement);
         }
     }
+
+
 }

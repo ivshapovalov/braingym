@@ -6,6 +6,11 @@
     <string name="button_nameStartPause">Старт</string>
     <string name="button_nameOptions">Настройки</string>
     <string name="math_name">Арифметика</string>
+    <string name="math_name_options">Настройки Арифметики</string>
+    <string name="mathTestExplanation">Арифметика - Решаем примеры на время</string>
+    <string name="math_name_2">Арифметика</string>
+    <string name="math_name_options_2">Настройки Арифметики</string>
+    <string name="mathTestExplanation2">Арифметика - Решаем примеры на время</string>
     <string name="matrix_name">Матрицы Шульте</string>
     <string name="strup_name">Тест Струпа</string>
     <string name="strup_name1">Тест Струпа (сложный)</string>
@@ -19,10 +24,10 @@
     <string name="rectangles_count_name_options">Настройки "Прямоугольники"</string>
     <string name="missing_symbol_name_options">Настройки "Пропущенный символ"</string>
     <string name="strup_name_options">Настройки Тест Струпа</string>
-    <string name="math_name_options">Настройки Арифметики</string>
+
     <string name="matrix_name_options">Настройки таблиц Шульте</string>
     <string name="chain_char_name_options">Настройки теста</string>
-    <string name="mathTestExplanation">Арифметика - Решаем примеры на время</string>
+
     <string name="strupTestExplanation">Тест Струпа - Читаем текст в уме, цвет произносим вслух</string>
     <string name="strupTestExplanation1">Тест Струпа (сложный) - Тренировка с цветами/названиями</string>
     <string name="missingSymbolTestExplanation">Пропущенный символ - Поиск пропущенного символа</string>
