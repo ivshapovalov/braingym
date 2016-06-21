@@ -63,8 +63,8 @@ public class MatrixActivity extends AppCompatActivity {
         setContentView(R.layout.activity_matrix);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer_matrix);
-        AlphabetRu = MainActivity.AlphabetRu();
-        AlphabetEn = MainActivity.AlphabetEn();
+        AlphabetRu = Commons.AlphabetRu();
+        AlphabetEn = Commons.AlphabetEn();
     }
 
 

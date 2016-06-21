@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym;
+package ru.brainworkout.brain_gym.math_test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import ru.brainworkout.brain_gym.MainActivity;
+import ru.brainworkout.brain_gym.R;
 
 
 public class MathActivityOptions extends AppCompatActivity {

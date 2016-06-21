@@ -5,7 +5,7 @@
     android:id="@+id/ground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.brainworkout.brain_gym.MathActivityOptions">
+    tools:context=".math_test.MathActivityOptions">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym;
+package ru.brainworkout.brain_gym.strup_test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +13,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import ru.brainworkout.brain_gym.MainActivity;
+import ru.brainworkout.brain_gym.R;
+
 
 public class StrupActivityOptions extends AppCompatActivity {
 
     private SharedPreferences mSettings;
     private String mStrupLang;
     private int mStrupFontSizeChange;
+    private int mStrupColorsCount;
 
 
     @Override
@@ -40,6 +44,7 @@ public class StrupActivityOptions extends AppCompatActivity {
 
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, mStrupLang);
+        editor.putInt(MainActivity.APP_PREFERENCES_STRUP_COLORS_COUNT, mStrupColorsCount);
 
         int sizeID = getResources().getIdentifier("evStrupOptionsFontSizeChange", "id", getPackageName());
         EditText txtSize = (EditText) findViewById(sizeID);
@@ -86,7 +91,12 @@ public class StrupActivityOptions extends AppCompatActivity {
             mStrupLang="Ru";
         }
 
-        //Установим настройки в зависимости от сохраненного языка
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_COLORS_COUNT)) {
+            // Получаем язык из настроек
+            mStrupColorsCount = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_COLORS_COUNT, 4);
+        } else {
+            mStrupColorsCount=4;
+        }
 
     }
     private void setPreferencesOnScreen() {
@@ -108,12 +118,12 @@ public class StrupActivityOptions extends AppCompatActivity {
             tvSizeLabel.setText("Изменение шрифта (" + String.valueOf(mStrupTextSize) + "+/-sp):");
         }
 
-        int langID = getResources().getIdentifier("radioButton"+mStrupLang, "id", getPackageName());
+        int langID = getResources().getIdentifier("rbStrupLang"+mStrupLang, "id", getPackageName());
         RadioButton but = (RadioButton) findViewById(langID);
         but.setChecked(true);
 
         //
-        RadioGroup radiogroup = (RadioGroup) findViewById(R.id.StrupLang);
+        RadioGroup radiogroup = (RadioGroup) findViewById(R.id.rgStrupLang);
 
         if (radiogroup != null) {
             radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -123,11 +133,47 @@ public class StrupActivityOptions extends AppCompatActivity {
                     switch (checkedId) {
                         case -1:
                             break;
-                        case R.id.radioButtonRu:
+                        case R.id.rbStrupLangRu:
                             mStrupLang = "Ru";
                             break;
-                        case R.id.radioButtonEn:
+                        case R.id.rbStrupLangEn:
                             mStrupLang = "En";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+
+        int colorID = getResources().getIdentifier("rbStrupColorsCount"+mStrupColorsCount, "id", getPackageName());
+        RadioButton butColor = (RadioButton) findViewById(colorID);
+        if (butColor!=null) {
+            butColor.setChecked(true);
+        }
+
+        //
+        radiogroup = (RadioGroup) findViewById(R.id.rgStrupColorsCount);
+
+        if (radiogroup != null) {
+            radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case -1:
+                            break;
+                        case R.id.rbStrupColorsCount4:
+                            mStrupColorsCount = 4;
+                            break;
+                        case R.id.rbStrupColorsCount5:
+                            mStrupColorsCount = 5;
+                            break;
+                        case R.id.rbStrupColorsCount6:
+                            mStrupColorsCount = 6;
+                            break;
+                        case R.id.rbStrupColorsCount7:
+                            mStrupColorsCount = 7;
                             break;
                         default:
                             break;

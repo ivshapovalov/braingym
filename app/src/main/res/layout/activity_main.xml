@@ -76,17 +76,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="20">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mathTestExplanation2"
-                    android:id="@+id/button12"
-                    android:onClick="mathActivity1_onClick"
-                    android:singleLine="false"
-                    android:focusableInTouchMode="false"
-                    android:background="@drawable/separator"
-                    android:textColor="#ffffff" />
-
             </TableRow>
 
             <TableRow

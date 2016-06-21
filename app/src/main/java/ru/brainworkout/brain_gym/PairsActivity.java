@@ -59,9 +59,9 @@ public class PairsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pairs);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer_pairs);
-        AlphabetRu = MainActivity.AlphabetRu();
-        AlphabetEn = MainActivity.AlphabetEn();
-        AlphabetColors=MainActivity.AlphabetColors();
+        AlphabetRu = Commons.AlphabetRu();
+        AlphabetEn = Commons.AlphabetEn();
+        AlphabetColors=Commons.AlphabetColors();
     }
 
 

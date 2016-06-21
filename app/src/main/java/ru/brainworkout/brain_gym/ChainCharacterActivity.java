@@ -58,8 +58,8 @@ public class ChainCharacterActivity extends AppCompatActivity {
         mChronometer = (Chronometer) findViewById(R.id.chronometer_chain_character);
 
 
-        AlphabetRu= MainActivity.AlphabetRu();
-        AlphabetEn=MainActivity.AlphabetEn();
+        AlphabetRu= Commons.AlphabetRu();
+        AlphabetEn=Commons.AlphabetEn();
     }
 
 

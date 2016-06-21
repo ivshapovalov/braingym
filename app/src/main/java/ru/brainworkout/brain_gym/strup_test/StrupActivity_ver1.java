@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym;
+package ru.brainworkout.brain_gym.strup_test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,12 +22,12 @@ import java.util.ArrayList;
 
 import java.util.Random;
 
+import ru.brainworkout.brain_gym.MainActivity;
+import ru.brainworkout.brain_gym.R;
+
 
 public class StrupActivity_ver1 extends AppCompatActivity {
-
-
     private Chronometer mChronometer;
-
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
     private final int mStrupExamples = 8;

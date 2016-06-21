@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym;
+package ru.brainworkout.brain_gym.strup_test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ru.brainworkout.brain_gym.MainActivity;
+import ru.brainworkout.brain_gym.R;
+
 
 public class StrupActivity extends AppCompatActivity {
 
@@ -23,16 +26,19 @@ public class StrupActivity extends AppCompatActivity {
 
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
-    private final int mStrupExamples = 45;
-    private final String mWordColors[] = new String[5];
+    private static final int STRUP_EXAMPLES_COUNT = 45;
+    private static String mArrayColorNames[];
+    private static int mArrayColorValues[];
+    private static final int STRINGS_COUNT = 15;
+    private ArrayList<StrupExample> strupExamples = new ArrayList<>();
 
     //настройки
     private SharedPreferences mSettings;
     private String mStrupLang;
     private int mStrupFontSizeChange;
     private int mStrupTextSize;
+    private int mStrupColorsCount;
 
-    private int mCountStrings = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +51,21 @@ public class StrupActivity extends AppCompatActivity {
         mChronometer = (Chronometer) findViewById(R.id.chronometer_strup);
     }
 
-    private void drawStrupTest(ArrayList<StrupExample> strupExamples) {
-
+    private void drawStrupTest() {
 
         StrupExample currentEx;
         FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
-        int mHeight = frame.getHeight() * 98 / 100 / mCountStrings;
-        int mWidth = frame.getWidth() * 90 / 100 / (mStrupExamples / mCountStrings);
+        int mHeight = frame.getHeight() * 98 / 100 / STRINGS_COUNT;
+        int mWidth = frame.getWidth() * 90 / 100 / (STRUP_EXAMPLES_COUNT / STRINGS_COUNT);
         int numColumn = 0;
         int numString = 0;
-        for (Integer i = 1; i <= mStrupExamples; i++) {
+        for (Integer i = 1; i <= STRUP_EXAMPLES_COUNT; i++) {
             TextView txt = (TextView) findViewById(200 + i);
             if (txt == null) {
                 txt = new TextView(this);
                 txt.setId(200 + i);
-                numColumn = (i - 1) / mCountStrings;
-                numString = (i - 1) % mCountStrings;
+                numColumn = (i - 1) / STRINGS_COUNT;
+                numString = (i - 1) % STRINGS_COUNT;
                 //txt.setPadding((numColumn) * mWidth , numString * mHeight, 0, 0);
                 txt.setPadding((numColumn) * mWidth + frame.getWidth() / 100 * 10, frame.getHeight() * 2 / 100 + numString * mHeight, 0, 0);
                 //txt.setPadding((i-(i-1)%mCountStrings)/(mCountStrings/2)*72+25,150+(i-1)%mCountStrings*30,0,0);
@@ -70,8 +75,8 @@ public class StrupActivity extends AppCompatActivity {
             }
 
             currentEx = strupExamples.get(i - 1);
-            txt.setText(currentEx.getWord());
-            txt.setTextColor(currentEx.getColor());
+            txt.setText(mArrayColorNames[currentEx.getIndWord()]);
+            txt.setTextColor(mArrayColorValues[currentEx.getIndColor()]);
 
             //txt.setTextSize(Math.min(mWidth,mHeight)/6);
             mStrupTextSize = (int) (Math.min(mWidth, mHeight) / 2 / getApplicationContext().getResources().getDisplayMetrics().density) + mStrupFontSizeChange;
@@ -95,7 +100,7 @@ public class StrupActivity extends AppCompatActivity {
 
     private void strupClear() {
 
-        for (int i = 1; i <= mStrupExamples; i++) {
+        for (int i = 1; i <= STRUP_EXAMPLES_COUNT; i++) {
             TextView txt = (TextView) findViewById(200 + i);
 
             if (txt != null) {
@@ -106,54 +111,43 @@ public class StrupActivity extends AppCompatActivity {
     }
 
     private ArrayList<StrupExample> createStrupExamples() {
-        ArrayList<StrupExample> strupExamples = new ArrayList<>();
-        int newColor = Color.WHITE;
+        strupExamples.clear();
 
         Random random = new Random();
 
 
-        while (strupExamples.size() != mStrupExamples) {
+        while (strupExamples.size() != STRUP_EXAMPLES_COUNT) {
 
-            int indexColor = Math.abs(random.nextInt() % 4);
-            switch (indexColor % 4) {
-                case 0:
-                    newColor = Color.parseColor("#FFD8CD02");
-                    break;//коричневый
-                case 1:
-                    newColor = Color.RED;
-                    break;
-                case 2:
-                    newColor = Color.parseColor("#FF11B131");
-                    break;//зеленый
-                case 3:
-                    newColor = Color.BLUE;
-                    break;
-                case 4:
-                    newColor = Color.parseColor("#FFD8CD02");
-                    break;//коричневый
-            }
-            int indWord = Math.abs(random.nextInt() % 4);
+            int indColor = Math.abs(random.nextInt() % (mStrupColorsCount + 1));
+            int indWord = Math.abs(random.nextInt() % (mStrupColorsCount + 1));
+            indWord = (indWord==mStrupColorsCount ? 0 : indWord);
+            indColor=(indColor == mStrupColorsCount ? 0 : indColor);
+//            System.out.println("size " + strupExamples.size());
+//            System.out.println("color " + indColor);
+//            System.out.println("word " + indWord);
 
-            if (strupExamples.size() != 0 && mWordColors[indWord].equals(strupExamples.get(strupExamples.size() - 1).getWord())
+            if (strupExamples.size() != 0 && mArrayColorNames[indWord].equals(strupExamples.get(strupExamples.size() - 1).getIndWord())
                     ) {
                 continue;
             }
-            if (strupExamples.size() >= mCountStrings && mWordColors[indWord].equals(strupExamples.get(strupExamples.size() - (mCountStrings)).getWord())
+            if (strupExamples.size() >= STRINGS_COUNT) {
+                if (mArrayColorNames[indWord].equals(strupExamples.get(strupExamples.size() - (STRINGS_COUNT)).getIndWord()) ||
+                        mArrayColorValues[indColor] == strupExamples.get(strupExamples.size() - (STRINGS_COUNT)).getIndColor())
+                {
+                    continue;
+                }
+            }
+            if (strupExamples.size() != 0 && (indColor == strupExamples.get(strupExamples.size() - 1).getIndColor())
                     ) {
                 continue;
             }
-            if (strupExamples.size() != 0 && (newColor == strupExamples.get(strupExamples.size() - 1).getColor())
-                    ) {
-                continue;
-            }
-            if (strupExamples.size() >= mCountStrings && newColor == strupExamples.get(strupExamples.size() - (mCountStrings)).getColor()) {
-                continue;
-            }
-            //int indPlace = (strupExamples.size() == 0 ? random.nextInt() : random.nextInt(strupExamples.size()));
-            StrupExample newEx = new StrupExample(mWordColors[indWord], newColor);
-            //strupExamples.add((strupExamples.size() == 0 ? 0 : indPlace % strupExamples.size()), newEx);
+
+            StrupExample newEx = new StrupExample(indWord, indColor);
+
             strupExamples.add(newEx);
+
         }
+        //Collections.shuffle(strupExamples);
 
         return strupExamples;
     }
@@ -166,8 +160,8 @@ public class StrupActivity extends AppCompatActivity {
 
                 strupClear();
                 getPreferencesFromFile();
-                ArrayList<StrupExample> strupExamples = createStrupExamples();
-                drawStrupTest(strupExamples);
+                strupExamples = createStrupExamples();
+                drawStrupTest();
             } else {
                 mChronometer.setBase(SystemClock.elapsedRealtime() - mChronometerCount);
             }
@@ -227,48 +221,86 @@ public class StrupActivity extends AppCompatActivity {
         } else {
             mStrupLang = "Ru";
         }
-        switch (mStrupLang) {
-            case "Ru":
-                mWordColors[0] = "КРАСНЫЙ";
-                mWordColors[1] = "ЖЕЛТЫЙ";
-                mWordColors[2] = "ЗЕЛЕНЫЙ";
-                mWordColors[3] = "СИНИЙ";
-                mWordColors[4] = "СИНИЙ";
-                break;
-            case "En":
-                mWordColors[0] = "RED";
-                mWordColors[1] = "YELLOW";
-                mWordColors[2] = "GREEN";
-                mWordColors[3] = "BLUE";
-                mWordColors[4] = "BLUE";
-            default:
-                break;
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_COLORS_COUNT)) {
+            // Получаем язык из настроек
+            mStrupColorsCount = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_COLORS_COUNT, 4);
+        } else {
+            mStrupColorsCount = 4;
+        }
+        formArrays();
+
+
+    }
+
+    private void formArrays() {
+        mArrayColorValues = new int[mStrupColorsCount + 1];
+        mArrayColorNames = new String[mStrupColorsCount + 1];
+        try {
+            switch (mStrupLang) {
+                case "Ru":
+                    mArrayColorNames[0] = "КРАСНЫЙ";
+                    mArrayColorNames[1] = "ЖЕЛТЫЙ";
+                    mArrayColorNames[2] = "ЗЕЛЕНЫЙ";
+                    mArrayColorNames[3] = "СИНИЙ";
+                    mArrayColorNames[4] = "СЕРЫЙ";
+                    mArrayColorNames[5] = "КОРИЧНЕВЫЙ";
+                    mArrayColorNames[6] = "ФИОЛЕТОВЫЙ";
+
+                    break;
+                case "En":
+                    mArrayColorNames[0] = "RED";
+                    mArrayColorNames[1] = "YELLOW";
+                    mArrayColorNames[2] = "GREEN";
+                    mArrayColorNames[3] = "BLUE";
+                    mArrayColorNames[4] = "GREY";
+                    mArrayColorNames[5] = "BROWN";
+                    mArrayColorNames[6] = "VIOLET";
+
+
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+
+        }
+        try {
+            mArrayColorValues[0] = Color.parseColor("#FF2020");
+            mArrayColorValues[1] = Color.parseColor("#FFD8CD02");
+            mArrayColorValues[2] = Color.parseColor("#006400");
+            mArrayColorValues[3] = Color.parseColor("#00BFFF");
+            mArrayColorValues[4] = Color.parseColor("#9C9C9C");
+            mArrayColorValues[5] = Color.parseColor("#A56A2A");
+            mArrayColorValues[6] = Color.parseColor("#836FFF");
+
+
+        } catch (Exception e) {
+
         }
     }
 
     private class StrupExample {
-        private String word;
-        private int color;
+        private int indWord;
+        private int indColor;
 
-        public StrupExample(String word, int color) {
-            this.word = word;
-            this.color = color;
+        public StrupExample(int indWord, int indColor) {
+            this.indWord = indWord;
+            this.indColor = indColor;
         }
 
-        public String getWord() {
-            return word;
+        public int getIndColor() {
+            return indColor;
         }
 
-        public void setWord(String word) {
-            this.word = word;
+        public void setIndColor(int indColor) {
+            this.indColor = indColor;
         }
 
-        public int getColor() {
-            return color;
+        public int getIndWord() {
+            return indWord;
         }
 
-        public void setColor(int color) {
-            this.color = color;
+        public void setIndWord(int indWord) {
+            this.indWord = indWord;
         }
     }
 

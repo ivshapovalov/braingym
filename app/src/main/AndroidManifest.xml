@@ -19,15 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MathActivity"
+            android:name=".math_test.MathActivity"
             android:label="@string/math_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MathActivity2"
-            android:label="@string/math_name_2"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".StrupActivity"
+            android:name=".strup_test.StrupActivity"
             android:label="@string/strup_name"
             android:screenOrientation="portrait" />
         <activity
@@ -35,11 +31,11 @@
             android:label="@string/about_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StrupActivity_ver1"
+            android:name=".strup_test.StrupActivity_ver1"
             android:label="@string/strup_name1"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StrupActivityOptions_ver1"
+            android:name=".strup_test.StrupActivityOptions_ver1"
             android:label="@string/strup_name_options"
             android:screenOrientation="portrait" />
         <activity
@@ -47,7 +43,7 @@
             android:label="@string/matrix_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StrupActivityOptions"
+            android:name=".strup_test.StrupActivityOptions"
             android:label="@string/strup_name_options"
             android:screenOrientation="portrait" />
         <activity
@@ -55,12 +51,8 @@
             android:label="@string/matrix_name_options"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MathActivityOptions"
+            android:name=".math_test.MathActivityOptions"
             android:label="@string/math_name_options"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MathActivity2Options"
-            android:label="@string/math_name_options_2"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MissingSymbolActivityOptions"
