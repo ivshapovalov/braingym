@@ -69,9 +69,6 @@ public class RectanglesCountActivity extends AppCompatActivity {
         AlphabetColors = Commons.AlphabetColors();
     }
 
-
-
-
     public void RectanglesCountСlear_onClick(View view) {
 
         timerStop(false);
@@ -486,7 +483,8 @@ public class RectanglesCountActivity extends AppCompatActivity {
                 txt.setBackgroundDrawable(dr);
                 txt.setTextSize(mMatrixTextSize);
                 txt.setTypeface(null,Typeface.BOLD);
-                txt.setText(String.valueOf(arrAnswers.get(numColumn - 1)));
+                String btText=String.valueOf(arrAnswers.get(numColumn - 1));
+                txt.setText(btText.length()==1?" "+btText:btText);
                 txt.setGravity(Gravity.CENTER);
                 if (Math.abs(Color.BLACK-AlphabetColors.get(indColorMain))<=255) {
                     txt.setTextColor(Color.WHITE);
