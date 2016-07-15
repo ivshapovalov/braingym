@@ -58,8 +58,8 @@ public class MissingSymbolActivity extends AppCompatActivity {
         mChronometer = (Chronometer) findViewById(R.id.chronometer_missing_symbol);
 
 
-        AlphabetRu= Commons.AlphabetRu();
-        AlphabetEn=Commons.AlphabetEn();
+        AlphabetRu= Utils.AlphabetRu();
+        AlphabetEn= Utils.AlphabetEn();
     }
 
 

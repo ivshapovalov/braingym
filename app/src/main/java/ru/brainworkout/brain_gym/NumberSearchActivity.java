@@ -68,8 +68,8 @@ public class NumberSearchActivity extends AppCompatActivity {
         //matrixClear();
         mChronometer = (Chronometer) findViewById(R.id.chronometer_number_search);
 
-        AlphabetRu= Commons.AlphabetRu();
-        AlphabetEn=Commons.AlphabetEn();
+        AlphabetRu= Utils.AlphabetRu();
+        AlphabetEn= Utils.AlphabetEn();
 
     }
 

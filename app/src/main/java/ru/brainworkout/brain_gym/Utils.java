@@ -4,10 +4,7 @@ import android.graphics.Color;
 
 import java.util.ArrayList;
 
-/**
- * Created by Ivan on 07.06.2016.
- */
-public class Commons {
+public class Utils {
 
     static ArrayList<String> AlphabetRu() {
 

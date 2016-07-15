@@ -66,7 +66,7 @@ public class RectanglesCountActivity extends AppCompatActivity {
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer_rectangles_count);
 
-        AlphabetColors = Commons.AlphabetColors();
+        AlphabetColors = Utils.AlphabetColors();
     }
 
     public void RectanglesCountСlear_onClick(View view) {

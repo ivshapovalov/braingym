@@ -19,7 +19,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 
@@ -63,8 +62,8 @@ public class MatrixActivity extends AppCompatActivity {
         setContentView(R.layout.activity_matrix);
 
         mChronometer = (Chronometer) findViewById(R.id.chronometer_matrix);
-        AlphabetRu = Commons.AlphabetRu();
-        AlphabetEn = Commons.AlphabetEn();
+        AlphabetRu = Utils.AlphabetRu();
+        AlphabetEn = Utils.AlphabetEn();
     }
 
 
