@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym;
+package ru.brainworkout.braingym;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,17 +17,17 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
-public class ChainCharacterActivity extends AppCompatActivity {
+public class MissingSymbolActivity extends AppCompatActivity {
 
     private Chronometer mChronometer;
 
     private boolean mChronometerIsWorking = false;
     private long mChronometerCount = 0;
-    private final int mChainCharacterCountAnswers = 8;
-    private final int mChainCharacterCountExamples = 20;
+    private final int mMissingSymbolCountAnswers = 8;
 
     private ArrayList<Integer> arrAnswers = new ArrayList<>();
     private ArrayList<Integer> arrExamples = new ArrayList<>();
@@ -37,12 +37,12 @@ public class ChainCharacterActivity extends AppCompatActivity {
     private int mCountAllAnswers = 0;
     //настройки
 
-    private String mChainCharacterLang;
-    private int mChainCharacterMaxTime;
-    private int mChainCharacterExampleTime;
+    private String mMissingSymbolLang;
+    private int mMissingSymbolMaxTime;
+    private int mMissingSymbolExampleTime;
 
     private int mTextSize = 0;
-    private long mChainCharacterExBeginTime = 0;
+    private long mMissingSymbolExBeginTime = 0;
     private long elapsedMillis;
 
 
@@ -53,9 +53,9 @@ public class ChainCharacterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chain_character);
+        setContentView(R.layout.activity_missing_symbol);
 
-        mChronometer = (Chronometer) findViewById(R.id.chronometer_chain_character);
+        mChronometer = (Chronometer) findViewById(R.id.chronometer_missing_symbol);
 
 
         AlphabetRu= Utils.AlphabetRu();
@@ -63,7 +63,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
     }
 
 
-    public void ChainCharacterClear_onClick(View view) {
+    public void MissingSymbolClear_onClick(View view) {
 
         timerStop(false);
     }
@@ -75,25 +75,25 @@ public class ChainCharacterActivity extends AppCompatActivity {
         mChronometerIsWorking = false;
         mCountRightAnswers = 0;
         mCountAllAnswers = 0;
-        mChainCharacterExBeginTime = 0;
+        mMissingSymbolExBeginTime = 0;
 
-        ChangeButtonText("buttonChainCharacterStartPause", "Старт");
+        ChangeButtonText("buttonMissingSymbolStartPause", "Старт");
 
-        int timerMaxID = getResources().getIdentifier("tvChainCharacterTimerMaxTime", "id", getPackageName());
+        int timerMaxID = getResources().getIdentifier("tvMissingSymbolTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
 
         if (txtTimerMaxTime != null) {
             txtTimerMaxTime.setTextSize(mTextSize);
             String txt;
             if (!auto) {
-                txt = "Тест: " + String.valueOf(mChainCharacterMaxTime);
+                txt = "Тест: " + String.valueOf(mMissingSymbolMaxTime);
             } else {
                 txt = "Тест окончен";
             }
             txtTimerMaxTime.setText(txt);
         }
 
-        int answerID = getResources().getIdentifier("tvChainCharacterAnswers", "id", getPackageName());
+        int answerID = getResources().getIdentifier("tvMissingSymbolAnswers", "id", getPackageName());
         TextView txtAnswer = (TextView) findViewById(answerID);
         if (txtAnswer != null) {
             txtAnswer.setTextSize(mTextSize);
@@ -101,35 +101,42 @@ public class ChainCharacterActivity extends AppCompatActivity {
                 txtAnswer.setText("");
             }
         }
-        int exampleID = getResources().getIdentifier("tvChainCharacterExample", "id", getPackageName());
-        TextView txtExample = (TextView) findViewById(exampleID);
-        if (txtExample != null) {
-            txtExample.setTextSize(mTextSize);
-            if (!auto) {
-                txtExample.setText("");
-            }
-        }
-        for (int i = 1; i <= mChainCharacterCountAnswers; i++) {
-            int ansID = getResources().getIdentifier("tvChainCharacterAnswer" + String.valueOf(i), "id", getPackageName());
-            TextView txtAns = (TextView) findViewById(ansID);
 
-            if (txtAns != null) {
-                txtAns.setText("  ");
-//                txtAns.setBackgroundResource(R.drawable.rounded_corners1);
-//                txtAns.setTextSize(mTextSize);
-//                txtAns.setPadding(0,mTextSize/2,0,mTextSize/2);
+        for (int i = 1; i <= 8; i++) {
+
+            int resID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+
+            if (txt != null) {
+                txt.setText(" ");
+               // txt.setTextSize(mTextSize);
 
             }
+
         }
 
-        if (mChainCharacterExampleTime != 0) {
-            int timerExID = getResources().getIdentifier("tvChainCharacterTimerExTime", "id", getPackageName());
+        for (int i = 1; i <= 8; i++) {
+
+            int resID = getResources().getIdentifier("tvMissingSymbolExample" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+
+            if (txt != null) {
+                txt.setText(" ");
+                //txt.setTextSize(mTextSize);
+                //txt.setTextColor(Color.parseColor("#FF6D6464"));
+
+            }
+
+        }
+
+        if (mMissingSymbolExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
 
             if (txtTimerExTime != null) {
                 String txt;
                 if (!auto) {
-                    txt = "Пример: " + String.valueOf(mChainCharacterExampleTime);
+                    txt = "Пример: " + String.valueOf(mMissingSymbolExampleTime);
                 } else {
                     txt = "";
                 }
@@ -140,9 +147,24 @@ public class ChainCharacterActivity extends AppCompatActivity {
         }
     }
 
-    private void chainCharacterClear() {
+    private void missingSymbolClear() {
 
-            int resID = getResources().getIdentifier(" tvChainCharacterExample", "id", getPackageName());
+        for (int i = 1; i <= 8; i++) {
+
+            int resID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+
+            if (txt != null) {
+                txt.setText(" ");
+                txt.setTextSize(mTextSize);
+
+            }
+
+        }
+
+        for (int i = 1; i <= 8; i++) {
+
+            int resID = getResources().getIdentifier("tvMissingSymbolExample" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
 
             if (txt != null) {
@@ -152,34 +174,24 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
             }
 
+        }
 
-
-//        int exID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
-//        TextView txt1 = (TextView) findViewById(exID);
-//
-//        if (txt1 != null) {
-//            txt1.setText("  ");
-//            txt1.setBackgroundResource(R.drawable.rounded_corners1);
-//            txt1.setTextSize(mTextSize);
-//
-//        }
-
-        int trowID = getResources().getIdentifier("trowChainCharacter", "id", getPackageName());
+        int trowID = getResources().getIdentifier("trowMissingSymbol", "id", getPackageName());
         TableRow trow1 = (TableRow) findViewById(trowID);
 
         if (trow1 != null) {
             trow1.setBackgroundResource(R.drawable.rounded_corners1);
         }
 
-        for (int i = 1; i <= mChainCharacterCountAnswers; i++) {
-            int ansID = getResources().getIdentifier("tvChainCharacterAnswer" + String.valueOf(i), "id", getPackageName());
+        for (int i = 1; i <= mMissingSymbolCountAnswers; i++) {
+            int ansID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
             TextView txtAns = (TextView) findViewById(ansID);
 
             if (txtAns != null) {
                 txtAns.setText("  ");
                 txtAns.setBackgroundResource(R.drawable.rounded_corners1);
                 txtAns.setTextSize(mTextSize);
-                txtAns.setPadding(0,mTextSize/2,0,mTextSize/2);
+                txtAns.setPadding(0,mTextSize,0,mTextSize);
 
             }
         }
@@ -194,27 +206,27 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
 
     private void changeTimer(long elapsedMillis) {
-        int timerMaxID = getResources().getIdentifier("tvChainCharacterTimerMaxTime", "id", getPackageName());
+        int timerMaxID = getResources().getIdentifier("tvMissingSymbolTimerMaxTime", "id", getPackageName());
         TextView txtTimerMaxTime = (TextView) findViewById(timerMaxID);
         if (txtTimerMaxTime != null) {
-            int time = (int) (mChainCharacterMaxTime - (elapsedMillis / 1000));
+            int time = (int) (mMissingSymbolMaxTime - (elapsedMillis / 1000));
             String txt = "Тест: " + String.valueOf(time);
             txtTimerMaxTime.setText(txt);
             txtTimerMaxTime.setTextSize(mTextSize);
         }
-        if (mChainCharacterExampleTime != 0) {
-            int timerExID = getResources().getIdentifier("tvChainCharacterTimerExTime", "id", getPackageName());
+        if (mMissingSymbolExampleTime != 0) {
+            int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
             if (txtTimerExTime != null) {
-                int time = (mChainCharacterExampleTime - ((int) (((elapsedMillis - mChainCharacterExBeginTime) / 1000)) % mChainCharacterExampleTime));
+                int time = (mMissingSymbolExampleTime - ((int) (((elapsedMillis - mMissingSymbolExBeginTime) / 1000)) % mMissingSymbolExampleTime));
                 //System.out.println("mStrupeExampleTime=" + mStrupExampleTime + ", time=" + time + ", elapsed millis=" + elapsedMillis + ", mStrupExBeginTime=" + mStrupExBeginTime);
-                if (time == mChainCharacterExampleTime) {
+                if (time == mMissingSymbolExampleTime) {
                     //новый пример
                     String txt = "Пример: " + String.valueOf(time);
                     txtTimerExTime.setText(txt);
                     txtTimerExTime.setTextSize(mTextSize);
                     mCountAllAnswers++;
-                    int answerID = getResources().getIdentifier("tvChainCharacterAnswers", "id", getPackageName());
+                    int answerID = getResources().getIdentifier("tvMissingSymbolAnswers", "id", getPackageName());
                     TextView txtAnswer = (TextView) findViewById(answerID);
                     if (txtAnswer != null) {
                         String txt1 = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
@@ -233,7 +245,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
             }
         } else {
-            int timerExID = getResources().getIdentifier("tvChainCharacterTimerExTime", "id", getPackageName());
+            int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
             if (txtTimerExTime != null) {
 
@@ -256,7 +268,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
             if (mChronometerCount == 0) {
                 mChronometer.setBase(SystemClock.elapsedRealtime());
 
-                TableLayout frame = (TableLayout) findViewById(R.id.groundChainCharacter);
+                TableLayout frame = (TableLayout) findViewById(R.id.groundMissingSymbol);
                 int mWidth;
                 int mHeight;
                 if (frame != null) {
@@ -266,16 +278,16 @@ public class ChainCharacterActivity extends AppCompatActivity {
                     mWidth = 0;
                     mHeight = 0;
                 }
-                mTextSize = (int) (Math.min(mWidth, mHeight) / 18 / getApplicationContext().getResources().getDisplayMetrics().density);
+                mTextSize = (int) (Math.min(mWidth, mHeight) / 20 / getApplicationContext().getResources().getDisplayMetrics().density);
 
-                chainCharacterClear();
+                missingSymbolClear();
                 getPreferencesFromFile();
 
-                int timerID = getResources().getIdentifier("tvChainCharacterTimerMaxTime", "id", getPackageName());
+                int timerID = getResources().getIdentifier("tvMissingSymbolTimerMaxTime", "id", getPackageName());
                 TextView txtTimerMaxTime = (TextView) findViewById(timerID);
                 if (txtTimerMaxTime != null) {
                     txtTimerMaxTime.setTextSize(mTextSize);
-                    String txt = "Тест: " + String.valueOf(mChainCharacterMaxTime);
+                    String txt = "Тест: " + String.valueOf(mMissingSymbolMaxTime);
                     txtTimerMaxTime.setText(txt);
                     txtTimerMaxTime.setTextSize(mTextSize);
                 }
@@ -285,7 +297,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
                         elapsedMillis = SystemClock.elapsedRealtime()
                                 - mChronometer.getBase();
 
-                        if (mChainCharacterMaxTime - (elapsedMillis / 1000) < 1) {
+                        if (mMissingSymbolMaxTime - (elapsedMillis / 1000) < 1) {
                             timerStop(true);
                         }
                         if (elapsedMillis > 1000) {
@@ -304,7 +316,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
             mChronometer.start();
             mChronometerIsWorking = true;
-            ChangeButtonText("buttonChainCharacterStartPause", "Пауза");
+            ChangeButtonText("buttonMissingSymbolStartPause", "Пауза");
 
 
         } else {
@@ -313,7 +325,7 @@ public class ChainCharacterActivity extends AppCompatActivity {
             mChronometerCount = SystemClock.elapsedRealtime() - mChronometer.getBase();
             mChronometer.stop();
             mChronometerIsWorking = false;
-            ChangeButtonText("buttonChainCharacterStartPause", "Старт");
+            ChangeButtonText("buttonMissingSymbolStartPause", "Старт");
         }
     }
 
@@ -321,66 +333,42 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
         Random random = new Random();
 
-        int symbol = 0;
-        if ("Digit".equals(mChainCharacterLang)) {
-            symbol = Math.abs(random.nextInt(10));
-        } else if ("Ru".equals(mChainCharacterLang)) {
-            symbol = Math.abs(random.nextInt() % (AlphabetRu.size()));
-        } else if ("En".equals(mChainCharacterLang)) {
-            symbol = Math.abs(random.nextInt() % (AlphabetEn.size()));
+        int mBeginDigit=0;
+        if ("Digit".equals(mMissingSymbolLang)) {
+            mBeginDigit = Math.abs(random.nextInt(100));
+        } else if ("Ru".equals(mMissingSymbolLang)) {
+            mBeginDigit = Math.abs(random.nextInt() % (AlphabetRu.size() - mMissingSymbolCountAnswers));
+        } else if ("En".equals(mMissingSymbolLang)) {
+            mBeginDigit = Math.abs(random.nextInt() % (AlphabetEn.size() - mMissingSymbolCountAnswers));
         }
-        //System.out.println("symbol:"+symbol);
+
+        int answer = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers-2)) + mBeginDigit+1;
+
         arrAnswers.clear();
         arrExamples.clear();
 
-        int answer = 0;
-        while (arrExamples.size() != mChainCharacterCountExamples) {
-            //int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers -2)) + mBeginDigit+1;
-            int newDigit = Math.abs(random.nextInt() % 10);
-            int indPlace = (arrExamples.size() == 0 ? 0 : Math.abs(random.nextInt()) % (arrExamples.size()));
-            arrExamples.add(indPlace, newDigit);
-            if (newDigit == symbol) {
-                answer++;
-            }
-        }
-
-        while (arrAnswers.size() != mChainCharacterCountAnswers - 1) {
-
-            int newDigit = Math.abs(random.nextInt() % mChainCharacterCountExamples);
-            if (!arrAnswers.contains(newDigit)&&newDigit!=answer) {
+        while (arrAnswers.size() != mMissingSymbolCountAnswers) {
+            int newDigit = Math.abs(random.nextInt() % mMissingSymbolCountAnswers) + mBeginDigit;
+            if (!arrAnswers.contains(newDigit)) {
                 int indPlace = Math.abs((arrAnswers.size() == 0 ? random.nextInt() : random.nextInt(arrAnswers.size())));
                 arrAnswers.add((arrAnswers.size() == 0 ? 0 : indPlace % arrAnswers.size()), newDigit);
             }
         }
-        int indPlace = Math.abs((arrAnswers.size() == 0 ? random.nextInt() : random.nextInt(arrAnswers.size())));
-        arrAnswers.add(indPlace % arrAnswers.size(), answer);
-        indAnswer=arrAnswers.indexOf(answer);
-        //System.out.println("indAnswer:"+indAnswer);
+        indAnswer = arrAnswers.indexOf(answer);
 
-        Question="";
-        if ("Digit".equals(
-                mChainCharacterLang)) {
-            Question = String.valueOf(symbol) + ": ";
-        } else if ("Ru".equals(mChainCharacterLang)) {
-            Question = Question + AlphabetRu.get(symbol) + ": ";
-        } else if ("En".equals(mChainCharacterLang)) {
-            Question = Question + AlphabetEn.get(symbol) + ": ";
-        }
-        for (int i = 0; i < arrExamples.size(); i++) {
-            if ("Digit".equals(
-                    mChainCharacterLang)) {
-                Question = Question + String.valueOf(arrExamples.get(i)) + "";
-            } else if ("Ru".equals(mChainCharacterLang)) {
-                Question = Question + AlphabetRu.get(arrExamples.get(i)) + "";
-            } else if ("En".equals(mChainCharacterLang)) {
-                Question = Question + AlphabetEn.get(arrExamples.get(i)) + "";
-            }
-        }
-
-        //System.out.println("Question:"+Question);
         //arrExamples.add(0,mBeginDigit);
 
-
+        int ind=0;
+        while (arrExamples.size() != mMissingSymbolCountAnswers) {
+            //int newDigit = Math.abs(random.nextInt() % (mMissingSymbolCountAnswers -2)) + mBeginDigit+1;
+            int newDigit=mBeginDigit+ind;
+            ind++;
+            if (newDigit != answer)
+            {
+                int indPlace = Math.abs(random.nextInt());
+                arrExamples.add((arrExamples.size() == 0 ? 0 : indPlace % (arrExamples.size())), newDigit);
+           }
+        }
         //arrExamples.add(7,mBeginDigit+mMissingSymbolCountAnswers);
 
 //        while (arrExamples.size() != mMissingSymbolCountAnswers-1) {
@@ -399,35 +387,74 @@ public class ChainCharacterActivity extends AppCompatActivity {
         //первое и последнее числа
 
 
+//        Question = "";
+//        for (int i = 0; i < arrExamples.size(); i++) {
+//            if ("Digit".equals(mMissingSymbolLang)) {
+//                Question = Question + String.valueOf(arrExamples.get(i)) + "  ";
+//            } else if ("Ru".equals(mMissingSymbolLang)) {
+//                Question = Question + AlphabetRu[arrExamples.get(i)] + "  ";
+//            } else if ("En".equals(mMissingSymbolLang)) {
+//                Question = Question + AlphabetEn[arrExamples.get(i)] + "  ";
+//            }
+//        }
+
         drawExamplesAndAnswers();
     }
 
     private void drawExamplesAndAnswers() {
 
-        for (Integer i = 1; i <= mChainCharacterCountAnswers; i++) {
-            int resID = getResources().getIdentifier("tvChainCharacterAnswer" + String.valueOf(i), "id", getPackageName());
+      for (Integer i = 1; i <= mMissingSymbolCountAnswers; i++) {
+            int resID = getResources().getIdentifier("tvMissingSymbolAnswer" + String.valueOf(i), "id", getPackageName());
             TextView txt = (TextView) findViewById(resID);
             if (txt != null) {
                 txt.setTextSize(mTextSize);
-                //if ("Digit".equals(mChainCharacterLang)) {
+                if ("Digit".equals(mMissingSymbolLang)) {
                     txt.setText(String.valueOf(arrAnswers.get(i - 1)));
-//                } else if ("Ru".equals(mChainCharacterLang)) {
-//                    txt.setText(String.valueOf(AlphabetRu[arrAnswers.get(i - 1)]));
-//                } else if ("En".equals(mChainCharacterLang)) {
-//                    txt.setText(String.valueOf(AlphabetEn[arrAnswers.get(i - 1)]));
-//                }
-                txt.setPadding(0, mTextSize/2, 0, mTextSize/2);
+                } else if ("Ru".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(AlphabetRu.get(arrAnswers.get(i - 1))));
+                } else if ("En".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(AlphabetEn.get(arrAnswers.get(i - 1))));
+                }
+                txt.setPadding(0,mTextSize,0,mTextSize);
 
             }
         }
-        int exampleID = getResources().getIdentifier("tvChainCharacterExample", "id", getPackageName());
-        TextView txtExample = (TextView) findViewById(exampleID);
-        if (txtExample != null) {
+        int mMaxExample= Collections.max(arrExamples);
+        int mMinExample= Collections.min(arrExamples);
+        for (Integer i = 1; i <= mMissingSymbolCountAnswers; i++) {
+            int resID = getResources().getIdentifier("tvMissingSymbolExample" + String.valueOf(i), "id", getPackageName());
+            TextView txt = (TextView) findViewById(resID);
+            if (txt != null) {
+                txt.setTextSize(mTextSize);
+                if ("Digit".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(arrExamples.get(i - 1)));
+                } else if ("Ru".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(AlphabetRu.get(arrExamples.get(i - 1))));
+                } else if ("En".equals(mMissingSymbolLang)) {
+                    txt.setText(String.valueOf(AlphabetEn.get(arrExamples.get(i - 1))));
+                }
+                //txt.setPadding(0,15,0,15);
+                if (arrExamples.get(i-1).equals(mMaxExample) || arrExamples.get(i-1).equals(mMinExample)) {
+                    txt.setTextColor(Color.parseColor("#FF11B131"));}
+                else {
+                    txt.setTextColor(Color.parseColor("#FF6D6464"));
+                    //System.out.println("make color");
+                }
 
-            txtExample.setText(Question);
-            txtExample.setTextSize(mTextSize);
-
+            }
         }
+
+
+
+
+//        int exampleID = getResources().getIdentifier("tvMissingSymbolExample", "id", getPackageName());
+//        TextView txtExample = (TextView) findViewById(exampleID);
+//        if (txtExample != null) {
+//
+//            txtExample.setText(Question);
+//            txtExample.setTextSize(mTextSize);
+//
+//        }
 
     }
 
@@ -442,24 +469,23 @@ public class ChainCharacterActivity extends AppCompatActivity {
                 mCountRightAnswers++;
             }
             mCountAllAnswers++;
-            mChainCharacterExBeginTime = elapsedMillis;
-            int timerExID = getResources().getIdentifier("tvChainCharacterTimerExTime", "id", getPackageName());
+            mMissingSymbolExBeginTime = elapsedMillis;
+            int timerExID = getResources().getIdentifier("tvMissingSymbolTimerExTime", "id", getPackageName());
             TextView txtTimerExTime = (TextView) findViewById(timerExID);
-            if (mChainCharacterExampleTime != 0) {
+            if (mMissingSymbolExampleTime != 0) {
                 if (txtTimerExTime != null) {
-                    String txt = "Пример: " + String.valueOf(mChainCharacterExampleTime);
+                    String txt = "Пример: " + String.valueOf(mMissingSymbolExampleTime);
                     txtTimerExTime.setText(txt);
                     txtTimerExTime.setTextSize(mTextSize);
                 }
             }
-            int answerID = getResources().getIdentifier("tvChainCharacterAnswers", "id", getPackageName());
+            int answerID = getResources().getIdentifier("tvMissingSymbolAnswers", "id", getPackageName());
             TextView txtAnswer = (TextView) findViewById(answerID);
             if (txtAnswer != null) {
                 String txt = String.valueOf(mCountRightAnswers) + "/" + String.valueOf(mCountAllAnswers);
                 txtAnswer.setText(txt);
                 txtAnswer.setTextSize(mTextSize);
             }
-
             Animation anim = new AlphaAnimation(0.0f, 1.0f);
             anim.setDuration(10); //You can manage the blinking time with this parameter
             anim.setStartOffset(0);
@@ -468,14 +494,13 @@ public class ChainCharacterActivity extends AppCompatActivity {
             anim.setRepeatCount(5);
             view.startAnimation(anim);
 
-
             createExample();
         }
     }
 
-    public void ChainCharacterOptions_onClick(View view) {
+    public void MissingSymbolOptions_onClick(View view) {
 
-        Intent intent = new Intent(ChainCharacterActivity.this, ChainCharacterActivityOptions.class);
+        Intent intent = new Intent(MissingSymbolActivity.this, MissingSymbolActivityOptions.class);
         startActivity(intent);
 
     }
@@ -502,23 +527,23 @@ public class ChainCharacterActivity extends AppCompatActivity {
 
         SharedPreferences mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_MAX_TIME)) {
-            mChainCharacterMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_MAX_TIME, 60);
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME)) {
+            mMissingSymbolMaxTime = mSettings.getInt(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_MAX_TIME, 60);
         } else {
-            mChainCharacterMaxTime = 60;
+            mMissingSymbolMaxTime = 60;
         }
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_EXAMPLE_TIME)) {
-            mChainCharacterExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_EXAMPLE_TIME, 0);
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME)) {
+            mMissingSymbolExampleTime = mSettings.getInt(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_EXAMPLE_TIME, 0);
         } else {
-            mChainCharacterExampleTime = 0;
+            mMissingSymbolExampleTime = 0;
         }
 
-        if (mSettings.contains(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_LANGUAGE)) {
+        if (mSettings.contains(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE)) {
             // Получаем язык из настроек
-            mChainCharacterLang = mSettings.getString(MainActivity.APP_PREFERENCES_CHAIN_CHARACTER_LANGUAGE, "Digit");
+            mMissingSymbolLang = mSettings.getString(MainActivity.APP_PREFERENCES_MISSING_SYMBOL_LANGUAGE, "Digit");
         } else {
-            mChainCharacterLang = "Digit";
+            mMissingSymbolLang = "Digit";
         }
 
 

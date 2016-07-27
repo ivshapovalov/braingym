@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym.strup_test;
+package ru.brainworkout.braingym.strup_test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import ru.brainworkout.brain_gym.MainActivity;
-import ru.brainworkout.brain_gym.R;
+import ru.brainworkout.braingym.MainActivity;
+import ru.brainworkout.braingym.R;
 
 
 public class StrupActivityOptions extends AppCompatActivity {

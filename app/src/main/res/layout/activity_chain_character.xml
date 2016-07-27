@@ -7,7 +7,7 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    tools:context="ru.brainworkout.brain_gym.ChainCharacterActivity"
+    tools:context="ru.brainworkout.braingym.ChainCharacterActivity"
     android:stretchColumns="*">
 
     <TableRow

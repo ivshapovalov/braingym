@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym.strup_test;
+package ru.brainworkout.braingym.strup_test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 import java.util.Random;
 
-import ru.brainworkout.brain_gym.MainActivity;
-import ru.brainworkout.brain_gym.R;
+import ru.brainworkout.braingym.MainActivity;
+import ru.brainworkout.braingym.R;
 
 
 public class StrupActivity_ver1 extends AppCompatActivity {

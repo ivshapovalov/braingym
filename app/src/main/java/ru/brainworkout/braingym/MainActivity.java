@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym;
+package ru.brainworkout.braingym;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,9 +10,9 @@ import android.util.Log;
 import android.view.View;
 
 
-import ru.brainworkout.brain_gym.math_test.MathActivity;
-import ru.brainworkout.brain_gym.strup_test.StrupActivity;
-import ru.brainworkout.brain_gym.strup_test.StrupActivity_ver1;
+import ru.brainworkout.braingym.math_test.MathActivity;
+import ru.brainworkout.braingym.strup_test.StrupActivity;
+import ru.brainworkout.braingym.strup_test.StrupActivity_ver1;
 
 
 public class MainActivity extends AppCompatActivity {

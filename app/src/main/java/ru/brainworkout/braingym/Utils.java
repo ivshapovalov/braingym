@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym;
+package ru.brainworkout.braingym;
 
 import android.graphics.Color;
 

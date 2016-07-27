@@ -1,4 +1,4 @@
-package ru.brainworkout.brain_gym.math_test;
+package ru.brainworkout.braingym.math_test;
 
 
 import android.content.Context;
@@ -16,8 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ru.brainworkout.brain_gym.MainActivity;
-import ru.brainworkout.brain_gym.R;
+import ru.brainworkout.braingym.MainActivity;
+import ru.brainworkout.braingym.R;
 
 
 public class MathActivity extends AppCompatActivity {
