@@ -22,16 +22,16 @@ import ru.brainworkout.brain_gym.R;
 
 public class StrupActivity extends AppCompatActivity {
 
-    private Chronometer mChronometer;
-
-    private boolean mChronometerIsWorking = false;
-    private long mChronometerCount = 0;
+    private static final int STRINGS_COUNT = 15;
     private static final int STRUP_EXAMPLES_COUNT = 45;
+
     private static String mArrayColorNames[];
     private static int mArrayColorValues[];
-    private static final int STRINGS_COUNT = 15;
-    private ArrayList<StrupExample> strupExamples = new ArrayList<>();
 
+    private Chronometer mChronometer;
+    private boolean mChronometerIsWorking = false;
+    private long mChronometerCount = 0;
+    private ArrayList<StrupExample> strupExamples = new ArrayList<>();
     //настройки
     private SharedPreferences mSettings;
     private String mStrupLang;
@@ -120,8 +120,8 @@ public class StrupActivity extends AppCompatActivity {
 
             int indColor = Math.abs(random.nextInt() % (mStrupColorsCount + 1));
             int indWord = Math.abs(random.nextInt() % (mStrupColorsCount + 1));
-            indWord = (indWord==mStrupColorsCount ? 0 : indWord);
-            indColor=(indColor == mStrupColorsCount ? 0 : indColor);
+            indWord = (indWord == mStrupColorsCount ? 0 : indWord);
+            indColor = (indColor == mStrupColorsCount ? 0 : indColor);
 //            System.out.println("size " + strupExamples.size());
 //            System.out.println("color " + indColor);
 //            System.out.println("word " + indWord);
@@ -132,8 +132,7 @@ public class StrupActivity extends AppCompatActivity {
             }
             if (strupExamples.size() >= STRINGS_COUNT) {
                 if (mArrayColorNames[indWord].equals(strupExamples.get(strupExamples.size() - (STRINGS_COUNT)).getIndWord()) ||
-                        mArrayColorValues[indColor] == strupExamples.get(strupExamples.size() - (STRINGS_COUNT)).getIndColor())
-                {
+                        mArrayColorValues[indColor] == strupExamples.get(strupExamples.size() - (STRINGS_COUNT)).getIndColor()) {
                     continue;
                 }
             }
@@ -235,47 +234,47 @@ public class StrupActivity extends AppCompatActivity {
     private void formArrays() {
         mArrayColorValues = new int[mStrupColorsCount + 1];
         mArrayColorNames = new String[mStrupColorsCount + 1];
-        try {
-            switch (mStrupLang) {
-                case "Ru":
-                    mArrayColorNames[0] = "КРАСНЫЙ";
-                    mArrayColorNames[1] = "ЖЕЛТЫЙ";
-                    mArrayColorNames[2] = "ЗЕЛЕНЫЙ";
-                    mArrayColorNames[3] = "СИНИЙ";
-                    mArrayColorNames[4] = "СЕРЫЙ";
-                    mArrayColorNames[5] = "КОРИЧНЕВЫЙ";
-                    mArrayColorNames[6] = "ФИОЛЕТОВЫЙ";
 
-                    break;
-                case "En":
-                    mArrayColorNames[0] = "RED";
-                    mArrayColorNames[1] = "YELLOW";
-                    mArrayColorNames[2] = "GREEN";
-                    mArrayColorNames[3] = "BLUE";
-                    mArrayColorNames[4] = "GREY";
-                    mArrayColorNames[5] = "BROWN";
-                    mArrayColorNames[6] = "VIOLET";
+        switch (mStrupLang) {
+            case "Ru":
+                mArrayColorNames[0] = "КРАСНЫЙ";
+                mArrayColorNames[1] = "ЖЕЛТЫЙ";
+                mArrayColorNames[2] = "ЗЕЛЕНЫЙ";
+                mArrayColorNames[3] = "СИНИЙ";
+                mArrayColorNames[4] = "СЕРЫЙ";
+                mArrayColorNames[5] = "РОЗОВЫЙ";
+                mArrayColorNames[6] = "КОРИЧНЕВЫЙ";
+                mArrayColorNames[7] = "ФИОЛЕТОВЫЙ";
+                mArrayColorNames[8] = "ЧЕРНЫЙ";
 
 
-                default:
-                    break;
-            }
-        } catch (Exception e) {
+                break;
+            case "En":
+                mArrayColorNames[0] = "RED";
+                mArrayColorNames[1] = "YELLOW";
+                mArrayColorNames[2] = "GREEN";
+                mArrayColorNames[3] = "BLUE";
+                mArrayColorNames[4] = "GREY";
+                mArrayColorNames[5] = "ROSE";
+                mArrayColorNames[6] = "BROWN";
+                mArrayColorNames[7] = "VIOLET";
+                mArrayColorNames[8] = "BLACK";
 
+
+            default:
+                break;
         }
-        try {
-            mArrayColorValues[0] = Color.parseColor("#FF2020");
-            mArrayColorValues[1] = Color.parseColor("#FFD8CD02");
-            mArrayColorValues[2] = Color.parseColor("#006400");
-            mArrayColorValues[3] = Color.parseColor("#00BFFF");
-            mArrayColorValues[4] = Color.parseColor("#9C9C9C");
-            mArrayColorValues[5] = Color.parseColor("#A56A2A");
-            mArrayColorValues[6] = Color.parseColor("#836FFF");
 
+        mArrayColorValues[0] = Color.parseColor("#FF2020");
+        mArrayColorValues[1] = Color.parseColor("#FFD8CD02");
+        mArrayColorValues[2] = Color.parseColor("#006400");
+        mArrayColorValues[3] = Color.parseColor("#00BFFF");
+        mArrayColorValues[4] = Color.parseColor("#9C9C9C");
+        mArrayColorValues[5] = Color.parseColor("#FF1493");
+        mArrayColorValues[6] = Color.parseColor("#A56A2A");
+        mArrayColorValues[7] = Color.parseColor("#836FFF");
+        mArrayColorValues[8] = Color.parseColor("#000000");
 
-        } catch (Exception e) {
-
-        }
     }
 
     private class StrupExample {

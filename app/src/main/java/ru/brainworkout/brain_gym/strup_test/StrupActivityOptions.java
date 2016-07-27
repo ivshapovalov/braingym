@@ -38,9 +38,6 @@ public class StrupActivityOptions extends AppCompatActivity {
 
     public void buttonSave_onClick(View view) {
 
-        //MainActivity.APP_PREFERENCES;
-        // int resID = getResources().getIdentifier(ButtonID, "id", getPackageName());
-        //Button but = (Button) findViewById(resID);
 
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, mStrupLang);
@@ -50,7 +47,7 @@ public class StrupActivityOptions extends AppCompatActivity {
         EditText txtSize = (EditText) findViewById(sizeID);
 
         if (txtSize != null) {
-            mStrupFontSizeChange= Integer.parseInt((txtSize.getText().toString().equals("")?"0":txtSize.getText().toString()));
+            mStrupFontSizeChange = Integer.parseInt((txtSize.getText().toString().equals("") ? "0" : txtSize.getText().toString()));
         }
 
         editor.putInt(MainActivity.APP_PREFERENCES_STRUP_FONT_SIZE_CHANGE, mStrupFontSizeChange);
@@ -67,6 +64,7 @@ public class StrupActivityOptions extends AppCompatActivity {
         startActivity(intent);
 
     }
+
     public void buttonCancel_onClick(View view) {
 
         this.finish();
@@ -88,17 +86,18 @@ public class StrupActivityOptions extends AppCompatActivity {
             // Получаем язык из настроек
             mStrupLang = mSettings.getString(MainActivity.APP_PREFERENCES_STRUP_LANGUAGE, "Ru");
         } else {
-            mStrupLang="Ru";
+            mStrupLang = "Ru";
         }
 
         if (mSettings.contains(MainActivity.APP_PREFERENCES_STRUP_COLORS_COUNT)) {
             // Получаем язык из настроек
             mStrupColorsCount = mSettings.getInt(MainActivity.APP_PREFERENCES_STRUP_COLORS_COUNT, 4);
         } else {
-            mStrupColorsCount=4;
+            mStrupColorsCount = 4;
         }
 
     }
+
     private void setPreferencesOnScreen() {
 
         //Установим настройки в зависимости от сохраненного языка
@@ -118,7 +117,7 @@ public class StrupActivityOptions extends AppCompatActivity {
             tvSizeLabel.setText("Изменение шрифта (" + String.valueOf(mStrupTextSize) + "+/-sp):");
         }
 
-        int langID = getResources().getIdentifier("rbStrupLang"+mStrupLang, "id", getPackageName());
+        int langID = getResources().getIdentifier("rbStrupLang" + mStrupLang, "id", getPackageName());
         RadioButton but = (RadioButton) findViewById(langID);
         but.setChecked(true);
 
@@ -146,9 +145,9 @@ public class StrupActivityOptions extends AppCompatActivity {
             });
         }
 
-        int colorID = getResources().getIdentifier("rbStrupColorsCount"+mStrupColorsCount, "id", getPackageName());
+        int colorID = getResources().getIdentifier("rbStrupColorsCount" + mStrupColorsCount, "id", getPackageName());
         RadioButton butColor = (RadioButton) findViewById(colorID);
-        if (butColor!=null) {
+        if (butColor != null) {
             butColor.setChecked(true);
         }
 
@@ -169,11 +168,11 @@ public class StrupActivityOptions extends AppCompatActivity {
                         case R.id.rbStrupColorsCount5:
                             mStrupColorsCount = 5;
                             break;
-                        case R.id.rbStrupColorsCount6:
-                            mStrupColorsCount = 6;
-                            break;
                         case R.id.rbStrupColorsCount7:
                             mStrupColorsCount = 7;
+                            break;
+                        case R.id.rbStrupColorsCount9:
+                            mStrupColorsCount = 9;
                             break;
                         default:
                             break;
@@ -184,4 +183,4 @@ public class StrupActivityOptions extends AppCompatActivity {
     }
 
 
-    }
+}
